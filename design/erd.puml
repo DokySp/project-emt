@@ -68,7 +68,7 @@ note left: **email**: 이메일\n**pw**: 비밀번호\n**img**: 이미지 링크
 
 map division {
   <color:red>**(PK)**</color> idx => int
-  name => varchar(100)
+  <color:purple>**(UNI)**</color> name => varchar(100)
 }
 note top: **name**: 그룹 이름
 

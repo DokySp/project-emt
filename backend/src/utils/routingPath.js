@@ -16,6 +16,11 @@ module.exports = {
     route: "./src/routes/subjects.route",
   },
 
+  apiDivisionPrefix: {
+    url: `/division`,
+    route: "./src/routes/division.route",
+  },
+
   // apiUserPrefix: {
   //   url: `/user`,
   //   route: "./src/routes/user.route",

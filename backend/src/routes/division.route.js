@@ -1,29 +1,29 @@
 var express = require("express");
 var router = express.Router();
 
-var ClassesController = require("../controllers/classes.controller");
+var DivisionController = require("../controllers/division.controller");
 const auth = require("../utils/auth");
 
-router.get("/", ClassesController.get);
+router.get("/", DivisionController.get);
 /**
  * @swagger
  * paths:
- *   /api/classes:
+ *   /api/division:
  *      get:
  *          tags:
- *          - classes
- *          summary: 강의 조회
- *          operationId: getClasses
+ *          - division
+ *          summary: 그룹 조회
+ *          operationId: getDivision
  *
- *          description: '강의 조회'
+ *          description: '그룹 조회'
  *          security:
  *           - Auth: []
  *
  *          parameters:
  *              - name: idx
  *                in: query
- *                description: '강의 IDX'
- *                required: true
+ *                description: '그룹 IDX (미입력시 전체 조회) (페이징 미구현)'
+ *                required: false
  *                schema:
  *                  type: integer
  *                  format: int64
@@ -37,7 +37,7 @@ router.get("/", ClassesController.get);
  *                                  result:
  *                                      type: array
  *                                      items:
- *                                          $ref: '#/components/schemas/Classes'
+ *                                          $ref: '#/components/schemas/Division'
  *                                  msg:
  *                                      type: string
  *              4XX:
@@ -52,27 +52,27 @@ router.get("/", ClassesController.get);
  *                                      type: string
  */
 
-router.post("/", ClassesController.create);
+router.post("/", DivisionController.create);
 /**
  * @swagger
  * paths:
- *   /api/classes:
+ *   /api/division:
  *      post:
  *          tags:
- *          - classes
- *          summary: 강의 생성
- *          operationId: createClasses
+ *          - division
+ *          summary: 그룹 생성
+ *          operationId: createDivision
  *
- *          description: '강의 생성'
+ *          description: '그룹 생성'
  *          security:
  *           - Auth: []
  *
  *          requestBody:
- *              description: '생성할 강의 데이터'
+ *              description: '생성할 그룹 데이터'
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/Classes'
+ *                          $ref: '#/components/schemas/Division'
  *              required: true
  *
  *          responses:
@@ -83,7 +83,7 @@ router.post("/", ClassesController.create);
  *                          schema:
  *                              properties:
  *                                  result:
- *                                      $ref: '#/components/schemas/Classes'
+ *                                      $ref: '#/components/schemas/Division'
  *                                  msg:
  *                                      type: string
  *              4XX:
@@ -98,81 +98,25 @@ router.post("/", ClassesController.create);
  *                                      type: string
  */
 
-router.patch("/", ClassesController.update);
+router.delete("/", DivisionController.delete);
 /**
  * @swagger
  * paths:
- *   /api/classes:
- *      patch:
- *          tags:
- *          - classes
- *          summary: 강의 수정
- *          operationId: updateClasses
- *
- *          description: '강의 수정'
- *
- *          security:
- *           - Auth: []
- *
- *          parameters:
- *              - name: idx
- *                in: query
- *                description: '강의 IDX'
- *                required: true
- *                schema:
- *                  type: integer
- *                  format: int64
- *
- *          requestBody:
- *              description: '수정할 내용의 강의 데이터'
- *              content:
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/schemas/Classes'
- *              required: true
- *
- *          responses:
- *              200:
- *                  description: successful operation
- *                  content:
- *                      application/json:
- *                          schema:
- *                              properties:
- *                                  result:
- *                                      type: integer
- *                                  msg:
- *                                      type: string
- *              4XX:
- *                  description: fail
- *                  content:
- *                      application/json:
- *                          schema:
- *                              properties:
- *                                  result:
- *                                      type: boolean
- *                                  msg:
- *                                      type: string
- */
-
-router.delete("/", ClassesController.delete);
-/**
- * @swagger
- * paths:
- *   /api/classes:
+ *   /api/division:
  *      delete:
  *          tags:
- *          - classes
- *          summary: 강의 삭제
- *          operationId: deleteClasses
+ *          - division
+ *          summary: 그룹 삭제
+ *          operationId: deleteDivision
  *
- *          description: '강의 삭제'
+ *          description: '그룹 삭제'
  *          security:
  *           - Auth: []
  *
  *          parameters:
  *              - name: idx
  *                in: query
- *                description: '강의 IDX'
+ *                description: '그룹 IDX'
  *                required: true
  *                schema:
  *                  type: integer
@@ -208,30 +152,77 @@ router.delete("/", ClassesController.delete);
  * @swagger
  * components:
  *   schemas:
- *      Classes:
+ *      Division:
  *          type: object
  *          properties:
  *              idx:
  *                  type: integer
- *              course_idx:
- *                  type: integer
- *              vimeo_url:
- *                  type: string
- *                  length: 1000
  *              name:
  *                  type: string
  *                  length: 100
- *              content:
- *                  type: string
- *                  length: 5000
- *              watch_time:
- *                  type: string
- *                  format: datetime
- *              due_date:
- *                  type: string
- *                  format: datetime
  *          xml:
- *              name: Classes
+ *              name: Division
  */
 
 module.exports = router;
+
+//
+//
+//
+
+// 수정 기능은 제작 X
+// router.patch("/", DivisionController.update);
+// /**
+//  * @swagger
+//  * paths:
+//  *   /api/division:
+//  *      patch:
+//  *          tags:
+//  *          - division
+//  *          summary: 그룹 수정
+//  *          operationId: updateDivision
+//  *
+//  *          description: '그룹 수정'
+//  *
+//  *          security:
+//  *           - Auth: []
+//  *
+//  *          parameters:
+//  *              - name: idx
+//  *                in: query
+//  *                description: '그룹 IDX'
+//  *                required: true
+//  *                schema:
+//  *                  type: integer
+//  *                  format: int64
+//  *
+//  *          requestBody:
+//  *              description: '수정할 내용의 그룹 데이터'
+//  *              content:
+//  *                  application/json:
+//  *                      schema:
+//  *                          $ref: '#/components/schemas/Division'
+//  *              required: true
+//  *
+//  *          responses:
+//  *              200:
+//  *                  description: successful operation
+//  *                  content:
+//  *                      application/json:
+//  *                          schema:
+//  *                              properties:
+//  *                                  result:
+//  *                                      type: integer
+//  *                                  msg:
+//  *                                      type: string
+//  *              4XX:
+//  *                  description: fail
+//  *                  content:
+//  *                      application/json:
+//  *                          schema:
+//  *                              properties:
+//  *                                  result:
+//  *                                      type: boolean
+//  *                                  msg:
+//  *                                      type: string
+//  */

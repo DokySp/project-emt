@@ -58,7 +58,7 @@ CREATE TABLE file(
 );
 CREATE TABLE division(
   idx INT AUTO_INCREMENT,
-  name VARCHAR(100) NOT NULL,
+  name VARCHAR(100) UNIQUE NOT NULL,
   PRIMARY KEY (idx)
 );
 

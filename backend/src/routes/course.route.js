@@ -69,7 +69,7 @@ router.post("/", CourseController.create);
  *           - Auth: []
  *
  *          requestBody:
- *              description: '수정할 내용의 강좌 데이터'
+ *              description: '생성할 강좌 데이터'
  *              content:
  *                  application/json:
  *                      schema:
