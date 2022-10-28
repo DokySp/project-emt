@@ -1,0 +1,139 @@
+@startuml erd
+
+left to right direction
+
+title
+
+=[Server] Entity Relationship Diagram
+
+end title
+
+map course {
+    <color:red>**(PK)**</color> idx => int
+    img => varchar(1000)
+    name => varchar(100)
+    is_enroll_granted => bit(1) **not null**,
+    is_due_date_implicit => bit(1) **not null**,
+}
+note top: **img**: 강좌 이미지\n**name**: 강좌 이름\n**is_enroll_granted**: 강좌 신청 가능 여부\n**is_due_date_implicit**: 절대/상대 기한
+
+map classes {
+  <color:red>**(PK)**</color> idx => int
+  <color:blue>**(FK)**</color> course_idx => int **not null**
+  vimeo_url => varchar(1000)
+  name => varchar(100)
+  content => varchar(5000)
+  watch_time => datetime
+  due_date => datetime **not null**
+}
+note right: **vimeo_url**: 비메오 링크\n**name**: 수업 이름\n**content**: 수업 내용 (Markdown)\n**watch_time**: 수업 수강 시간\n**due_date**: 기한
+
+map subjects {
+  <color:red>**(PK)**</color> idx => int
+  <color:blue>**(FK)**</color> course_idx => int **not null**
+  vimeo_url => varchar(1000)
+  name => varchar(100)
+  content => varchar(5000)
+  report => varchar(5000)
+  status => int
+  comment => varchar(5000)
+  score => int
+  last_submitted_time => datetime
+  last_return_time => datetime
+  due_date => datetime **not null**
+}
+note left: **vimeo_url**: 비메오 링크\n**name**: 과제 이름\n**content**: 과제 내용 (Markdown)\n**report**: 학생이 제출한 과제 (Markdown)\n**status**: 과제 상태\n- **0**: 미제출\n- **1**: 제출\n- **2**: 반환됨\n- **3**: 채점완료\n**comment**: 과제 코멘트\n**score**: 과제 점수\n**due_date**: 기한
+
+
+map file {
+  <color:red>**(PK)**</color> idx => int
+  name => varchar(100)
+  url => varchar(1000)
+}
+note bottom: **name**: 파일 이름\n**url**: 파일 주소
+
+
+
+map user {
+  <color:red>**(PK)**</color> idx => int
+  email => varchar(100)
+  pw => varchar(350)
+  img => varchar(1000)
+  issued_at => datetime
+  created => datetime
+  level => int
+}
+note left: **email**: 이메일\n**pw**: 비밀번호\n**img**: 이미지 링크\n**issued_at**: 최종변경일\n**created**: 생성일\n**level**: 구분\n- **0**: 어드민\n- **1**: 선생님\n- **2**: 학생
+
+
+map division {
+  <color:red>**(PK)**</color> idx => int
+  name => varchar(100)
+}
+note top: **name**: 그룹 이름
+
+map classes_file_link {
+  <color:blue>**(FK)**</color> classes_idx => idx **not null**
+  <color:blue>**(FK)**</color> file_idx => idx **not null**
+}
+note bottom: <color:red>**(PK)**</color> classes_idx, file_idx
+
+map subjects_file_link {
+  <color:blue>**(FK)**</color> subjects_idx => int **not null**
+  <color:blue>**(FK)**</color> file_idx => int **not null**
+}
+note bottom: <color:red>**(PK)**</color> subjects_idx, file_idx
+
+map course_user_link {
+  <color:blue>**(FK)**</color> course_idx => int **not null**
+  <color:blue>**(FK)**</color> user_idx => int **not null**
+  started_date => datetime
+}
+note bottom: <color:red>**(PK)**</color> course_idx, user_idx\n**started_date**: 시작일 (없을경우 수강일)
+
+map user_division_link {
+  <color:blue>**(FK)**</color> user_idx => int **not null**
+  <color:blue>**(FK)**</color> division_idx => int **not null**
+}
+note bottom: <color:red>**(PK)**</color> user_idx, division_idx
+
+course ||..o{ course_user_link
+course_user_link }o..|| user
+
+user ||..o{ user_division_link
+user_division_link }o..|| division
+
+course ||..o{ classes
+course ||..o{ subjects
+
+classes ||..o{ classes_file_link
+subjects ||..o{ subjects_file_link
+
+classes_file_link }o..|| file
+subjects_file_link }o..|| file
+
+
+
+
+' customer }o..|| instructor
+' customer }o..|| brand_office
+
+' instructor }o..|| brand_office
+
+' lesson }o..|| customer
+' lesson ||..|| course
+
+' lesson_history_link }|..|| history
+' lesson_history_link }|..|| lesson
+
+' course_pose_link }|..|| course
+' course_pose_link }|..|| pose
+
+' body_status }o..|| customer
+
+' customer_survey }o..|| customer
+
+'inst_survey }o..|| instructor
+'pose }..|| course
+
+@enduml

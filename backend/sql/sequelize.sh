@@ -1,0 +1,1 @@
+sequelize-auto -o "../src/models/models" -h 127.0.0.1 -d emt -u root -e mysql
