@@ -23,11 +23,11 @@ const ClassesController = {
   },
 
   create: async (req, res, next) => {
-    let courseData = req.body;
-    delete courseData.idx;
+    let data = req.body;
+    delete data.idx;
 
     try {
-      const result = await ClassesService.create(courseData);
+      const result = await ClassesService.create(data);
 
       return res.status(200).json({
         result,
@@ -45,7 +45,9 @@ const ClassesController = {
   update: async (req, res, next) => {
     const data = req.body;
     const idx = Number.parseInt(req.query.idx);
+
     delete data.idx;
+    delete data.course_idx;
 
     try {
       const result = await ClassesService.update(idx, data);

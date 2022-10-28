@@ -4,7 +4,7 @@ var router = express.Router();
 var SubjectsController = require("../controllers/subjects.controller");
 const auth = require("../utils/auth");
 
-router.get("/", SubjectsController.getSubjects);
+router.get("/", SubjectsController.get);
 /**
  * @swagger
  * paths:
@@ -41,7 +41,7 @@ router.get("/", SubjectsController.getSubjects);
  *                  content: {}
  */
 
-router.post("/", SubjectsController.createSubjects);
+router.post("/", SubjectsController.create);
 /**
  * @swagger
  * paths:
@@ -78,7 +78,7 @@ router.post("/", SubjectsController.createSubjects);
  *                  content: {}
  */
 
-router.patch("/", SubjectsController.updateSubjects);
+router.patch("/", SubjectsController.update);
 /**
  * @swagger
  * paths:
@@ -125,7 +125,7 @@ router.patch("/", SubjectsController.updateSubjects);
  *                  content: {}
  */
 
-router.delete("/", SubjectsController.deleteSubjects);
+router.delete("/", SubjectsController.delete);
 /**
  * @swagger
  * paths:
@@ -171,8 +171,7 @@ router.delete("/", SubjectsController.deleteSubjects);
  *              idx:
  *                  type: integer
  *              course_idx:
- *                  type: string
- *                  length: 1000
+ *                  type: integer
  *              vimeo_url:
  *                  type: string
  *                  length: 1000

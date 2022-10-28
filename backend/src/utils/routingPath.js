@@ -11,6 +11,11 @@ module.exports = {
     route: "./src/routes/classes.route",
   },
 
+  apiSubjectsPrefix: {
+    url: `/subjects`,
+    route: "./src/routes/subjects.route",
+  },
+
   // apiUserPrefix: {
   //   url: `/user`,
   //   route: "./src/routes/user.route",
@@ -19,10 +24,5 @@ module.exports = {
   // apiFilePrefix: {
   //   url: `/file`,
   //   route: "./src/routes/file.route",
-  // },
-
-  // apiSubjectsPrefix: {
-  //   url: `/subjects`,
-  //   route: "./src/routes/subjects.route",
   // },
 };
