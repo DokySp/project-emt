@@ -21,10 +21,10 @@ module.exports = {
     route: "./src/routes/division.route",
   },
 
-  // apiUserPrefix: {
-  //   url: `/user`,
-  //   route: "./src/routes/user.route",
-  // },
+  apiUserPrefix: {
+    url: `/user`,
+    route: "./src/routes/user.route",
+  },
 
   // apiFilePrefix: {
   //   url: `/file`,

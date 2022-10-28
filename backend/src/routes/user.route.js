@@ -4,7 +4,7 @@ var router = express.Router();
 var UserController = require("../controllers/user.controller");
 const auth = require("../utils/auth");
 
-router.get("/", UserController.getUser);
+router.get("/", UserController.get);
 /**
  * @swagger
  * paths:
@@ -33,15 +33,26 @@ router.get("/", UserController.getUser);
  *                  content:
  *                      application/json:
  *                          schema:
- *                              type: array
- *                              items:
- *                                  $ref: '#/components/schemas/User'
- *              400:
+ *                              properties:
+ *                                  result:
+ *                                      type: array
+ *                                      items:
+ *                                          $ref: '#/components/schemas/User'
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
-router.post("/", UserController.createUser);
+router.post("/", UserController.create);
 /**
  * @swagger
  * paths:
@@ -56,29 +67,38 @@ router.post("/", UserController.createUser);
  *          security:
  *           - Auth: []
  *
- *          parameters:
- *              - name: idx
- *                in: query
- *                description: '사용자 IDX'
- *                required: false
- *                schema:
- *                  type: integer
- *                  format: int64
+ *          requestBody:
+ *              description: '생성할 사용자 정보'
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/User'
+ *              required: true
+ *
  *          responses:
  *              200:
  *                  description: successful operation
  *                  content:
  *                      application/json:
  *                          schema:
- *                              type: array
- *                              items:
- *                                  $ref: '#/components/schemas/User'
- *              400:
+ *                              properties:
+ *                                  result:
+ *                                      $ref: '#/components/schemas/User'
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
-router.patch("/", UserController.updateUser);
+router.patch("/", UserController.update);
 /**
  * @swagger
  * paths:
@@ -117,15 +137,24 @@ router.patch("/", UserController.updateUser);
  *                  content:
  *                      application/json:
  *                          schema:
- *                              type: array
- *                              items:
- *                                  $ref: '#/components/schemas/User'
- *              400:
+ *                              properties:
+ *                                  result:
+ *                                      type: integer
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
-router.delete("/", UserController.deleteUser);
+router.delete("/", UserController.delete);
 /**
  * @swagger
  * paths:
@@ -151,16 +180,45 @@ router.delete("/", UserController.deleteUser);
  *          responses:
  *              200:
  *                  description: successful operation
- *                  content: {}
- *              400:
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: integer
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
 //
 //
 //
 
+//
+//
+//
+
+// 사용자가 속한 그룹 리스트 조회
+
+// 강좌별 사용자 리스트 조회
+
+// 사용자의 강좌 리스트 조회
+
+// 사용자-그룹 링크 생성
+
+// 사용자-그룹 링크 삭제
+
+// 사용자-강좌 링크 생성
 router.post("/course", UserController.createCourseUserLink);
 /**
  * @swagger
@@ -192,12 +250,29 @@ router.post("/course", UserController.createCourseUserLink);
  *          responses:
  *              200:
  *                  description: successful operation
- *                  content: {}
- *              400:
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: array
+ *                                      items:
+ *                                          $ref: '#/components/schemas/User'
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
+// 사용자-강좌 링크 삭제
 router.delete("/course", UserController.deleteCourseUserLink);
 /**
  * @swagger
@@ -223,10 +298,24 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *          responses:
  *              200:
  *                  description: successful operation
- *                  content: {}
- *              400:
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      $ref: '#/components/schemas/User'
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
 /**
@@ -248,9 +337,11 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *                  type: string
  *                  length: 1000
  *              issued_at:
- *                  type: date
+ *                  type: string
+ *                  format: datetime
  *              created:
- *                  type: date
+ *                  type: string
+ *                  format: datetime
  *              level:
  *                  type: integer
  *

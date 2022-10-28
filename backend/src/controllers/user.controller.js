@@ -1,9 +1,9 @@
 const UserService = require("../services/user.service");
 
 const UserController = {
-  getUser: async (req, res, next) => {
+  get: async (req, res, next) => {
     try {
-      const result = await UserService.getUser(req.query.idx);
+      const result = await UserService.get(req.query.idx);
 
       if (result.length === 0) {
         throw new Error("Empty set");
@@ -22,12 +22,14 @@ const UserController = {
     }
   },
 
-  createUser: async (req, res, next) => {
-    let courseData = req.body;
-    delete courseData.idx;
+  create: async (req, res, next) => {
+    let data = req.body;
+    delete data.idx;
+    delete data.issued_at;
+    delete data.created;
 
     try {
-      const result = await UserService.createUser(courseData);
+      const result = await UserService.create(data);
 
       return res.status(200).json({
         result,
@@ -42,13 +44,17 @@ const UserController = {
     }
   },
 
-  updateUser: async (req, res, next) => {
-    const courseData = req.body;
+  update: async (req, res, next) => {
+    const data = req.body;
     const idx = Number.parseInt(req.query.idx);
-    delete courseData.idx;
+    delete data.idx;
+    delete data.pw;
+    delete data.email;
+    delete data.issued_at;
+    delete data.created;
 
     try {
-      const result = await UserService.updateUser(idx, courseData);
+      const result = await UserService.update(idx, data);
 
       if (result[0] === 0) {
         throw new Error("Not effected");
@@ -67,11 +73,11 @@ const UserController = {
     }
   },
 
-  deleteUser: async (req, res, next) => {
+  delete: async (req, res, next) => {
     const idx = Number.parseInt(req.query.idx);
 
     try {
-      const result = await UserService.deleteUser(idx);
+      const result = await UserService.delete(idx);
 
       if (result === 0) {
         throw new Error("Not effected");
@@ -89,6 +95,10 @@ const UserController = {
       });
     }
   },
+
+  //
+  //
+  //
 
   //
   //

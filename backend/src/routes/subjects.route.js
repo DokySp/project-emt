@@ -117,12 +117,21 @@ router.patch("/", SubjectsController.update);
  *                  content:
  *                      application/json:
  *                          schema:
- *                              type: array
- *                              items:
- *                                  $ref: '#/components/schemas/Subjects'
- *              400:
+ *                              properties:
+ *                                  result:
+ *                                      type: integer
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
 router.delete("/", SubjectsController.delete);
@@ -151,10 +160,24 @@ router.delete("/", SubjectsController.delete);
  *          responses:
  *              200:
  *                  description: successful operation
- *                  content: {}
- *              400:
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: integer
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
  *                  description: fail
- *                  content: {}
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
  */
 
 //
