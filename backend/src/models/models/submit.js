@@ -1,39 +1,48 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('subjects', {
+  return sequelize.define('submit', {
     idx: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    course_idx: {
+    subjects_idx: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'course',
+        model: 'subjects',
         key: 'idx'
       }
     },
-    vimeo_url: {
-      type: DataTypes.STRING(1000),
-      allowNull: true
-    },
-    name: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    content: {
+    report: {
       type: DataTypes.STRING(5000),
       allowNull: true
     },
-    due_date: {
+    status: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
+    },
+    comments: {
+      type: DataTypes.STRING(5000),
+      allowNull: true
+    },
+    score: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    return_time: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
+    },
+    submitted_time: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'subjects',
+    tableName: 'submit',
     timestamps: false,
     indexes: [
       {
@@ -45,10 +54,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "course_idx",
+        name: "subjects_idx",
         using: "BTREE",
         fields: [
-          { name: "course_idx" },
+          { name: "subjects_idx" },
         ]
       },
     ]

@@ -1,19 +1,19 @@
 var express = require("express");
 var router = express.Router();
 
-var SubjectsController = require("../controllers/subjects.controller");
+var SubmitController = require("../controllers/submit.controller");
 const auth = require("../utils/auth");
 
-router.get("/", SubjectsController.get);
+router.get("/", SubmitController.get);
 /**
  * @swagger
  * paths:
- *   /api/subjects:
+ *   /api/submit:
  *      get:
  *          tags:
- *          - subjects
+ *          - submit
  *          summary: 과제 조회
- *          operationId: getSubjects
+ *          operationId: getSubmit
  *
  *          description: '과제 조회'
  *          security:
@@ -35,22 +35,22 @@ router.get("/", SubjectsController.get);
  *                          schema:
  *                              type: array
  *                              items:
- *                                  $ref: '#/components/schemas/Subjects'
+ *                                  $ref: '#/components/schemas/Submit'
  *              400:
  *                  description: fail
  *                  content: {}
  */
 
-router.post("/", SubjectsController.create);
+router.post("/", SubmitController.create);
 /**
  * @swagger
  * paths:
- *   /api/subjects:
+ *   /api/submit:
  *      post:
  *          tags:
- *          - subjects
+ *          - submit
  *          summary: 과제 생성
- *          operationId: createSubjects
+ *          operationId: createSubmit
  *
  *          description: '과제 생성'
  *          security:
@@ -61,7 +61,7 @@ router.post("/", SubjectsController.create);
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/Subjects'
+ *                          $ref: '#/components/schemas/Submit'
  *              required: true
  *
  *          responses:
@@ -72,22 +72,22 @@ router.post("/", SubjectsController.create);
  *                          schema:
  *                              type: array
  *                              items:
- *                                  $ref: '#/components/schemas/Subjects'
+ *                                  $ref: '#/components/schemas/Submit'
  *              400:
  *                  description: fail
  *                  content: {}
  */
 
-router.patch("/", SubjectsController.update);
+router.patch("/", SubmitController.update);
 /**
  * @swagger
  * paths:
- *   /api/subjects:
+ *   /api/submit:
  *      patch:
  *          tags:
- *          - subjects
+ *          - submit
  *          summary: 과제 수정
- *          operationId: updateSubjects
+ *          operationId: updateSubmit
  *
  *          description: '과제 수정'
  *
@@ -108,7 +108,7 @@ router.patch("/", SubjectsController.update);
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/Subjects'
+ *                          $ref: '#/components/schemas/Submit'
  *              required: true
  *
  *          responses:
@@ -134,16 +134,16 @@ router.patch("/", SubjectsController.update);
  *                                      type: string
  */
 
-router.delete("/", SubjectsController.delete);
+router.delete("/", SubmitController.delete);
 /**
  * @swagger
  * paths:
- *   /api/subjects:
+ *   /api/submit:
  *      delete:
  *          tags:
- *          - subjects
+ *          - submit
  *          summary: 과제 삭제
- *          operationId: deleteSubjects
+ *          operationId: deleteSubmit
  *
  *          description: '과제 삭제'
  *          security:
@@ -188,32 +188,13 @@ router.delete("/", SubjectsController.delete);
  * @swagger
  * components:
  *   schemas:
- *      Subjects:
+ *      Submit:
  *          type: object
  *          properties:
  *              idx:
  *                  type: integer
- *              course_idx:
+ *              subjects_idx:
  *                  type: integer
- *              vimeo_url:
- *                  type: string
- *                  length: 1000
- *              name:
- *                  type: string
- *                  length: 100
- *              content:
- *                  type: string
- *                  length: 5000
- *              due_date:
- *                  type: string
- *                  format: datetime
- *          xml:
- *              name: Subjects
- */
-
-module.exports = router;
-
-/*
  *              report:
  *                  type: string
  *                  length: 5000
@@ -232,4 +213,12 @@ module.exports = router;
  *              last_return_time:
  *                  type: string
  *                  format: datetime
+ *          xml:
+ *              name: Submit
+ */
+
+module.exports = router;
+
+/*
+
  */

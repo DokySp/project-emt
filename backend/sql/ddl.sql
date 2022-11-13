@@ -40,16 +40,26 @@ CREATE TABLE subjects(
   vimeo_url VARCHAR(1000),
   name VARCHAR(100),
   content VARCHAR(5000),
-  report VARCHAR(5000),
-  last_submitted_time DATETIME,
-  status int DEFAULT 0,
-  comment VARCHAR(5000),
-  last_return_time DATETIME,
-  score int,
   due_date DATETIME NOT NULL,
   PRIMARY KEY (idx),
   FOREIGN KEY (course_idx) REFERENCES course(idx)
 );
+
+CREATE TABLE submit(
+  idx INT AUTO_INCREMENT,
+  subjects_idx INT NOT NULL,
+  
+  report VARCHAR(5000),
+  status int DEFAULT 0,
+  comments VARCHAR(5000),
+  score int,
+  return_time DATETIME,
+  submitted_time DATETIME,
+
+  PRIMARY KEY (idx),
+  FOREIGN KEY (subjects_idx) REFERENCES subjects(idx)
+);
+
 CREATE TABLE file(
   idx INT AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
@@ -95,14 +105,25 @@ CREATE TABLE user_division_link(
 	FOREIGN KEY (division_idx) REFERENCES division(idx)
 );
 
+CREATE TABLE submit_file_link(
+  submit_idx INT NOT NULL,
+  file_idx INT NOT NULL,
+	PRIMARY KEY (submit_idx, file_idx),
+	FOREIGN KEY (submit_idx) REFERENCES submit(idx),
+	FOREIGN KEY (file_idx) REFERENCES file(idx)
+);
+
+
 
 DESC course;
 DESC course_user_link;
 DESC user;
 DESC classes;
 DESC subjects;
+DESC submit;
 DESC classes_file_link;
 DESC subjects_file_link;
+DESC submit_file_link;
 DESC file;
 DESC user_division_link;
 DESC division;

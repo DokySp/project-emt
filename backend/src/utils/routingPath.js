@@ -16,6 +16,11 @@ module.exports = {
     route: "./src/routes/subjects.route",
   },
 
+  apiSubmitPrefix: {
+    url: `/submit`,
+    route: "./src/routes/submit.route",
+  },
+
   apiDivisionPrefix: {
     url: `/division`,
     route: "./src/routes/division.route",

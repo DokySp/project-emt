@@ -28,21 +28,32 @@ map classes {
 }
 note right: **vimeo_url**: 비메오 링크\n**name**: 수업 이름\n**content**: 수업 내용 (Markdown)\n**watch_time**: 수업 수강 시간\n**due_date**: 기한
 
+
+
+
+
 map subjects {
   <color:red>**(PK)**</color> idx => int
   <color:blue>**(FK)**</color> course_idx => int **not null**
   vimeo_url => varchar(1000)
   name => varchar(100)
-  content => varchar(5000)
-  report => varchar(5000)
-  status => int
-  comment => varchar(5000)
-  score => int
-  last_submitted_time => datetime
-  last_return_time => datetime
+  content => varchar(5000)  
   due_date => datetime **not null**
 }
-note left: **vimeo_url**: 비메오 링크\n**name**: 과제 이름\n**content**: 과제 내용 (Markdown)\n**report**: 학생이 제출한 과제 (Markdown)\n**status**: 과제 상태\n- **0**: 미제출\n- **1**: 제출\n- **2**: 반환됨\n- **3**: 채점완료\n**comment**: 과제 코멘트\n**score**: 과제 점수\n**due_date**: 기한
+note left: **vimeo_url**: 비메오 링크\n**name**: 과제 이름\n**content**: 과제 내용 (Markdown)\n**due_date**: 기한
+
+map submit {
+  <color:red>**(PK)**</color> idx => int
+  <color:blue>**(FK)**</color> subjects_idx => int **not null**
+
+  report => varchar(5000)
+  status => int
+  comments => varchar(5000)
+  score => int
+  submitted_time => datetime
+  return_time => datetime
+}
+note left: **report**: 학생이 제출한 과제 (Markdown)\n**status**: 과제 상태\n- **0**: 미제출\n- **1**: 제출\n- **2**: 반환됨\n- **3**: 채점완료\n**comments**: 과제 코멘트(json)\n**score**: 과제 점수\n**submitted_time**: 제출시간\n**return_time**: 반환시간
 
 
 map file {
@@ -51,7 +62,6 @@ map file {
   url => varchar(1000)
 }
 note bottom: **name**: 파일 이름\n**url**: 파일 주소
-
 
 
 map user {
@@ -64,6 +74,7 @@ map user {
   level => int
 }
 note left: **email**: 이메일\n**pw**: 비밀번호\n**img**: 이미지 링크\n**issued_at**: 최종변경일\n**created**: 생성일\n**level**: 구분\n- **0**: 어드민\n- **1**: 선생님\n- **2**: 학생
+
 
 
 map division {
@@ -84,6 +95,12 @@ map subjects_file_link {
 }
 note bottom: <color:red>**(PK)**</color> subjects_idx, file_idx
 
+map submit_file_link {
+  <color:blue>**(FK)**</color> submit_idx => int **not null**
+  <color:blue>**(FK)**</color> file_idx => int **not null**
+}
+note bottom: <color:red>**(PK)**</color> submit_idx, file_idx
+
 map course_user_link {
   <color:blue>**(FK)**</color> course_idx => int **not null**
   <color:blue>**(FK)**</color> user_idx => int **not null**
@@ -96,6 +113,8 @@ map user_division_link {
   <color:blue>**(FK)**</color> division_idx => int **not null**
 }
 note bottom: <color:red>**(PK)**</color> user_idx, division_idx
+
+
 
 course ||..o{ course_user_link
 course_user_link }o..|| user
@@ -111,6 +130,15 @@ subjects ||..o{ subjects_file_link
 
 classes_file_link }o..|| file
 subjects_file_link }o..|| file
+
+
+
+subjects ||..o{ submit
+submit ||..o{ submit_file_link
+file ||..o{ submit_file_link
+
+
+
 
 
 
