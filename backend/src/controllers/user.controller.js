@@ -104,6 +104,86 @@ const UserController = {
   //
   //
 
+  getDivision: async (req, res, next) => {
+    try {
+      // TODO: 임시코드
+      let userIdx = 1; // token.user_idx
+
+      const result = await UserService.getDivision(userIdx);
+
+      if (result.length === 0) {
+        throw new Error("Empty set");
+      }
+
+      return res.status(200).json({
+        result,
+        msg: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
+
+  createDivisionLink: async (req, res, next) => {
+    let divisionIdx = Number.parseInt(req.query.idx);
+
+    // TODO: 임시코드
+    let userIdx = 1; // token.user_idx
+
+    try {
+      const result = await UserService.createDivisionLink(userIdx, divisionIdx);
+
+      return res.status(200).json({
+        result,
+        msg: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
+
+  deleteDivisionLink: async (req, res, next) => {
+    let divisionIdx = Number.parseInt(req.query.idx);
+
+    // TODO: 임시코드
+    let userIdx = 1; // token.user_idx
+
+    try {
+      const result = await UserService.deleteDivisionLink(userIdx, divisionIdx);
+
+      if (result === 0) {
+        throw new Error("Not effected");
+      }
+
+      return res.status(200).json({
+        result,
+        msg: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
+
+  //
+  //
+  //
+
+  //
+  //
+  //
+
   getCourses: async (req, res, next) => {
     try {
       // TODO: 임시코드

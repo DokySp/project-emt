@@ -208,16 +208,143 @@ router.delete("/", UserController.delete);
 //
 //
 
+// TODO:
 // 강좌별 사용자 리스트 조회 (보류 -> 학생별 subjects 제출 관련 erd 생성 후 고민)
 
 // 사용자가 속한 그룹 리스트 조회
-// getDivision;
+router.get("/division", UserController.getDivision);
+/**
+ * @swagger
+ * paths:
+ *   /api/user/division:
+ *      get:
+ *          tags:
+ *          - user
+ *          summary: 사용자가 속한 그룹 조회
+ *          operationId: getDivision
+ *
+ *          description: '사용자가 속한 그룹 조회<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          security:
+ *           - Auth: []
+ *
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: array
+ *                                      items:
+ *                                          $ref: '#/components/schemas/Division'
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
+ *                  description: fail
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
+ */
 
 // 사용자-그룹 링크 생성
-// createDivisionLink;
+router.post("/division", UserController.createDivisionLink);
+/**
+ * @swagger
+ * paths:
+ *   /api/user/division:
+ *      post:
+ *          tags:
+ *          - user
+ *          summary: 강좌 수강하기
+ *          operationId: createDivisionLink
+ *
+ *          description: '사용자에게 그룹 추가<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          security:
+ *           - Auth: []
+ *
+ *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '그룹 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: array
+ *                                      items:
+ *                                          $ref: '#/components/schemas/UserDivisionLink'
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
+ *                  description: fail
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
+ */
 
 // 사용자-그룹 링크 삭제
-// deleteDivisionLink;
+router.delete("/division", UserController.deleteDivisionLink);
+/**
+ * @swagger
+ * paths:
+ *   /api/user/division:
+ *      delete:
+ *          tags:
+ *          - user
+ *          summary: 그룹에서 삭제하기
+ *          operationId: deleteDivisionLink
+ *
+ *          description: '그룹에서 삭제하기<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          security:
+ *           - Auth: []
+ *
+ *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '그룹 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: integer
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
+ *                  description: fail
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
+ */
 
 //
 //
@@ -301,7 +428,7 @@ router.post("/course", UserController.createCourseUserLink);
  *                                  result:
  *                                      type: array
  *                                      items:
- *                                          $ref: '#/components/schemas/User'
+ *                                          $ref: '#/components/schemas/CourseUserLink'
  *                                  msg:
  *                                      type: string
  *              4XX:
@@ -362,6 +489,14 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *                                      type: string
  */
 
+//
+//
+//
+
+//
+//
+//
+
 /**
  * @swagger
  * components:
@@ -391,6 +526,44 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *
  *          xml:
  *              name: User
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      CourseUserLink:
+ *          type: object
+ *          properties:
+ *              course_idx:
+ *                  type: integer
+ *              user_idx:
+ *                  type: integer
+ *              started_date:
+ *                  type: string
+ *                  format: datetime
+ *
+ *          xml:
+ *              name: CourseUserLink
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      UserDivisionLink:
+ *          type: object
+ *          properties:
+ *              course_idx:
+ *                  type: integer
+ *              user_idx:
+ *                  type: integer
+ *              started_date:
+ *                  type: string
+ *                  format: datetime
+ *
+ *          xml:
+ *              name: UserDivisionLink
  */
 
 module.exports = router;

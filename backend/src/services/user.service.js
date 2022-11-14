@@ -88,6 +88,51 @@ const UserService = {
   //
   //
 
+  getDivision: async (userIdx) => {
+    const query = `SELECT * FROM division AS a INNER JOIN user_division_link AS b ON a.idx = b.division_idx WHERE b.user_idx = ${userIdx};`;
+    const [result, metadata] = await sequelize.query(query);
+
+    for (var i = 0; i < result.length; i++) {
+      delete result[i].user_idx;
+      delete result[i].division_idx;
+    }
+
+    return result;
+  },
+
+  createDivisionLink: async (userIdx, divisionIdx) => {
+    let data = {
+      user_idx: userIdx,
+      division_idx: divisionIdx,
+    };
+
+    // 생성
+    const result = await model.user_division_link.create(data);
+    return result;
+  },
+
+  deleteDivisionLink: async (userIdx, divisionIdx) => {
+    try {
+      let result = await model.user_division_link.destroy({
+        where: {
+          user_idx: userIdx,
+          division_idx: divisionIdx,
+        },
+      });
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  //
+  //
+  //
+
+  //
+  //
+  //
+
   getCourses: async (userIdx) => {
     const query = `SELECT * FROM course AS a INNER JOIN course_user_link AS b ON a.idx = b.course_idx WHERE b.user_idx = ${userIdx};`;
     const [result, metadata] = await sequelize.query(query);
