@@ -1,5 +1,6 @@
 const model = require("../models");
 const crypt = require("../utils/crypt");
+const { sequelize } = require("../models");
 
 const CourseService = {
   get: async (idx) => {
@@ -48,6 +49,10 @@ const CourseService = {
     }
   },
 
+  //
+  //
+  //
+
   getDetail: async (idx) => {
     try {
       const result = await model.course.findOne({
@@ -62,6 +67,27 @@ const CourseService = {
 
       result.dataValues.classes = classes;
       result.dataValues.subjects = subjects;
+
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  //
+  //
+  //
+
+  getUser: async (idx) => {
+    try {
+      // TODO: user name 추가
+      const query = `SELECT email, img, level FROM USER AS a INNER JOIN course_user_link as b ON a.idx = b.user_idx WHERE b.course_idx = ${idx};`;
+      const [result, metadata] = await sequelize.query(query);
+
+      for (var i = 0; i < result.length; i++) {
+        delete result[i].user_idx;
+        delete result[i].division_idx;
+      }
 
       return result;
     } catch (err) {

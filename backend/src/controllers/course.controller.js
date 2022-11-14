@@ -114,6 +114,31 @@ const CourseController = {
       });
     }
   },
+
+  //
+  //
+  //
+
+  getUser: async (req, res, next) => {
+    try {
+      const result = await CourseService.getUser(req.query.idx);
+
+      if (result.length === 0) {
+        throw new Error("Empty set");
+      }
+
+      return res.status(200).json({
+        result,
+        msg: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
 };
 
 module.exports = CourseController;

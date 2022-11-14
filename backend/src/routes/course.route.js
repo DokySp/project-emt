@@ -205,6 +205,10 @@ router.delete("/", CourseController.delete);
 //
 //
 
+//
+//
+//
+
 router.get("/detail", CourseController.getDetail);
 /**
  * @swagger
@@ -249,6 +253,64 @@ router.get("/detail", CourseController.getDetail);
  *                                  msg:
  *                                      type: string
  */
+
+//
+//
+//
+
+//
+//
+//
+
+// 강좌별 사용자 리스트 조회
+router.get("/user", CourseController.getUser);
+/**
+ * @swagger
+ * paths:
+ *   /api/course/user:
+ *      get:
+ *          tags:
+ *          - course
+ *          summary: 강좌 담당 강사 및 수강중인 학생 목록 조회
+ *          operationId: getUser
+ *
+ *          description: '강좌 담당 강사 및 수강중인 학생 목록 조회'
+ *          security:
+ *           - Auth: []
+ *
+ *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '강좌 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  format: int64
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: application/json
+ *                                      $ref: '#/components/schemas/User'
+ *              4XX:
+ *                  description: fail
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
+ */
+
+//
+//
+//
 
 //
 //

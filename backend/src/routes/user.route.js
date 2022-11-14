@@ -208,9 +208,6 @@ router.delete("/", UserController.delete);
 //
 //
 
-// TODO:
-// 강좌별 사용자 리스트 조회 (보류 -> 학생별 subjects 제출 관련 erd 생성 후 고민)
-
 // 사용자가 속한 그룹 리스트 조회
 router.get("/division", UserController.getDivision);
 /**
