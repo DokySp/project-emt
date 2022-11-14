@@ -258,7 +258,7 @@ router.post("/division", UserController.createDivisionLink);
  *      post:
  *          tags:
  *          - user
- *          summary: 강좌 수강하기
+ *          summary: 사용자에게 그룹 추가
  *          operationId: createDivisionLink
  *
  *          description: '사용자에게 그룹 추가<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
@@ -506,6 +506,15 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *              email:
  *                  type: string
  *                  length: 100
+ *              last_name:
+ *                  type: string
+ *                  length: 15
+ *              first_name:
+ *                  type: string
+ *                  length: 20
+ *              nickname:
+ *                  type: string
+ *                  length: 20
  *              pw:
  *                  type: string
  *                  length: 350

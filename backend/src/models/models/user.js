@@ -12,6 +12,18 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: "email"
     },
+    last_name: {
+      type: DataTypes.STRING(15),
+      allowNull: true
+    },
+    first_name: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    nickname: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
     pw: {
       type: DataTypes.STRING(350),
       allowNull: false
@@ -30,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     level: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false
     }
   }, {
     sequelize,

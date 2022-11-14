@@ -80,8 +80,7 @@ const CourseService = {
 
   getUser: async (idx) => {
     try {
-      // TODO: user name 추가
-      const query = `SELECT email, img, level FROM USER AS a INNER JOIN course_user_link as b ON a.idx = b.user_idx WHERE b.course_idx = ${idx};`;
+      const query = `SELECT last_name, first_name, nickname, email, img, level FROM USER AS a INNER JOIN course_user_link as b ON a.idx = b.user_idx WHERE b.course_idx = ${idx};`;
       const [result, metadata] = await sequelize.query(query);
 
       for (var i = 0; i < result.length; i++) {

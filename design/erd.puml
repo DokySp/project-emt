@@ -67,13 +67,16 @@ note bottom: **name**: 파일 이름\n**url**: 파일 주소
 map user {
   <color:red>**(PK)**</color> idx => int
   <color:purple>**(UNI)**</color> email => varchar(100)
+  last_name => varchar(15)
+  first_name => varchar(20)
+  nickname => varchar(20)
   pw => varchar(350)
   img => varchar(1000)
   issued_at => datetime
   created => datetime
   level => int
 }
-note left: **email**: 이메일\n**pw**: 비밀번호\n**img**: 이미지 링크\n**issued_at**: 최종변경일\n**created**: 생성일\n**level**: 구분\n- **0**: 어드민\n- **1**: 선생님\n- **2**: 학생
+note left: **email**: 이메일\n**last_name**: 성\n**first_name**: 이름\n**nickname**: 닉네임\n**pw**: 비밀번호\n**img**: 이미지 링크\n**issued_at**: 최종변경일\n**created**: 생성일\n**level**: 구분\n- **0**: 어드민\n- **1**: 선생님\n- **2**: 학생
 
 
 

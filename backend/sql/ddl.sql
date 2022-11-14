@@ -16,11 +16,14 @@ CREATE TABLE course(
 CREATE TABLE user(
   idx INT AUTO_INCREMENT,
   email VARCHAR(100) UNIQUE NOT NULL,
+  last_name VARCHAR(15),
+  first_name VARCHAR(20),
+  nickname VARCHAR(20),
   pw VARCHAR(350) NOT NULL,
   img VARCHAR(1000),
   issued_at DATETIME NOT NULL,
   created DATETIME NOT NULL,
-  level INT,
+  level INT NOT NULL,
   PRIMARY KEY (idx)
 );
 CREATE TABLE classes(
