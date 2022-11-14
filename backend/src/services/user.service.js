@@ -89,26 +89,34 @@ const UserService = {
   //
 
   getDivision: async (userIdx) => {
-    const query = `SELECT * FROM division AS a INNER JOIN user_division_link AS b ON a.idx = b.division_idx WHERE b.user_idx = ${userIdx};`;
-    const [result, metadata] = await sequelize.query(query);
+    try {
+      const query = `SELECT * FROM division AS a INNER JOIN user_division_link AS b ON a.idx = b.division_idx WHERE b.user_idx = ${userIdx};`;
+      const [result, metadata] = await sequelize.query(query);
 
-    for (var i = 0; i < result.length; i++) {
-      delete result[i].user_idx;
-      delete result[i].division_idx;
+      for (var i = 0; i < result.length; i++) {
+        delete result[i].user_idx;
+        delete result[i].division_idx;
+      }
+
+      return result;
+    } catch (err) {
+      throw new Error(err);
     }
-
-    return result;
   },
 
   createDivisionLink: async (userIdx, divisionIdx) => {
-    let data = {
-      user_idx: userIdx,
-      division_idx: divisionIdx,
-    };
+    try {
+      let data = {
+        user_idx: userIdx,
+        division_idx: divisionIdx,
+      };
 
-    // 생성
-    const result = await model.user_division_link.create(data);
-    return result;
+      // 생성
+      const result = await model.user_division_link.create(data);
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
   },
 
   deleteDivisionLink: async (userIdx, divisionIdx) => {
@@ -134,31 +142,39 @@ const UserService = {
   //
 
   getCourses: async (userIdx) => {
-    const query = `SELECT * FROM course AS a INNER JOIN course_user_link AS b ON a.idx = b.course_idx WHERE b.user_idx = ${userIdx};`;
-    const [result, metadata] = await sequelize.query(query);
+    try {
+      const query = `SELECT * FROM course AS a INNER JOIN course_user_link AS b ON a.idx = b.course_idx WHERE b.user_idx = ${userIdx};`;
+      const [result, metadata] = await sequelize.query(query);
 
-    for (var i = 0; i < result.length; i++) {
-      delete result[i].course_idx;
-      delete result[i].user_idx;
-      result[i].is_enroll_granted =
-        result[i].is_enroll_granted[0] == 1 ? true : false;
-      result[i].is_due_date_implicit =
-        result[i].is_due_date_implicit[0] == 1 ? true : false;
+      for (var i = 0; i < result.length; i++) {
+        delete result[i].course_idx;
+        delete result[i].user_idx;
+        result[i].is_enroll_granted =
+          result[i].is_enroll_granted[0] == 1 ? true : false;
+        result[i].is_due_date_implicit =
+          result[i].is_due_date_implicit[0] == 1 ? true : false;
+      }
+
+      return result;
+    } catch (err) {
+      throw new Error(err);
     }
-
-    return result;
   },
 
   createCourseUserLink: async (userIdx, courseIdx) => {
-    let data = {
-      course_idx: courseIdx,
-      user_idx: userIdx,
-      started_date: timeTools.getCurrentTime(),
-    };
+    try {
+      let data = {
+        course_idx: courseIdx,
+        user_idx: userIdx,
+        started_date: timeTools.getCurrentTime(),
+      };
 
-    // 생성
-    const result = await model.course_user_link.create(data);
-    return result;
+      // 생성
+      const result = await model.course_user_link.create(data);
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
   },
 
   deleteCourseUserLink: async (userIdx, courseIdx) => {
