@@ -104,12 +104,38 @@ const UserController = {
   //
   //
 
+  getCourses: async (req, res, next) => {
+    try {
+      // TODO: 임시코드
+      let userIdx = 1; // token.user_idx
+
+      const result = await UserService.getCourses(userIdx);
+
+      if (result.length === 0) {
+        throw new Error("Empty set");
+      }
+
+      return res.status(200).json({
+        result,
+        msg: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
+
   createCourseUserLink: async (req, res, next) => {
-    let courseData = req.body;
-    delete courseData.idx;
+    let courseIdx = Number.parseInt(req.query.idx);
+
+    // TODO: 임시코드
+    let userIdx = 1; // token.user_idx
 
     try {
-      const result = await UserService.createUser(courseData);
+      const result = await UserService.createCourseUserLink(userIdx, courseIdx);
 
       return res.status(200).json({
         result,
@@ -125,10 +151,13 @@ const UserController = {
   },
 
   deleteCourseUserLink: async (req, res, next) => {
-    const idx = Number.parseInt(req.query.idx);
+    let courseIdx = Number.parseInt(req.query.idx);
+
+    // TODO: 임시코드
+    let userIdx = 1; // token.user_idx
 
     try {
-      const result = await UserService.deleteUser(idx);
+      const result = await UserService.deleteCourseUserLink(userIdx, courseIdx);
 
       if (result === 0) {
         throw new Error("Not effected");

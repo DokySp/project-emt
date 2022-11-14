@@ -295,6 +295,9 @@ router.get("/detail", CourseController.getDetail);
  *                  type: boolean
  *              is_due_date_implicit:
  *                  type: boolean
+ *              started_date:
+ *                  type: string
+ *                  format: datetime
  *              classes:
  *                  type: array
  *                  items:

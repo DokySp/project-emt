@@ -208,15 +208,65 @@ router.delete("/", UserController.delete);
 //
 //
 
+// 강좌별 사용자 리스트 조회 (보류 -> 학생별 subjects 제출 관련 erd 생성 후 고민)
+
 // 사용자가 속한 그룹 리스트 조회
-
-// 강좌별 사용자 리스트 조회
-
-// 사용자의 강좌 리스트 조회
+// getDivision;
 
 // 사용자-그룹 링크 생성
+// createDivisionLink;
 
 // 사용자-그룹 링크 삭제
+// deleteDivisionLink;
+
+//
+//
+//
+
+//
+//
+//
+
+// 사용자의 강좌 리스트 조회
+router.get("/course", UserController.getCourses);
+/**
+ * @swagger
+ * paths:
+ *   /api/user/course:
+ *      get:
+ *          tags:
+ *          - user
+ *          summary: 사용자가 수강중인 강좌 조회
+ *          operationId: getCourses
+ *
+ *          description: '사용자가 수강중인 강좌 조회<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          security:
+ *           - Auth: []
+ *
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: array
+ *                                      items:
+ *                                          $ref: '#/components/schemas/Course'
+ *                                  msg:
+ *                                      type: string
+ *              4XX:
+ *                  description: fail
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
+ */
 
 // 사용자-강좌 링크 생성
 router.post("/course", UserController.createCourseUserLink);
@@ -227,21 +277,15 @@ router.post("/course", UserController.createCourseUserLink);
  *      post:
  *          tags:
  *          - user
- *          summary: 사용자에게 강좌 추가하기
+ *          summary: 강좌 수강하기
  *          operationId: createCourseUserLink
  *
- *          description: '사용자에게 강좌 추가하기'
+ *          description: '사용자에게 강좌 추가<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *
  *          parameters:
- *              - name: user_idx
- *                in: query
- *                description: '사용자 IDX'
- *                required: true
- *                schema:
- *                  type: integer
- *              - name: course_idx
+ *              - name: idx
  *                in: query
  *                description: '강좌 IDX'
  *                required: true
@@ -281,17 +325,17 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *      delete:
  *          tags:
  *          - user
- *          summary: 사용자에게 강좌 제거하기
+ *          summary: 강좌 수강 취소하기
  *          operationId: deleteCourseUserLink
  *
- *          description: '사용자에게 강좌 제거하기'
+ *          description: '사용자에게 강좌 제거하기<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *
  *          parameters:
  *              - name: idx
  *                in: query
- *                description: '링크 IDX'
+ *                description: '강좌 IDX'
  *                required: true
  *                schema:
  *                  type: integer
@@ -303,7 +347,7 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *                          schema:
  *                              properties:
  *                                  result:
- *                                      $ref: '#/components/schemas/User'
+ *                                      type: integer
  *                                  msg:
  *                                      type: string
  *              4XX:
