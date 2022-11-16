@@ -11,6 +11,7 @@ CREATE TABLE course(
   name VARCHAR(100),
   is_enroll_granted BIT(1) DEFAULT 1,
   is_due_date_implicit BIT(1) NOT NULL,
+  is_active BIT(1) DEFAULT 1,
   PRIMARY KEY (idx)
 );
 CREATE TABLE user(
@@ -24,6 +25,7 @@ CREATE TABLE user(
   issued_at DATETIME NOT NULL,
   created DATETIME NOT NULL,
   level INT NOT NULL,
+  is_active BIT(1) DEFAULT 1,
   PRIMARY KEY (idx)
 );
 CREATE TABLE classes(

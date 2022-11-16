@@ -23,6 +23,11 @@ module.exports = function(sequelize, DataTypes) {
     is_due_date_implicit: {
       type: DataTypes.BOOLEAN,
       allowNull: false
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: true
     }
   }, {
     sequelize,

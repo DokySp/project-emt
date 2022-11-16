@@ -335,6 +335,8 @@ router.get("/user", CourseController.getUser);
  *                  type: boolean
  *              is_due_date_implicit:
  *                  type: boolean
+ *              is_active:
+ *                  type: boolean
  *          xml:
  *              name: Course
  */
@@ -356,6 +358,8 @@ router.get("/user", CourseController.getUser);
  *              is_enroll_granted:
  *                  type: boolean
  *              is_due_date_implicit:
+ *                  type: boolean
+ *              is_active:
  *                  type: boolean
  *              started_date:
  *                  type: string

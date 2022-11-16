@@ -529,6 +529,8 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *                  format: datetime
  *              level:
  *                  type: integer
+ *              is_active:
+ *                  type: boolean
  *
  *          xml:
  *              name: User

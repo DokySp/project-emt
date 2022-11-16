@@ -25,6 +25,7 @@ const CourseController = {
   create: async (req, res, next) => {
     let data = req.body;
     delete data.idx;
+    data.is_active = true;
 
     try {
       const result = await CourseService.create(data);
@@ -46,8 +47,13 @@ const CourseController = {
     const data = req.body;
     const idx = Number.parseInt(req.query.idx);
     delete data.idx;
+    delete data.is_active;
 
     try {
+      if (Object.keys(data).length === 0) {
+        throw new Error("Not effected");
+      }
+
       const result = await CourseService.update(idx, data);
 
       if (result[0] === 0) {

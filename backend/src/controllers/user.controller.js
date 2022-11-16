@@ -27,6 +27,7 @@ const UserController = {
     delete data.idx;
     delete data.issued_at;
     delete data.created;
+    data.is_active = true;
 
     try {
       const result = await UserService.create(data);
@@ -52,8 +53,13 @@ const UserController = {
     delete data.email;
     delete data.issued_at;
     delete data.created;
+    delete data.is_active;
 
     try {
+      if (Object.keys(data).length === 0) {
+        throw new Error("Not effected");
+      }
+
       const result = await UserService.update(idx, data);
 
       if (result[0] === 0) {

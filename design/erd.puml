@@ -14,8 +14,9 @@ map course {
     name => varchar(100)
     is_enroll_granted => bit(1) **not null**,
     is_due_date_implicit => bit(1) **not null**,
+    is_active => bit(1) **not null**,
 }
-note top: **img**: 강좌 이미지\n**name**: 강좌 이름\n**is_enroll_granted**: 강좌 신청 가능 여부\n**is_due_date_implicit**: 절대/상대 기한
+note top: **img**: 강좌 이미지\n**name**: 강좌 이름\n**is_enroll_granted**: 강좌 신청 가능 여부\n**is_due_date_implicit**: 절대/상대 기한\n**is_active**: 활성화 여부
 
 map classes {
   <color:red>**(PK)**</color> idx => int
@@ -75,8 +76,9 @@ map user {
   issued_at => datetime
   created => datetime
   level => int
+  is_active => bit(1) **not null**,
 }
-note left: **email**: 이메일\n**last_name**: 성\n**first_name**: 이름\n**nickname**: 닉네임\n**pw**: 비밀번호\n**img**: 이미지 링크\n**issued_at**: 최종변경일\n**created**: 생성일\n**level**: 구분\n- **0**: 어드민\n- **1**: 선생님\n- **2**: 학생
+note left: **email**: 이메일\n**last_name**: 성\n**first_name**: 이름\n**nickname**: 닉네임\n**pw**: 비밀번호\n**img**: 이미지 링크\n**issued_at**: 최종변경일\n**created**: 생성일\n**level**: 구분\n- **0**: 어드민\n- **1**: 선생님\n- **2**: 학생\n**is_active**: 활성화 여부
 
 
 

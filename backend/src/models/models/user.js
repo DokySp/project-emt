@@ -43,6 +43,11 @@ module.exports = function(sequelize, DataTypes) {
     level: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: true
     }
   }, {
     sequelize,
