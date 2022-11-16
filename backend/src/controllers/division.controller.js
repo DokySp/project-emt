@@ -48,6 +48,10 @@ const DivisionController = {
     delete data.idx;
 
     try {
+      if (Object.keys(data).length === 0) {
+        throw new Error("Not effected");
+      }
+
       const result = await DivisionService.update(idx, data);
 
       if (result[0] === 0) {
