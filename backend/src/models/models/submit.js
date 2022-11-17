@@ -15,6 +15,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'idx'
       }
     },
+    user_idx: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'idx'
+      }
+    },
     report: {
       type: DataTypes.STRING(5000),
       allowNull: true
@@ -51,6 +59,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "idx" },
+        ]
+      },
+      {
+        name: "user_idx",
+        using: "BTREE",
+        fields: [
+          { name: "user_idx" },
         ]
       },
       {

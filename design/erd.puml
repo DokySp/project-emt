@@ -29,10 +29,6 @@ map classes {
 }
 note right: **vimeo_url**: 비메오 링크\n**name**: 수업 이름\n**content**: 수업 내용 (Markdown)\n**watch_time**: 수업 수강 시간\n**due_date**: 기한
 
-
-
-
-
 map subjects {
   <color:red>**(PK)**</color> idx => int
   <color:blue>**(FK)**</color> course_idx => int **not null**
@@ -46,6 +42,7 @@ note left: **vimeo_url**: 비메오 링크\n**name**: 과제 이름\n**content**
 map submit {
   <color:red>**(PK)**</color> idx => int
   <color:blue>**(FK)**</color> subjects_idx => int **not null**
+  <color:blue>**(FK)**</color> user_idx => int **not null**
 
   report => varchar(5000)
   status => int
@@ -141,6 +138,8 @@ subjects_file_link }o..|| file
 subjects ||..o{ submit
 submit ||..o{ submit_file_link
 file ||..o{ submit_file_link
+
+user ||.right.o{ submit
 
 
 

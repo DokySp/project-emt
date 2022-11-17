@@ -195,13 +195,15 @@ router.delete("/", SubmitController.delete);
  *                  type: integer
  *              subjects_idx:
  *                  type: integer
+ *              user_idx:
+ *                  type: integer
  *              report:
  *                  type: string
  *                  length: 5000
  *              status:
  *                  type: integer
  *                  format: int32
- *              comment:
+ *              comments:
  *                  type: string
  *                  length: 5000
  *              score:

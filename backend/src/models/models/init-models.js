@@ -60,6 +60,8 @@ function initModels(sequelize) {
   submit.hasMany(submit_file_link, { as: "submit_file_links", foreignKey: "submit_idx"});
   course_user_link.belongsTo(user, { as: "user_idx_user", foreignKey: "user_idx"});
   user.hasMany(course_user_link, { as: "course_user_links", foreignKey: "user_idx"});
+  submit.belongsTo(user, { as: "user_idx_user", foreignKey: "user_idx"});
+  user.hasMany(submit, { as: "submits", foreignKey: "user_idx"});
   user_division_link.belongsTo(user, { as: "user_idx_user", foreignKey: "user_idx"});
   user.hasMany(user_division_link, { as: "user_division_links", foreignKey: "user_idx"});
 

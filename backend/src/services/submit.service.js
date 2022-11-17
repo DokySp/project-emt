@@ -21,6 +21,9 @@ const SubmitService = {
 
   create: async (data) => {
     try {
+      // submitted_time 업데이트
+      data.submitted_time = timeTools.getCurrentTime();
+
       const result = await model.submit.create(data);
       return result;
     } catch (err) {

@@ -53,7 +53,8 @@ CREATE TABLE subjects(
 CREATE TABLE submit(
   idx INT AUTO_INCREMENT,
   subjects_idx INT NOT NULL,
-  
+  user_idx INT NOT NULL,
+
   report VARCHAR(5000),
   status int DEFAULT 0,
   comments VARCHAR(5000),
@@ -62,6 +63,7 @@ CREATE TABLE submit(
   submitted_time DATETIME,
 
   PRIMARY KEY (idx),
+  FOREIGN KEY (user_idx) REFERENCES user(idx),
   FOREIGN KEY (subjects_idx) REFERENCES subjects(idx)
 );
 
