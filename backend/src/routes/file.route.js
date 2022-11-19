@@ -4,26 +4,102 @@ var router = express.Router();
 var FileController = require("../controllers/file.controller");
 const auth = require("../utils/auth");
 
-router.put("/classes", auth.check, FileController.upload);
+router.get("/:uuid/", FileController.download);
 /**
  * @swagger
  * paths:
- *   /api/files/classes:
+ *   /api/file/{uuid}/:
+ *      get:
+ *          tags:
+ *          - file
+ *          summary: 파일 다운로드
+ *          operationId: download
+ *
+ *          description: '파일 다운로드<br>권한: <b>LOGIN</b>'
+ *          security:
+ *           - Auth: []
+ *
+ *          parameters:
+ *              - name: uuid
+ *                in: path
+ *                description: 'uuid'
+ *                required: true
+ *                schema:
+ *                  type: string
+ *
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content: {}
+ *              400:
+ *                  description: fail
+ *                  content: {}
+ */
+
+router.put("/:flag", FileController.upload);
+/**
+ * @swagger
+ * paths:
+ *   /api/file/img:
+ *      put:
+ *          tags:
+ *          - file
+ *          summary: 이미지 파일(프로필 등) 업로드
+ *          operationId: uploadFileGlobal
+ *
+ *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
+ *          security:
+ *           - Auth: []
+ *
+ *          requestBody:
+ *            content:
+ *              multipart/form-data:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    # 'file' will be the field name in this multipart request
+ *                    file:
+ *                      type: string
+ *                      format: binary
+ *
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content: {}
+ *              400:
+ *                  description: fail
+ *                  content: {}
+ */
+
+// router.put("/classes", auth.check, FileController.upload);
+router.put("/:flag", FileController.upload);
+/**
+ * @swagger
+ * paths:
+ *   /api/file/classes:
  *      put:
  *          tags:
  *          - file
  *          summary: 강의 첨부 파일 업로드
- *          operationId: uploadFile
+ *          operationId: uploadFileClasses
  *
  *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *
  *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '수업 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  format: int64
  *              - name: loc
  *                in: query
- *                description: '저장할 폴더 위치'
+ *                description: '저장할 폴더 위치 (동작안함)'
  *                required: false
+ *                default: ''
  *                schema:
  *                  type: string
  *          requestBody:
@@ -45,26 +121,34 @@ router.put("/classes", auth.check, FileController.upload);
  *                  content: {}
  */
 
-router.put("/subjects", auth.check, FileController.upload);
+router.put("/:flag", FileController.upload);
 /**
  * @swagger
  * paths:
- *   /api/files/subjects:
+ *   /api/file/subjects:
  *      put:
  *          tags:
  *          - file
  *          summary: 과제 첨부 파일 업로드
- *          operationId: uploadFile
+ *          operationId: uploadFileSubjects
  *
  *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *
  *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '과제 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  format: int64
  *              - name: loc
  *                in: query
- *                description: '저장할 폴더 위치'
+ *                description: '저장할 폴더 위치 (동작안함)'
  *                required: false
+ *                default: ''
  *                schema:
  *                  type: string
  *          requestBody:
@@ -86,11 +170,60 @@ router.put("/subjects", auth.check, FileController.upload);
  *                  content: {}
  */
 
-router.delete("/", auth.check, FileController.delete);
+router.put("/:flag", FileController.upload);
 /**
  * @swagger
  * paths:
- *   /api/files:
+ *   /api/file/submit:
+ *      put:
+ *          tags:
+ *          - file
+ *          summary: 과제 제출 첨부 파일 업로드
+ *          operationId: uploadFileSubmit
+ *
+ *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
+ *          security:
+ *           - Auth: []
+ *
+ *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '제출 과제 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  format: int64
+ *              - name: loc
+ *                in: query
+ *                description: '저장할 폴더 위치 (동작안함)'
+ *                required: false
+ *                default: ''
+ *                schema:
+ *                  type: string
+ *          requestBody:
+ *            content:
+ *              multipart/form-data:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    # 'file' will be the field name in this multipart request
+ *                    file:
+ *                      type: string
+ *                      format: binary
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content: {}
+ *              400:
+ *                  description: fail
+ *                  content: {}
+ */
+
+router.delete("/", FileController.delete);
+/**
+ * @swagger
+ * paths:
+ *   /api/file:
  *      delete:
  *          tags:
  *          - file
@@ -102,9 +235,9 @@ router.delete("/", auth.check, FileController.delete);
  *           - Auth: []
  *
  *          parameters:
- *              - name: id
+ *              - name: idx
  *                in: query
- *                description: '삭제할 파일 ID'
+ *                description: '삭제할 파일 IDX'
  *                required: true
  *                schema:
  *                  type: string

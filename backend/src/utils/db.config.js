@@ -4,8 +4,14 @@ var db = require("mysql2");
 const secret = require("../../secret/secret");
 
 let environment = "";
-if (process.env.NODE_ENV === "development") environment = secret.development;
-else environment = secret.production;
+if (
+  process.env.NODE_ENV === "development" ||
+  process.env.NODE_ENV === "development-master"
+) {
+  environment = secret.development;
+} else {
+  environment = secret.production;
+}
 
 const dbConnection = {
   init: () => {

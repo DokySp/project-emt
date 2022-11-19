@@ -1,24 +1,67 @@
 const FileService = require("../services/file.service.js");
 
 const FileController = {
+  download: async (req, res, next) => {
+    try {
+      const uuid = req.params.uuid;
+      const streamDest = res;
+      const header = req.headers["user-agent"];
+
+      await FileService.download(uuid, header, streamDest);
+
+      return res.status(200);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
+
   upload: async (req, res, next) => {
     try {
-      let savePath = "";
-      let dest = "";
+      // 비활성화
+      // let savePath = ``;
+      let paramStatus;
 
-      if (Object.keys(req.query).includes("loc")) {
-        savePath = req.query.loc;
-        dest += savePath + "/";
+      // TODO: 추후 개선
+      switch (req.params.flag) {
+        case "classes":
+          paramStatus = FileService.status.CLASSES;
+          break;
+        case "subjects":
+          paramStatus = FileService.status.SUBJECTS;
+          break;
+        case "submit":
+          paramStatus = FileService.status.SUBMIT;
+          break;
+        case "img":
+          paramStatus = FileService.status.PUBLIC;
+          break;
+        default:
+          throw new Error("unknown parameter");
       }
+
+      let flagIdx = -1;
+      if (paramStatus !== FileService.status.PUBLIC) {
+        flagIdx = Number.parseInt(req.query.idx);
+      }
+
+      // 비활성화
+      // if (Object.keys(req.query).includes("loc")) {
+      //   savePath += req.query.loc;
+      // }
 
       if (req.files === null) {
-        return res.status(400).json({
-          result: false,
-          msg: "No file",
-        });
+        throw new Error("No file");
       }
 
-      const result = await FileService.upload(req.files.file, dest);
+      const result = await FileService.upload(
+        flagIdx,
+        req.files.file,
+        paramStatus
+      );
 
       return res.status(200).json({
         result,
@@ -35,7 +78,7 @@ const FileController = {
 
   delete: async (req, res, next) => {
     try {
-      await FileService.delete(req.query.id);
+      await FileService.delete(req.query.idx);
     } catch (err) {
       return res.status(400).json({
         result: false,

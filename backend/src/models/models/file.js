@@ -7,12 +7,30 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING(100),
-      allowNull: false
+    uuid: {
+      type: DataTypes.STRING(32),
+      allowNull: false,
+      unique: "uuid"
     },
-    url: {
-      type: DataTypes.STRING(1000),
+    fid: {
+      type: DataTypes.STRING(32),
+      allowNull: false,
+      unique: "fid"
+    },
+    name: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+    size: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    type: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    is_public: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     }
   }, {
@@ -26,6 +44,22 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "idx" },
+        ]
+      },
+      {
+        name: "uuid",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "uuid" },
+        ]
+      },
+      {
+        name: "fid",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "fid" },
         ]
       },
     ]

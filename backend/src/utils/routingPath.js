@@ -31,8 +31,8 @@ module.exports = {
     route: "./src/routes/user.route",
   },
 
-  // apiFilePrefix: {
-  //   url: `/file`,
-  //   route: "./src/routes/file.route",
-  // },
+  apiFilePrefix: {
+    url: `/file`,
+    route: "./src/routes/file.route",
+  },
 };

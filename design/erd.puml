@@ -53,14 +53,16 @@ map submit {
 }
 note left: **report**: 학생이 제출한 과제 (Markdown)\n**status**: 과제 상태\n- **0**: 미제출\n- **1**: 제출\n- **2**: 반환됨\n- **3**: 채점완료\n**comments**: 과제 코멘트(json)\n**score**: 과제 점수\n**submitted_time**: 제출시간\n**return_time**: 반환시간
 
-
 map file {
   <color:red>**(PK)**</color> idx => int
-  name => varchar(100)
-  url => varchar(1000)
+  <color:purple>**(UNI)**</color> uuid => varchar(32)
+  <color:purple>**(UNI)**</color> fid => varchar(32)
+  name => varchar(256)
+  size => int
+  type => varchar(100)
+  is_public => bit(1) **not null**
 }
-note bottom: **name**: 파일 이름\n**url**: 파일 주소
-
+note bottom: **uuid**: 파일 고유번호(주소)\n**uuid**: 파일 고유번호(파일 이름)\n**name**: 파일 이름\n**size**: 파일 크기\n**type**: 파일 종류 (mimeType)\n**isPublic**: 권한 없이도 접근 가능한지 여부
 
 map user {
   <color:red>**(PK)**</color> idx => int
