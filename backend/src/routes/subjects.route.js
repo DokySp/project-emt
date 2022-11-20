@@ -35,7 +35,7 @@ router.get("/", SubjectsController.get);
  *                          schema:
  *                              type: array
  *                              items:
- *                                  $ref: '#/components/schemas/Subjects'
+ *                                  $ref: '#/components/schemas/SubjectsGet'
  *              400:
  *                  description: fail
  *                  content: {}
@@ -211,25 +211,35 @@ router.delete("/", SubjectsController.delete);
  *              name: Subjects
  */
 
-module.exports = router;
-
-/*
- *              report:
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      SubjectsGet:
+ *          type: object
+ *          properties:
+ *              idx:
+ *                  type: integer
+ *              course_idx:
+ *                  type: integer
+ *              vimeo_url:
+ *                  type: string
+ *                  length: 1000
+ *              name:
+ *                  type: string
+ *                  length: 100
+ *              content:
  *                  type: string
  *                  length: 5000
- *              status:
- *                  type: integer
- *                  format: int32
- *              comment:
- *                  type: string
- *                  length: 5000
- *              score:
- *                  type: integer
- *                  format: int32
- *              last_submitted_time:
+ *              due_date:
  *                  type: string
  *                  format: datetime
- *              last_return_time:
- *                  type: string
- *                  format: datetime
+ *              files:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/File'
+ *          xml:
+ *              name: SubjectsGet
  */
+
+module.exports = router;

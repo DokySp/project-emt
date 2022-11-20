@@ -247,4 +247,32 @@ router.delete("/", FileController.delete);
  *                  content: {}
  */
 
+//
+//
+//
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      File:
+ *          type: object
+ *          properties:
+ *              idx:
+ *                  type: integer
+ *              uuid:
+ *                  type: string
+ *                  length: 32
+ *              name:
+ *                  type: string
+ *              size:
+ *                  type: integer
+ *              type:
+ *                  type: string
+ *              is_public:
+ *                  type: boolean
+ *          xml:
+ *              name: File
+ */
+
 module.exports = router;

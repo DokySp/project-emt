@@ -35,7 +35,7 @@ router.get("/", SubmitController.get);
  *                          schema:
  *                              type: array
  *                              items:
- *                                  $ref: '#/components/schemas/Submit'
+ *                                  $ref: '#/components/schemas/SubmitGet'
  *              400:
  *                  description: fail
  *                  content: {}
@@ -219,8 +219,43 @@ router.delete("/", SubmitController.delete);
  *              name: Submit
  */
 
-module.exports = router;
-
-/*
-
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      SubmitGet:
+ *          type: object
+ *          properties:
+ *              idx:
+ *                  type: integer
+ *              subjects_idx:
+ *                  type: integer
+ *              user_idx:
+ *                  type: integer
+ *              report:
+ *                  type: string
+ *                  length: 5000
+ *              status:
+ *                  type: integer
+ *                  format: int32
+ *              comments:
+ *                  type: string
+ *                  length: 5000
+ *              score:
+ *                  type: integer
+ *                  format: int32
+ *              last_submitted_time:
+ *                  type: string
+ *                  format: datetime
+ *              last_return_time:
+ *                  type: string
+ *                  format: datetime
+ *              files:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/File'
+ *          xml:
+ *              name: SubmitGet
  */
+
+module.exports = router;

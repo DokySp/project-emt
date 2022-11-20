@@ -37,7 +37,7 @@ router.get("/", ClassesController.get);
  *                                  result:
  *                                      type: array
  *                                      items:
- *                                          $ref: '#/components/schemas/Classes'
+ *                                          $ref: '#/components/schemas/ClassesGet'
  *                                  msg:
  *                                      type: string
  *              4XX:
@@ -232,6 +232,40 @@ router.delete("/", ClassesController.delete);
  *                  format: datetime
  *          xml:
  *              name: Classes
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      ClassesGet:
+ *          type: object
+ *          properties:
+ *              idx:
+ *                  type: integer
+ *              course_idx:
+ *                  type: integer
+ *              vimeo_url:
+ *                  type: string
+ *                  length: 1000
+ *              name:
+ *                  type: string
+ *                  length: 100
+ *              content:
+ *                  type: string
+ *                  length: 5000
+ *              watch_time:
+ *                  type: string
+ *                  format: datetime
+ *              due_date:
+ *                  type: string
+ *                  format: datetime
+ *              files:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/File'
+ *          xml:
+ *              name: ClassesGet
  */
 
 module.exports = router;
