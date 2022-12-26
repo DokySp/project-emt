@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown"
 
-import Footer from "../components/footer"
-import Header from "../components/header"
+import Footer from "../../common/Footer/footer"
+import Header from "../../common/Header/header"
 
 
 const LectureView = () => {
@@ -9,8 +9,6 @@ const LectureView = () => {
 
   return (
     <>
-      <Header />
-
       <div className="container">
         <div className="row p-4">
           <VimeoViewer />
@@ -22,11 +20,8 @@ const LectureView = () => {
           </div>
 
 
-
         </div>
       </div>
-
-      <Footer />
     </>
   )
 }

@@ -1,14 +1,14 @@
-import Footer from "../components/footer"
-import Header from "../components/header"
+import { PropsWithChildren } from "react"
+import Footer from "../../common/Footer/footer"
+import Header from "../../common/Header/header"
 
-function UserView(): JSX.Element {
+
+interface AccountProps { }
+
+const AccountPage = ({ children }: PropsWithChildren<AccountProps>) => {
   return (
     <>
-      <Header />
       <div className="container">
-
-
-
 
         <div className="row p-4 mt-5 justify-content-center">
 
@@ -49,7 +49,6 @@ function UserView(): JSX.Element {
 
       </div>
 
-      <Footer />
     </>
   )
 }
@@ -71,4 +70,4 @@ const ListItem = () => (
 
 
 
-export default UserView
+export default AccountPage

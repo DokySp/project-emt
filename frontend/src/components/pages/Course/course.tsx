@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-import Footer from "../components/footer";
-import Header from "../components/header";
+import Footer from "../../common/Footer/footer";
+import Header from "../../common/Header/header";
+import { PropsWithChildren } from "react";
 
-function CourseView(): JSX.Element {
+interface CourseProps { }
+
+const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
   return <>
-    <Header />
     <div className="container">
-
-
-
 
       <div className="row p-4">
         <div className="col-sm-4" >
@@ -52,10 +51,7 @@ function CourseView(): JSX.Element {
         </ol>
       </div>
 
-
     </div>
-
-    <Footer />
   </>;
 }
 
@@ -79,4 +75,4 @@ const ListItem = (props: { title: string, content: string }) => {
 }
 
 
-export default CourseView
+export default CoursePage

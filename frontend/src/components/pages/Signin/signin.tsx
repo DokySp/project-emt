@@ -1,5 +1,6 @@
-import Footer from "../components/footer"
-import Header from "../components/header"
+import { PropsWithChildren } from "react"
+import Footer from "../../common/Footer/footer"
+import Header from "../../common/Header/header"
 
 
 
@@ -10,14 +11,11 @@ const cssBdPlaceHolderImg = {
 }
 
 
-function SigninView(): JSX.Element {
+interface SigninProps { }
+
+const SigninPage = ({ children }: PropsWithChildren<SigninProps>) => {
   return (
     <>
-      <Header />
-
-
-
-
       <div className="text-center">
 
         <div className="p-5" />
@@ -51,11 +49,9 @@ function SigninView(): JSX.Element {
         <div className="p-5" />
 
       </div>
-
-      <Footer />
     </>
   )
 }
 
 
-export default SigninView
+export default SigninPage

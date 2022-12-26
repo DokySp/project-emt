@@ -1,7 +1,8 @@
-import Header from "../components/header";
+import Header from "../../common/Header/header";
 import { Image } from 'react-bootstrap'
-import Footer from "../components/footer";
+import Footer from "../../common/Footer/footer";
 import { Link } from "react-router-dom";
+import { PropsWithChildren } from "react";
 
 
 
@@ -26,13 +27,10 @@ let recommandedData = [
   }
 ]
 
+interface HomeProps { }
 
-function HomeView(): JSX.Element {
+const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
   return <>
-
-    <Header />
-
-
 
     <div className='container mb-5 mt-3'>
 
@@ -135,13 +133,10 @@ function HomeView(): JSX.Element {
         </div>
       </div>
 
-
     </div>
-
-    <Footer />
 
   </>;
 }
 
 
-export default HomeView
+export default HomePage

@@ -1,41 +1,3 @@
-import ReactMarkdown from "react-markdown"
-
-import Footer from "../components/footer";
-import Header from "../components/header";
-
-
-
-function SubjectView(): JSX.Element {
-  return (
-    <>
-      <Header />
-
-      <div className="container">
-        <div className="row p-4">
-
-          <h2 className="mt-5">과제 제목</h2>
-
-          <div className="mt">
-            <ReactMarkdown children={sampleText}></ReactMarkdown>
-          </div>
-
-          <h3 className="mt-5">과제 제출하기</h3>
-          <form action="">
-            <input type="text" name="" id="" />
-          </form>
-
-        </div>
-      </div>
-
-      <Footer />
-
-    </>
-  )
-}
-
-
-
-
 
 const sampleText: string = `(현재 무료, 빨간 버튼 눌러서 수강신청시 1년 소장가능!)
 
@@ -101,5 +63,4 @@ const sampleText: string = `(현재 무료, 빨간 버튼 눌러서 수강신청
 
 `
 
-
-export default SubjectView
+export default sampleText
