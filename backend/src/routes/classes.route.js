@@ -4,7 +4,7 @@ var router = express.Router();
 var ClassesController = require("../controllers/classes.controller");
 const auth = require("../utils/auth");
 
-router.get("/", ClassesController.get);
+router.get("/", auth.checkSelf, ClassesController.get);
 /**
  * @swagger
  * paths:
@@ -15,7 +15,7 @@ router.get("/", ClassesController.get);
  *          summary: 강의 조회
  *          operationId: getClasses
  *
- *          description: '강의 조회'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>강의 조회'
  *          security:
  *           - Auth: []
  *
@@ -52,7 +52,7 @@ router.get("/", ClassesController.get);
  *                                      type: string
  */
 
-router.post("/", ClassesController.create);
+router.post("/", auth.checkLev1, ClassesController.create);
 /**
  * @swagger
  * paths:
@@ -63,7 +63,7 @@ router.post("/", ClassesController.create);
  *          summary: 강의 생성
  *          operationId: createClasses
  *
- *          description: '강의 생성'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>강의 생성'
  *          security:
  *           - Auth: []
  *
@@ -98,7 +98,7 @@ router.post("/", ClassesController.create);
  *                                      type: string
  */
 
-router.patch("/", ClassesController.update);
+router.patch("/", auth.checkLev1, ClassesController.update);
 /**
  * @swagger
  * paths:
@@ -109,7 +109,7 @@ router.patch("/", ClassesController.update);
  *          summary: 강의 수정
  *          operationId: updateClasses
  *
- *          description: '강의 수정'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>강의 수정'
  *
  *          security:
  *           - Auth: []
@@ -154,7 +154,7 @@ router.patch("/", ClassesController.update);
  *                                      type: string
  */
 
-router.delete("/", ClassesController.delete);
+router.delete("/", auth.checkLev1, ClassesController.delete);
 /**
  * @swagger
  * paths:
@@ -165,7 +165,7 @@ router.delete("/", ClassesController.delete);
  *          summary: 강의 삭제
  *          operationId: deleteClasses
  *
- *          description: '강의 삭제'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>강의 삭제'
  *          security:
  *           - Auth: []
  *

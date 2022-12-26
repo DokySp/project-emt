@@ -5,7 +5,7 @@ var CourseController = require("../controllers/course.controller");
 const auth = require("../utils/auth");
 
 // router.get(`${apiCoursePrefix}`, auth.check, CourseController.getCourse);
-router.get("/", CourseController.get);
+router.get("/", auth.checkSelf, CourseController.get);
 /**
  * @swagger
  * paths:
@@ -16,7 +16,7 @@ router.get("/", CourseController.get);
  *          summary: 강좌 조회
  *          operationId: getCourse
  *
- *          description: '강좌 조회'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>강좌 조회'
  *          security:
  *           - Auth: []
  *
@@ -53,7 +53,7 @@ router.get("/", CourseController.get);
  *                                      type: string
  */
 
-router.post("/", CourseController.create);
+router.post("/", auth.checkLev1, CourseController.create);
 /**
  * @swagger
  * paths:
@@ -64,7 +64,7 @@ router.post("/", CourseController.create);
  *          summary: 강좌 생성
  *          operationId: createCourse
  *
- *          description: '강좌 생성'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>강좌 생성'
  *          security:
  *           - Auth: []
  *
@@ -99,7 +99,7 @@ router.post("/", CourseController.create);
  *                                      type: string
  */
 
-router.patch("/", CourseController.update);
+router.patch("/", auth.checkLev1, CourseController.update);
 /**
  * @swagger
  * paths:
@@ -110,7 +110,7 @@ router.patch("/", CourseController.update);
  *          summary: 강좌 수정
  *          operationId: updateCourse
  *
- *          description: '강좌 수정'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>강좌 수정'
  *
  *          security:
  *           - Auth: []
@@ -155,7 +155,7 @@ router.patch("/", CourseController.update);
  *                                      type: string
  */
 
-router.delete("/", CourseController.delete);
+router.delete("/", auth.checkLev1, CourseController.delete);
 /**
  * @swagger
  * paths:
@@ -166,7 +166,7 @@ router.delete("/", CourseController.delete);
  *          summary: 강좌 삭제
  *          operationId: deleteCourse
  *
- *          description: '강좌 삭제'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>강좌 삭제'
  *          security:
  *           - Auth: []
  *
@@ -209,7 +209,7 @@ router.delete("/", CourseController.delete);
 //
 //
 
-router.get("/detail", CourseController.getDetail);
+router.get("/detail", auth.checkSelf, CourseController.getDetail);
 /**
  * @swagger
  * paths:
@@ -220,7 +220,7 @@ router.get("/detail", CourseController.getDetail);
  *          summary: 강좌 수업 및 과제 목록 조회
  *          operationId: getCourseDetail
  *
- *          description: '강좌 수업 및 과제 목록 조회'
+ *          description: <font color="blue"><b>checkSelf</b></font><br><br>'강좌 수업 및 과제 목록 조회'
  *          security:
  *           - Auth: []
  *
@@ -263,7 +263,7 @@ router.get("/detail", CourseController.getDetail);
 //
 
 // 강좌별 사용자 리스트 조회
-router.get("/user", CourseController.getUser);
+router.get("/user", auth.checkLev1, CourseController.getUser);
 /**
  * @swagger
  * paths:
@@ -274,7 +274,7 @@ router.get("/user", CourseController.getUser);
  *          summary: 강좌 담당 강사 및 수강중인 학생 목록 조회
  *          operationId: getUser
  *
- *          description: '강좌 담당 강사 및 수강중인 학생 목록 조회'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>강좌 담당 강사 및 수강중인 학생 목록 조회'
  *          security:
  *           - Auth: []
  *

@@ -4,7 +4,8 @@ var router = express.Router();
 var FileController = require("../controllers/file.controller");
 const auth = require("../utils/auth");
 
-router.get("/:uuid/", FileController.download);
+// TODO: 개선 필요 (is_public 관련)
+router.get("/:uuid/", auth.checkSelf, FileController.download);
 /**
  * @swagger
  * paths:
@@ -15,7 +16,7 @@ router.get("/:uuid/", FileController.download);
  *          summary: 파일 다운로드
  *          operationId: download
  *
- *          description: '파일 다운로드<br>권한: <b>LOGIN</b>'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>파일 다운로드<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *
@@ -36,7 +37,7 @@ router.get("/:uuid/", FileController.download);
  *                  content: {}
  */
 
-router.put("/:flag", FileController.upload);
+router.put("/:flag", auth.checkSelf, FileController.upload);
 /**
  * @swagger
  * paths:
@@ -47,7 +48,7 @@ router.put("/:flag", FileController.upload);
  *          summary: 이미지 파일(프로필 등) 업로드
  *          operationId: uploadFileGlobal
  *
- *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>파일 업로드<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *
@@ -72,7 +73,7 @@ router.put("/:flag", FileController.upload);
  */
 
 // router.put("/classes", auth.check, FileController.upload);
-router.put("/:flag", FileController.upload);
+router.put("/:flag", auth.checkLev1, FileController.upload);
 /**
  * @swagger
  * paths:
@@ -83,7 +84,7 @@ router.put("/:flag", FileController.upload);
  *          summary: 강의 첨부 파일 업로드
  *          operationId: uploadFileClasses
  *
- *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>파일 업로드<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *
@@ -121,7 +122,7 @@ router.put("/:flag", FileController.upload);
  *                  content: {}
  */
 
-router.put("/:flag", FileController.upload);
+router.put("/:flag", auth.checkLev1, FileController.upload);
 /**
  * @swagger
  * paths:
@@ -132,7 +133,7 @@ router.put("/:flag", FileController.upload);
  *          summary: 과제 첨부 파일 업로드
  *          operationId: uploadFileSubjects
  *
- *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>파일 업로드<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *
@@ -170,7 +171,7 @@ router.put("/:flag", FileController.upload);
  *                  content: {}
  */
 
-router.put("/:flag", FileController.upload);
+router.put("/:flag", auth.checkLev2, FileController.upload);
 /**
  * @swagger
  * paths:
@@ -181,7 +182,7 @@ router.put("/:flag", FileController.upload);
  *          summary: 과제 제출 첨부 파일 업로드
  *          operationId: uploadFileSubmit
  *
- *          description: '파일 업로드<br>권한: <b>LOGIN</b>'
+ *          description: '<font color="green"><b>checkLev2</b></font><br><br>파일 업로드<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *
@@ -219,7 +220,8 @@ router.put("/:flag", FileController.upload);
  *                  content: {}
  */
 
-router.delete("/", FileController.delete);
+// TODO: 권한 개선 필요
+router.delete("/", auth.checkSelf, FileController.delete);
 /**
  * @swagger
  * paths:
@@ -230,7 +232,7 @@ router.delete("/", FileController.delete);
  *          summary: 파일 삭제 (해당 링크도 함께 삭제)
  *          operationId: deleteFile
  *
- *          description: '파일 삭제<br>권한: <b>LOGIN</b>'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>파일 삭제<br>권한: <b>LOGIN</b>'
  *          security:
  *           - Auth: []
  *

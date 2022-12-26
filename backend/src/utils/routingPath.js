@@ -35,4 +35,9 @@ module.exports = {
     url: `/file`,
     route: "./src/routes/file.route",
   },
+
+  apiAccountPrefix: {
+    url: `/eid`,
+    route: "./src/routes/account.route",
+  },
 };

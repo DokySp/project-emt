@@ -4,7 +4,8 @@ var router = express.Router();
 var UserController = require("../controllers/user.controller");
 const auth = require("../utils/auth");
 
-router.get("/", UserController.get);
+// TODO: 개선 필요 (idx 삭제?)
+router.get("/", auth.checkSelf, UserController.get);
 /**
  * @swagger
  * paths:
@@ -15,7 +16,7 @@ router.get("/", UserController.get);
  *          summary: 사용자 조회
  *          operationId: getUser
  *
- *          description: '사용자 조회'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자 조회'
  *          security:
  *           - Auth: []
  *
@@ -64,8 +65,6 @@ router.post("/", UserController.create);
  *          operationId: createUser
  *
  *          description: '사용자 생성'
- *          security:
- *           - Auth: []
  *
  *          requestBody:
  *              description: '생성할 사용자 정보'
@@ -98,7 +97,8 @@ router.post("/", UserController.create);
  *                                      type: string
  */
 
-router.patch("/", UserController.update);
+// TODO: 개선 필요 (idx 삭제?)
+router.patch("/", auth.checkSelf, UserController.update);
 /**
  * @swagger
  * paths:
@@ -109,7 +109,7 @@ router.patch("/", UserController.update);
  *          summary: 사용자 수정
  *          operationId: updateUser
  *
- *          description: '사용자 수정'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자 수정'
  *
  *          security:
  *           - Auth: []
@@ -154,7 +154,7 @@ router.patch("/", UserController.update);
  *                                      type: string
  */
 
-router.delete("/", UserController.delete);
+router.delete("/", auth.checkLev0, UserController.delete);
 /**
  * @swagger
  * paths:
@@ -165,7 +165,7 @@ router.delete("/", UserController.delete);
  *          summary: 사용자 삭제
  *          operationId: deleteUser
  *
- *          description: '사용자 삭제'
+ *          description: '<font color="red"><b>checkLev0</b></font><br><br>사용자 삭제'
  *          security:
  *           - Auth: []
  *
@@ -209,7 +209,7 @@ router.delete("/", UserController.delete);
 //
 
 // 사용자가 속한 그룹 리스트 조회
-router.get("/division", UserController.getDivision);
+router.get("/division", auth.checkSelf, UserController.getDivision);
 /**
  * @swagger
  * paths:
@@ -220,7 +220,7 @@ router.get("/division", UserController.getDivision);
  *          summary: 사용자가 속한 그룹 조회
  *          operationId: getDivision
  *
- *          description: '사용자가 속한 그룹 조회<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자가 속한 그룹 조회<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *
@@ -250,7 +250,7 @@ router.get("/division", UserController.getDivision);
  */
 
 // 사용자-그룹 링크 생성
-router.post("/division", UserController.createDivisionLink);
+router.post("/division", auth.checkSelf, UserController.createDivisionLink);
 /**
  * @swagger
  * paths:
@@ -261,7 +261,7 @@ router.post("/division", UserController.createDivisionLink);
  *          summary: 사용자에게 그룹 추가
  *          operationId: createDivisionLink
  *
- *          description: '사용자에게 그룹 추가<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자에게 그룹 추가<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *
@@ -298,7 +298,7 @@ router.post("/division", UserController.createDivisionLink);
  */
 
 // 사용자-그룹 링크 삭제
-router.delete("/division", UserController.deleteDivisionLink);
+router.delete("/division", auth.checkSelf, UserController.deleteDivisionLink);
 /**
  * @swagger
  * paths:
@@ -309,7 +309,7 @@ router.delete("/division", UserController.deleteDivisionLink);
  *          summary: 그룹에서 삭제하기
  *          operationId: deleteDivisionLink
  *
- *          description: '그룹에서 삭제하기<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>그룹에서 삭제하기<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *
@@ -352,7 +352,7 @@ router.delete("/division", UserController.deleteDivisionLink);
 //
 
 // 사용자의 강좌 리스트 조회
-router.get("/course", UserController.getCourses);
+router.get("/course", auth.checkSelf, UserController.getCourses);
 /**
  * @swagger
  * paths:
@@ -363,7 +363,7 @@ router.get("/course", UserController.getCourses);
  *          summary: 사용자가 수강중인 강좌 조회
  *          operationId: getCourses
  *
- *          description: '사용자가 수강중인 강좌 조회<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자가 수강중인 강좌 조회<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *
@@ -393,7 +393,7 @@ router.get("/course", UserController.getCourses);
  */
 
 // 사용자-강좌 링크 생성
-router.post("/course", UserController.createCourseUserLink);
+router.post("/course", auth.checkSelf, UserController.createCourseUserLink);
 /**
  * @swagger
  * paths:
@@ -404,7 +404,7 @@ router.post("/course", UserController.createCourseUserLink);
  *          summary: 강좌 수강하기
  *          operationId: createCourseUserLink
  *
- *          description: '사용자에게 강좌 추가<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자에게 강좌 추가<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *
@@ -441,7 +441,7 @@ router.post("/course", UserController.createCourseUserLink);
  */
 
 // 사용자-강좌 링크 삭제
-router.delete("/course", UserController.deleteCourseUserLink);
+router.delete("/course", auth.checkSelf, UserController.deleteCourseUserLink);
 /**
  * @swagger
  * paths:
@@ -452,7 +452,7 @@ router.delete("/course", UserController.deleteCourseUserLink);
  *          summary: 강좌 수강 취소하기
  *          operationId: deleteCourseUserLink
  *
- *          description: '사용자에게 강좌 제거하기<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자에게 강좌 제거하기<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *          security:
  *           - Auth: []
  *

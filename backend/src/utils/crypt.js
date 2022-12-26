@@ -14,38 +14,44 @@ const crypt = {
     next();
   },
 
-  createPassword: async (pw) => {
-    const key = await pbkdf2Promise(
-      pw,
-      salt,
-      secret.arg11,
-      secret.arg12,
-      secret.arg13
-    );
-    const hashedPassword = key.toString("base64");
+  // pbkdf2
+  // createPassword: async (pw) => {
+  //   const key = await pbkdf2Promise(
+  //     pw,
+  //     salt,
+  //     secret.pbkdf2.arg11,
+  //     secret.pbkdf2.arg12,
+  //     secret.pbkdf2.arg13
+  //   );
+  //   const hashedPassword = key.toString("base64");
 
-    return hashedPassword;
+  //   return hashedPassword;
+  // },
+
+  // verifyPassword: async (input, hashedPw) => {
+  //   const key = await pbkdf2Promise(
+  //     input,
+  //     salt,
+  //     secret.pbkdf2.arg11,
+  //     secret.pbkdf2.arg12,
+  //     secret.pbkdf2.arg13
+  //   );
+  //   const result = key.toString("base64");
+
+  //   if (result === hashedPw) return true;
+  //   return false;
+  // },
+
+  //
+  //
+  //
+
+  // bcrypt
+  createPassword: (pw) => {
+    return bcrypt.hashSync(pw, secret.bcrypt.round);
   },
 
-  verifyPassword: async (input, hashedPw) => {
-    const key = await pbkdf2Promise(
-      input,
-      salt,
-      secret.arg11,
-      secret.arg12,
-      secret.arg13
-    );
-    const result = key.toString("base64");
-
-    if (result === hashedPw) return true;
-    return false;
-  },
-
-  bCryptCreatePassword: (pw) => {
-    return bcrypt.hashSync(pw, 10);
-  },
-
-  bVerifyPassword: (input, hashedPw) => {
+  verifyPassword: (input, hashedPw) => {
     return bcrypt.compareSync(input, hashedPw);
   },
 };

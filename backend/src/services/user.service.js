@@ -31,7 +31,7 @@ const UserService = {
         throw Error("Exist ID");
       }
       // 회원 생성
-      const pw = crypt.bCryptCreatePassword(data.pw);
+      const pw = crypt.createPassword(data.pw);
       delete data.pw;
       data.pw = pw;
 

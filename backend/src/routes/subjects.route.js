@@ -4,7 +4,7 @@ var router = express.Router();
 var SubjectsController = require("../controllers/subjects.controller");
 const auth = require("../utils/auth");
 
-router.get("/", SubjectsController.get);
+router.get("/", auth.checkSelf, SubjectsController.get);
 /**
  * @swagger
  * paths:
@@ -15,7 +15,7 @@ router.get("/", SubjectsController.get);
  *          summary: 과제 조회
  *          operationId: getSubjects
  *
- *          description: '과제 조회'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>과제 조회'
  *          security:
  *           - Auth: []
  *
@@ -41,7 +41,7 @@ router.get("/", SubjectsController.get);
  *                  content: {}
  */
 
-router.post("/", SubjectsController.create);
+router.post("/", auth.checkLev1, SubjectsController.create);
 /**
  * @swagger
  * paths:
@@ -52,7 +52,7 @@ router.post("/", SubjectsController.create);
  *          summary: 과제 생성
  *          operationId: createSubjects
  *
- *          description: '과제 생성'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>과제 생성'
  *          security:
  *           - Auth: []
  *
@@ -78,7 +78,7 @@ router.post("/", SubjectsController.create);
  *                  content: {}
  */
 
-router.patch("/", SubjectsController.update);
+router.patch("/", auth.checkLev1, SubjectsController.update);
 /**
  * @swagger
  * paths:
@@ -89,7 +89,7 @@ router.patch("/", SubjectsController.update);
  *          summary: 과제 수정
  *          operationId: updateSubjects
  *
- *          description: '과제 수정'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>과제 수정'
  *
  *          security:
  *           - Auth: []
@@ -134,7 +134,7 @@ router.patch("/", SubjectsController.update);
  *                                      type: string
  */
 
-router.delete("/", SubjectsController.delete);
+router.delete("/", auth.checkLev1, SubjectsController.delete);
 /**
  * @swagger
  * paths:
@@ -145,7 +145,7 @@ router.delete("/", SubjectsController.delete);
  *          summary: 과제 삭제
  *          operationId: deleteSubjects
  *
- *          description: '과제 삭제'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>과제 삭제'
  *          security:
  *           - Auth: []
  *

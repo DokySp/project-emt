@@ -53,6 +53,7 @@ const UserController = {
     delete data.email;
     delete data.issued_at;
     delete data.created;
+    delete data.level;
     delete data.is_active;
 
     try {

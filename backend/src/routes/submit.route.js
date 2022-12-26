@@ -4,7 +4,8 @@ var router = express.Router();
 var SubmitController = require("../controllers/submit.controller");
 const auth = require("../utils/auth");
 
-router.get("/", SubmitController.get);
+// TODO: 권한 개선
+router.get("/", auth.checkSelf, SubmitController.get);
 /**
  * @swagger
  * paths:
@@ -15,7 +16,7 @@ router.get("/", SubmitController.get);
  *          summary: 과제 조회
  *          operationId: getSubmit
  *
- *          description: '과제 조회'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>과제 조회'
  *          security:
  *           - Auth: []
  *
@@ -41,7 +42,7 @@ router.get("/", SubmitController.get);
  *                  content: {}
  */
 
-router.post("/", SubmitController.create);
+router.post("/", auth.checkLev2, SubmitController.create);
 /**
  * @swagger
  * paths:
@@ -52,7 +53,7 @@ router.post("/", SubmitController.create);
  *          summary: 과제 생성
  *          operationId: createSubmit
  *
- *          description: '과제 생성'
+ *          description: '<font color="green"><b>checkLev2</b></font><br><br>과제 생성'
  *          security:
  *           - Auth: []
  *
@@ -78,7 +79,7 @@ router.post("/", SubmitController.create);
  *                  content: {}
  */
 
-router.patch("/", SubmitController.update);
+router.patch("/", auth.checkSelf, SubmitController.update);
 /**
  * @swagger
  * paths:
@@ -89,7 +90,7 @@ router.patch("/", SubmitController.update);
  *          summary: 과제 수정
  *          operationId: updateSubmit
  *
- *          description: '과제 수정'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>과제 수정'
  *
  *          security:
  *           - Auth: []
@@ -134,7 +135,8 @@ router.patch("/", SubmitController.update);
  *                                      type: string
  */
 
-router.delete("/", SubmitController.delete);
+// TODO: 개선 필요
+router.delete("/", auth.checkSelf, SubmitController.delete);
 /**
  * @swagger
  * paths:
@@ -145,7 +147,7 @@ router.delete("/", SubmitController.delete);
  *          summary: 과제 삭제
  *          operationId: deleteSubmit
  *
- *          description: '과제 삭제'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>과제 삭제'
  *          security:
  *           - Auth: []
  *

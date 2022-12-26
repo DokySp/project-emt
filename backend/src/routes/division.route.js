@@ -4,7 +4,7 @@ var router = express.Router();
 var DivisionController = require("../controllers/division.controller");
 const auth = require("../utils/auth");
 
-router.get("/", DivisionController.get);
+router.get("/", auth.checkSelf, DivisionController.get);
 /**
  * @swagger
  * paths:
@@ -15,7 +15,7 @@ router.get("/", DivisionController.get);
  *          summary: 그룹 조회
  *          operationId: getDivision
  *
- *          description: '그룹 조회'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>그룹 조회'
  *          security:
  *           - Auth: []
  *
@@ -52,7 +52,7 @@ router.get("/", DivisionController.get);
  *                                      type: string
  */
 
-router.post("/", DivisionController.create);
+router.post("/", auth.checkLev1, DivisionController.create);
 /**
  * @swagger
  * paths:
@@ -63,7 +63,7 @@ router.post("/", DivisionController.create);
  *          summary: 그룹 생성
  *          operationId: createDivision
  *
- *          description: '그룹 생성'
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>그룹 생성'
  *          security:
  *           - Auth: []
  *
@@ -98,7 +98,7 @@ router.post("/", DivisionController.create);
  *                                      type: string
  */
 
-router.delete("/", DivisionController.delete);
+router.delete("/", auth.checkLev0, DivisionController.delete);
 /**
  * @swagger
  * paths:
@@ -109,7 +109,7 @@ router.delete("/", DivisionController.delete);
  *          summary: 그룹 삭제
  *          operationId: deleteDivision
  *
- *          description: '그룹 삭제'
+ *          description: '<font color="red"><b>checkLev0</b></font><br><br>그룹 삭제'
  *          security:
  *           - Auth: []
  *
