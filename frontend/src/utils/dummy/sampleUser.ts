@@ -1,4 +1,5 @@
 import { UserInterface } from "../../schemas/interfaces";
+import { dummyUser1, dummyUser2, dummyUser3 } from "./dummy";
 
 
 
@@ -8,7 +9,7 @@ export const fakeUser1: UserInterface = {
   last_name: "도균",
   first_name: "김",
   nickname: "DokySp",
-  img: "img",
+  img: dummyUser1,
   issued_at: new Date("2022-10-05 12:23:00"),
   created: new Date("2022-10-01 12:23:00"),
   level: 0,
@@ -21,7 +22,7 @@ export const fakeUser2: UserInterface = {
   last_name: "재식",
   first_name: "유",
   nickname: "goggiro",
-  img: "img",
+  img: dummyUser2,
   issued_at: new Date("2022-11-05 12:23:00"),
   created: new Date("2022-11-01 12:23:00"),
   level: 1,
@@ -34,7 +35,7 @@ export const fakeUser3: UserInterface = {
   last_name: "길동",
   first_name: "홍",
   nickname: "GilH.",
-  img: "img",
+  img: dummyUser3,
   issued_at: new Date("2022-09-05 12:23:00"),
   created: new Date("2022-09-01 12:23:00"),
   level: 2,

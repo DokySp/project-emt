@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { dummyLogo1 } from "../../../utils/dummy/dummyImage";
+import { dummyLogo1 } from "../../../utils/dummy/dummy";
 
 interface HeaderProps { }
 

@@ -5,7 +5,7 @@ import './App.css';
 import HomePage from './components/pages/Home/home';
 import CoursePage from './components/pages/Course/course';
 import SubjectPage from './components/pages/Subject/subject';
-import SigninPage from './components/pages/Signin/signin';
+import SigninPage from './components/pages/Sign/signin';
 import UserPage from './components/pages/Account/account';
 import LecturePage from './components/pages/Lecture/lecture';
 import ErrorPage from './components/pages/Error/error';
@@ -13,9 +13,12 @@ import Header from './components/common/Header/header';
 import Footer from './components/common/Footer/footer';
 import LectureEditPage from './components/pages/LectureEdit/lectureEdit';
 import CourseListPage from './components/pages/CourseList/coruseList';
-import SignupPage from './components/pages/Signup/signup';
 import SubjectEditPage from './components/pages/SubjectEdit/subjectEdit';
-import SubjectEvaluationPage from './components/pages/SubjectEvaluation/subjectEvaluation';
+import SubjectEvaluationPage from './components/pages/SubjectEdit/subjectEvaluation';
+import SigninPending from './components/pages/Sign/signinPending';
+import SignupDone from './components/pages/Sign/Signup/signupDone';
+import SignupTermPage from './components/pages/Sign/Signup/signupTerm';
+import SignupFormPage from './components/pages/Sign/Signup/signupForm';
 
 
 const App = (): JSX.Element => {
@@ -29,25 +32,30 @@ const App = (): JSX.Element => {
           <Route path='/' element={<HomePage />} />
 
           <Route path='/course' element={<CoursePage />} />
-          <Route path='/course/list' element={<CourseListPage />} />  {/* 미완 */}
+          <Route path='/course/list' element={<CourseListPage />} />
           {/* 하위로 넣기 */}
 
-          <Route path='/lecture' element={<LecturePage />} />
-          <Route path='/lecture/edit' element={<LectureEditPage />} />  {/* 미완 */}
+          <Route path='/lecture/:idx' element={<LecturePage />} />
+          <Route path='/lecture/edit/:idx' element={<LectureEditPage />} />
           {/* 하위로 넣기 */}
 
-          <Route path='/subject' element={<SubjectPage />} />
-          <Route path='/subject/edit' element={<SubjectEditPage />} />  {/* 미완 */}
-          <Route path='/subject/evaluation' element={<SubjectEvaluationPage />} />  {/* 미완 */}
+          <Route path='/subject/:idx' element={<SubjectPage />} />
+          <Route path='/subject/edit/:idx' element={<SubjectEditPage />} />
+          <Route path='/subject/eval/:idx' element={<SubjectEvaluationPage />} />
           {/* 하위로 넣기 */}
 
           <Route path='/signin' element={<SigninPage />} />
-          <Route path='/signup' element={<SignupPage />} />  {/* 미완 */}
+          <Route path='/signin/pending' element={<SigninPending />} />
+
+          <Route path='/signup/term' element={<SignupTermPage />} />
+          <Route path='/signup/form' element={<SignupFormPage />} />
+          <Route path='/signup/done' element={<SignupDone />} />
+
 
           <Route path='/user' element={<UserPage />} />
 
           {/* 잘못된 접근 처리 */}
-          <Route path='*' element={<ErrorPage />} />  {/* 미완 */}
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </Suspense>
 
