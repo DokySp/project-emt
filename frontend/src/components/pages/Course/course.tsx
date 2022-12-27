@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Footer from "../../common/Footer/footer";
 import Header from "../../common/Header/header";
 import { PropsWithChildren } from "react";
+import { dummyThumnail3 } from "../../../utils/dummy/dummyImage";
 
 interface CourseProps { }
 
@@ -11,7 +12,7 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
 
       <div className="row p-4">
         <div className="col-sm-4" >
-          <img className="img-fluid rounded" src="http://localhost:3000/images/thumnail3.png" width="100%" />
+          <img className="img-fluid rounded" alt="수업이름" src={dummyThumnail3} width="100%" />
         </div>
 
         <div className="col-sm-8 pt-1 align-self-center" >

@@ -3,29 +3,12 @@ import { Image } from 'react-bootstrap'
 import Footer from "../../common/Footer/footer";
 import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
+import { fakeCourseList } from "../../../utils/dummy/sampleCourse";
+import { dummyBanner1 } from "../../../utils/dummy/dummyImage";
 
 
 
-let recommandedData = [
-  {
-    "img": "http://localhost:3000/images/thumnail1.png",
-    "title": "C언어 기초",
-    "author": "홍길동",
-    "context": "프로그래밍의 기초, C언어를 배우고 컴퓨터를 구체적으로 이해해봅니다."
-  },
-  {
-    "img": "http://localhost:3000/images/thumnail2.png",
-    "title": "파이썬 기초",
-    "author": "홍길동",
-    "context": "프로그래밍의 기초, C언어를 배우고 컴퓨터를 구체적으로 이해해봅니다."
-  },
-  {
-    "img": "http://localhost:3000/images/thumnail3.png",
-    "title": "인공지능 개념잡기",
-    "author": "홍길동",
-    "context": "프로그래밍의 기초, C언어를 배우고 컴퓨터를 구체적으로 이해해봅니다."
-  }
-]
+
 
 interface HomeProps { }
 
@@ -34,21 +17,21 @@ const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
 
     <div className='container mb-5 mt-3'>
 
-      <img className="Home-img-Banner rounded" alt="Banner" src="/images/banner2.png" />
+      <img className="Home-img-Banner rounded" alt="Banner" src={dummyBanner1} />
 
       <h3 className="mb-3 mt-5">추천 강좌</h3>
 
       <div className='row'>
 
-        {recommandedData.map((value, idx) => {
+        {fakeCourseList.map((value, idx) => {
           return (
 
             <div className='col-md-4 p-4'>
               <Link to={"/course"}>
-                <img src={value.img} alt={value.title} width="100%" className="rounded" />
-                <h4 className="mt-4">{value.title}</h4>
-                <div className="mb-1 text-muted">{value.author}</div>
-                <p className="card-text mb-auto">{value.context}</p>
+                <img src={value.img} alt={value.name} width="100%" className="rounded" />
+                <h4 className="mt-4">{value.name}</h4>
+                {/* <div className="mb-1 text-muted">{value.author}</div> */}
+                {/* <p className="card-text mb-auto">{value.context}</p> */}
               </Link>
             </div>
 

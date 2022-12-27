@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { dummyLogo1 } from "../../../utils/dummy/dummyImage";
 
 interface HeaderProps { }
 
@@ -14,7 +15,7 @@ const Header = ({ children }: PropsWithChildren<HeaderProps>) => {
           <Nav>
             <Container fluid={true}>
               <Link to={'/'} className="navbar-brand">
-                <img src="/images/thumnail2.png" alt="" width="30" height="30" className="d-inline-block align-text-top me-2 rounded" />
+                <img src={dummyLogo1} alt="" width="30" className="d-inline-block align-text-top me-2 rounded" />
                 Project Emt
               </Link>
             </Container>

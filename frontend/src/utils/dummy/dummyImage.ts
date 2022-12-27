@@ -1,0 +1,12 @@
+export const dummyBanner1:string = "/dummy/img/banner1.png"
+export const dummyBanner2:string = "/dummy/img/banner2.png"
+export const dummyThumnail1:string = "/dummy/img/thumnail1.png"
+export const dummyThumnail2:string = "/dummy/img/thumnail2.png"
+export const dummyThumnail3:string = "/dummy/img/thumnail3.png"
+export const dummyUser1:string = "/dummy/img/user1.png"
+export const dummyUser2:string = "/dummy/img/user2.png"
+export const dummyUser3:string = "/dummy/img/user3.png"
+export const dummyUser4:string = "/dummy/img/user4.png"
+
+export const dummyLogo1:string = "/dummy/img/logo1.png"
+export const dummyLogo2:string = "/dummy/img/logo2.png"

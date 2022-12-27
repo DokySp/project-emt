@@ -12,7 +12,7 @@ import ErrorPage from './components/pages/Error/error';
 import Header from './components/common/Header/header';
 import Footer from './components/common/Footer/footer';
 import LectureEditPage from './components/pages/LectureEdit/lectureEdit';
-import MyCoursePage from './components/pages/MyCourse/myCoruse';
+import CourseListPage from './components/pages/CourseList/coruseList';
 import SignupPage from './components/pages/Signup/signup';
 import SubjectEditPage from './components/pages/SubjectEdit/subjectEdit';
 import SubjectEvaluationPage from './components/pages/SubjectEvaluation/subjectEvaluation';
@@ -29,25 +29,25 @@ const App = (): JSX.Element => {
           <Route path='/' element={<HomePage />} />
 
           <Route path='/course' element={<CoursePage />} />
-          <Route path='/course/user' element={<MyCoursePage />} />
+          <Route path='/course/list' element={<CourseListPage />} />  {/* 미완 */}
           {/* 하위로 넣기 */}
 
           <Route path='/lecture' element={<LecturePage />} />
-          <Route path='/lecture/edit' element={<LectureEditPage />} />
+          <Route path='/lecture/edit' element={<LectureEditPage />} />  {/* 미완 */}
           {/* 하위로 넣기 */}
 
           <Route path='/subject' element={<SubjectPage />} />
-          <Route path='/subject/edit' element={<SubjectEditPage />} />
-          <Route path='/subject/evaluation' element={<SubjectEvaluationPage />} />
+          <Route path='/subject/edit' element={<SubjectEditPage />} />  {/* 미완 */}
+          <Route path='/subject/evaluation' element={<SubjectEvaluationPage />} />  {/* 미완 */}
           {/* 하위로 넣기 */}
 
           <Route path='/signin' element={<SigninPage />} />
-          <Route path='/signup' element={<SignupPage />} />
+          <Route path='/signup' element={<SignupPage />} />  {/* 미완 */}
 
           <Route path='/user' element={<UserPage />} />
 
           {/* 잘못된 접근 처리 */}
-          <Route path='*' element={<ErrorPage />} />
+          <Route path='*' element={<ErrorPage />} />  {/* 미완 */}
         </Routes>
       </Suspense>
 

@@ -1,5 +1,5 @@
 
-const sampleText: string = `(현재 무료, 빨간 버튼 눌러서 수강신청시 1년 소장가능!)
+const fakeMarkdownText: string = `(현재 무료, 빨간 버튼 눌러서 수강신청시 1년 소장가능!)
 
 아직도
 - 서점에서 파이썬 책사서
@@ -63,4 +63,4 @@ const sampleText: string = `(현재 무료, 빨간 버튼 눌러서 수강신청
 
 `
 
-export default sampleText
+export default fakeMarkdownText

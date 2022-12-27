@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react"
 import Footer from "../../common/Footer/footer"
 import Header from "../../common/Header/header"
+import { dummyThumnail3 } from "../../../utils/dummy/dummyImage"
 
 
 interface AccountProps { }
@@ -13,7 +14,7 @@ const AccountPage = ({ children }: PropsWithChildren<AccountProps>) => {
         <div className="row p-4 mt-5 justify-content-center">
 
           <div className="col-4 pe-3 text-end" >
-            <img className="rounded-circle " src="http://localhost:3000/images/thumnail3.png" width="100px" />
+            <img className="rounded-circle" alt="수업이름" src={dummyThumnail3} width="100px" />
           </div>
           <div className="col-4 pt-1 me-5 align-self-center" >
             <strong className="d-inline-block mt-2 text-primary">수강생</strong>
