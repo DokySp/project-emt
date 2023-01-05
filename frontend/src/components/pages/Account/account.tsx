@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import Footer from "../../common/Footer/footer"
 import Header from "../../common/Header/header"
-import { dummyThumnail3 } from "../../../utils/dummy/dummy"
+import { dummyThumnail3 } from "../../../constants/dummy/dummy"
 
 
 interface AccountProps { }

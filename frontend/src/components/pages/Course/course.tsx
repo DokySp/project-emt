@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PropsWithChildren, useEffect, useState } from "react";
-import { fakeDetailCourse } from "../../../utils/dummy/sampleCourse";
+import { fakeDetailCourse } from "../../../constants/dummy/sampleCourse";
 
 
 

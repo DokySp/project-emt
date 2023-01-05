@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react"
-import { fakeCourseList } from "../../../utils/dummy/sampleCourse"
+import { fakeCourseList } from "../../../constants/dummy/sampleCourse"
 import { Link } from "react-router-dom"
 
 

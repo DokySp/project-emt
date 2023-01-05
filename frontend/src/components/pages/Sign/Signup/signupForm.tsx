@@ -2,9 +2,9 @@ import { PropsWithChildren, useState } from "react"
 import { Col, Container, Dropdown, Row } from "react-bootstrap"
 import ReactMarkdown from "react-markdown"
 import { useNavigate } from "react-router-dom"
-import { dummyUser1 } from "../../../../utils/dummy/dummy"
+import { dummyUser1 } from "../../../../constants/dummy/dummy"
 import CustomDropdown from "./customDropdown"
-import { fakeDivisionList } from "../../../../utils/dummy/sampleDivision"
+import { fakeDivisionList } from "../../../../constants/dummy/sampleDivision"
 
 
 const groupList = [

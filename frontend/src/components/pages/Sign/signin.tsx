@@ -1,23 +1,100 @@
-import { PropsWithChildren } from "react"
-import Footer from "../../common/Footer/footer"
-import Header from "../../common/Header/header"
-import { dummyLogo1 } from "../../../utils/dummy/dummy"
+import { useDispatch, useSelector } from "react-redux"
+import { dummyLogo1 } from "../../../constants/dummy/dummy"
 import { useNavigate } from "react-router-dom"
+import { FloatingLabel, Form } from "react-bootstrap"
+import { FieldError, useForm } from "react-hook-form"
+import { asyncSigninFetch } from "../../../store/session.slice"
+import { AppDispatch, RootState } from "../../../store/store"
+import { useEffect } from "react"
+import regex from "../../../utils/regex"
 
 
 
-const cssBdPlaceHolderImg = {
-  fontSize: "1.125rem",
-  textAnchor: "middle",
-  userSelect: "none"
-}
+const SigninPage = () => {
 
-
-interface SigninProps { }
-
-const SigninPage = ({ }: SigninProps) => {
-
+  // navigation
   const navigate = useNavigate()
+
+  // redux
+  const dispatch = useDispatch<AppDispatch>()
+  const session = useSelector((state: RootState) => state.session)
+
+
+  // 로그인 상태인 경우, 다시 홈으로 돌려보냄
+  useEffect(() => {
+    if (session.isSignin === true && session.isSigninProcessing === false && session.token.length !== 0) {
+      navigate("/")
+    }
+  }, [navigate, session.isSignin, session.isSigninProcessing, session.token.length])
+
+
+  // form 관리
+  interface InputValue {
+    email: string,
+    password: string,
+  }
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm<InputValue>();
+
+  // // react-bootstrap form validation 관리
+  interface FormValidationInterface {
+    isValid: boolean,
+    isInvalid: boolean,
+  }
+
+  const formValidationIntercepter = (error: FieldError | undefined): FormValidationInterface => {
+
+    switch (error?.type) {
+      case "required": error.message = "내용을 입력해주세요"; break;
+      case "pattern": error.message = "올바르지 않은 형식입니다."; break;
+    }
+
+    console.log(error)
+
+    if (error) {
+      return {
+        isValid: false,
+        isInvalid: true,
+      }
+    } else {
+      return {
+        isValid: false,
+        isInvalid: false,
+      }
+    }
+  }
+
+  // // submit 호출 시
+  const onSubmit = handleSubmit((data: InputValue) => {
+    dispatch(asyncSigninFetch({ ...data }))
+  });
+
+  // // form 경고 관리
+  useEffect(() => {
+    if (session.isSignin && !session.isSigninProcessing) {
+      // 사용자 정보 redux에 저장
+      // dispatch()
+      navigate("/")
+    } else if (!session.isSignin && !session.isSigninProcessing) {
+      setError("password", {
+        type: "invalid",
+        message: "계정 정보가 올바르지 않습니다."
+      })
+    }
+  }, [session.isSigninProcessing])
+
+  // // form 경고 초기화
+  useEffect(() => {
+    clearErrors("password")
+  }, [])
+
+
 
   return (
     <>
@@ -26,23 +103,66 @@ const SigninPage = ({ }: SigninProps) => {
         <div className="p-5" />
 
         <div className="form-signin" style={{ width: "300px", margin: "0 auto" }}>
-          <form>
-            <img className="m-5" src={dummyLogo1} alt="logo" height="100" />
+          <img className="m-5" src={dummyLogo1} alt="logo" height="100" />
 
-            <div className="form-floating mt-5">
-              <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
-              <label htmlFor="floatingInput">Email address</label>
-            </div>
-            <div className="form-floating mt-2">
-              <input type="password" className="form-control" id="floatingPassword" placeholder="Password" />
-              <label htmlFor="floatingPassword">Password</label>
-            </div>
+          <Form noValidate onSubmit={onSubmit}>
+            {/* <Form.Group as={Col} controlId="signinValidation"> */}
 
-            <button className="w-100 btn btn-lg btn-primary mt-5" type="submit">로그인</button>
+            {errors.email && <div className="mt-4 mb-1 text-danger">{errors.email?.message}</div>}
+            {!errors.email && <div className="mt-4 mb-1" style={{ fontSize: ".875em", }}>&nbsp;</div>}
 
-            <button onClick={() => navigate("/signup/term")} className="btn mt-3" type="submit">회원가입</button>
+            {/* 이메일 주소 입력 */}
+            <FloatingLabel
+              controlId="floatingInput1"
+              label="이메일 주소"
+              className="mt-1"
+            >
+              <Form.Control
+                required
+                type="email"
+                placeholder="name@example.com"
+                defaultValue=""
+                {...formValidationIntercepter(errors.email)}
+                {...register("email", {
+                  required: true,
+                  pattern: regex.email,
+                })}
+              />
+            </FloatingLabel>
 
-          </form>
+            {/* 비밀번호 입력 */}
+            <FloatingLabel
+              controlId="floatingInput2"
+              label="비밀번호"
+              className="mt-2"
+            >
+              <Form.Control
+                required
+                type="password"
+                placeholder="Password"
+                defaultValue=""
+                {...formValidationIntercepter(errors.password)}
+                {...register("password", {
+                  required: true,
+                  // pattern: passwordRegex,
+                })}
+              />
+
+
+
+              {errors.password && <div className="mt-1 mb-1 text-danger">{errors.password?.message}</div>}
+              {!errors.password && <div className="mb-1 mt-1" style={{ fontSize: ".875em", }}>&nbsp;</div>}
+
+            </FloatingLabel>
+
+            {/* 로그인 버튼 */}
+            <button disabled={session.isSigninProcessing} className="w-100 btn btn-lg btn-primary mt-4" type="submit" >로그인</button>
+
+            {/* </Form.Group> */}
+          </Form>
+
+          <button onClick={() => navigate("/signup/term")} className="btn mt-3" type="submit">회원가입</button>
+
         </div>
 
         <div className="p-5" />

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
-import { fakeCourseRecommendList } from "../../../utils/dummy/sampleCourse";
-import { dummyBanner1, fakeReviewData } from "../../../utils/dummy/dummy";
+import { fakeCourseRecommendList } from "../../../constants/dummy/sampleCourse";
+import { dummyBanner1, fakeReviewData } from "../../../constants/dummy/dummy";
+import StorageManager from "../../../utils/storage.manager";
 
 
 
@@ -21,6 +22,7 @@ const additionalData = [
 interface HomeProps { }
 
 const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
+
   return <>
 
     <div className='container mb-5 mt-3'>

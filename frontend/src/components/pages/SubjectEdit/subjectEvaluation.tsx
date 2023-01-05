@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown"
-import { fakeChatData, fakeMarkdownTextSmall } from "../../../utils/dummy/dummy"
+import { fakeChatData, fakeMarkdownTextSmall } from "../../../constants/dummy/dummy"
 import { Link } from "react-router-dom"
 import { Col, Container, Row } from "react-bootstrap"
 import Chat from "./Chat/chat"

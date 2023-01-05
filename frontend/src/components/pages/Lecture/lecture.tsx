@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown"
 
-import { dummyVimeoUrl, fakeMarkdownText } from "../../../utils/dummy/dummy"
+import { dummyVimeoUrl, fakeMarkdownText } from "../../../constants/dummy/dummy"
 import { Link, useNavigate } from "react-router-dom"
 import VimeoViewer from "../../common/VimeoViewer/vimeoViewer"
 

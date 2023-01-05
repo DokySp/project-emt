@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown"
 
 import { PropsWithChildren } from "react";
-import { dummyVimeoUrl, fakeMarkdownText } from "../../../utils/dummy/dummy";
+import { dummyVimeoUrl, fakeMarkdownText } from "../../../constants/dummy/dummy";
 import { useNavigate } from "react-router-dom";
 import { SubjectInterface } from "../../../schemas/interfaces";
 import VimeoViewer from "../../common/VimeoViewer/vimeoViewer";

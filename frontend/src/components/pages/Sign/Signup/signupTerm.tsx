@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 import ReactMarkdown from "react-markdown"
-import { fakeMarkdownTextSmall } from "../../../../utils/dummy/dummy"
+import { fakeMarkdownTextSmall } from "../../../../constants/dummy/dummy"
 import { Col, Container, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 

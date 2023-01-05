@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -19,9 +19,21 @@ import SigninPending from './components/pages/Sign/signinPending';
 import SignupDone from './components/pages/Sign/Signup/signupDone';
 import SignupTermPage from './components/pages/Sign/Signup/signupTerm';
 import SignupFormPage from './components/pages/Sign/Signup/signupForm';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from './store/store';
+import { checkSigninSession } from './store/session.slice';
 
 
-const App = (): JSX.Element => {
+const App = () => {
+
+  // 로그인 세션 토큰 검사
+  const dispatch = useDispatch<AppDispatch>()
+  useEffect(() => {
+    dispatch(checkSigninSession())
+  }, [])
+
+
+
   return (
     <div>
 
