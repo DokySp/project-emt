@@ -15,6 +15,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'idx'
       }
     },
+    section_idx: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    order_idx: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     vimeo_url: {
       type: DataTypes.STRING(1000),
       allowNull: true

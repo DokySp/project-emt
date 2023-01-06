@@ -15,6 +15,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: true
     },
+    sub_name: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    description: {
+      type: DataTypes.STRING(500),
+      allowNull: true
+    },
+    created_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     is_enroll_granted: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
