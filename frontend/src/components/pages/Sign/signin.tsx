@@ -9,6 +9,7 @@ import { useEffect } from "react"
 import regex from "../../../utils/regex"
 import Routing from "../../routing.path"
 import { getUser } from "../../../services/user.service"
+import { asyncUserFetch } from "../../../store/user.slice"
 
 
 
@@ -57,8 +58,6 @@ const SigninPage = () => {
       case "pattern": error.message = "올바르지 않은 형식입니다."; break;
     }
 
-    console.log(error)
-
     if (error) {
       return {
         isValid: false,
@@ -73,17 +72,15 @@ const SigninPage = () => {
   }
 
   // // submit 호출 시
-  const onSubmit = handleSubmit((data: InputValue) => {
-    dispatch(asyncSigninFetch({ ...data }))
+  const onSubmit = handleSubmit(async (data: InputValue) => {
+    await dispatch(asyncSigninFetch({ ...data }))
+    await dispatch(asyncUserFetch({ token: session.token }))
   });
 
   // // form 경고 관리
   useEffect(() => {
     if (session.isSignin && !session.isSigninProcessing) {
-      // 사용자 정보 redux에 저장
-      // dispatch()
-
-      // 이전 페이지로 되돌아감
+      // 로그인 성공 시, 이전 페이지로 되돌아감
       navigate(-2)
 
     } else if (!session.isSignin && !session.isSigninProcessing) {

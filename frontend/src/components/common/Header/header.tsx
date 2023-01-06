@@ -14,6 +14,7 @@ const Header = ({ children }: PropsWithChildren<HeaderProps>) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const session = useSelector((state: RootState) => state.session)
+  const sessionUser = useSelector((state: RootState) => state.sessionUser)
 
   return (
     <div>
@@ -43,9 +44,9 @@ const Header = ({ children }: PropsWithChildren<HeaderProps>) => {
               {(session.isSignin) && (
                 <NavDropdown title={
                   <span>
-                    <img className="rounded-circle" alt="수업이름" src={dummyThumnail3} width="30px" />
+                    <img className="rounded-circle" alt="" src={sessionUser.data.img} width="30px" />
                     <span className="ms-2 me-0 fw-bold">
-                      김도균
+                      {sessionUser.data.nickname}
                     </span>
                   </span>
                 } id="collasible-nav-dropdown" className="dropdown-menu-end">

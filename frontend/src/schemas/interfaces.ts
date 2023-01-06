@@ -1,6 +1,15 @@
 import { JsonObjectExpression } from "typescript"
 
 /**
+ * ## Token
+ */
+export interface TokenInterface {
+  idx: number,
+  iat: Date,
+  exp: Date,
+}
+
+/**
  * ## 사용자
  */
 export interface UserInterface {
