@@ -215,6 +215,12 @@ router.delete("/", auth.checkLev1, ClassesController.delete);
  *                  type: integer
  *              course_idx:
  *                  type: integer
+ *
+ *              section_idx:
+ *                  type: integer
+ *              order_idx:
+ *                  type: integer
+ *
  *              vimeo_url:
  *                  type: string
  *                  length: 1000
@@ -245,6 +251,12 @@ router.delete("/", auth.checkLev1, ClassesController.delete);
  *                  type: integer
  *              course_idx:
  *                  type: integer
+ *
+ *              section_idx:
+ *                  type: integer
+ *              order_idx:
+ *                  type: integer
+ *
  *              vimeo_url:
  *                  type: string
  *                  length: 1000

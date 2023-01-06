@@ -9,6 +9,11 @@ CREATE TABLE course(
   idx INT AUTO_INCREMENT NOT NULL,
   img VARCHAR(1000),
   name VARCHAR(100),
+  
+  sub_name VARCHAR(100),
+  description VARCHAR(500),
+  created_by INT,
+
   is_enroll_granted BIT(1) DEFAULT 1,
   is_due_date_implicit BIT(1) NOT NULL,
   is_active BIT(1) DEFAULT 1,
@@ -31,6 +36,8 @@ CREATE TABLE user(
 CREATE TABLE classes(
   idx INT AUTO_INCREMENT,
   course_idx INT NOT NULL,
+  section_idx INT NOT NULL,
+  order_idx INT NOT NULL,
   vimeo_url VARCHAR(1000),
   name VARCHAR(100),
   content VARCHAR(5000),
@@ -42,6 +49,8 @@ CREATE TABLE classes(
 CREATE TABLE subjects(
   idx INT AUTO_INCREMENT,
   course_idx INT NOT NULL,
+  section_idx INT NOT NULL,
+  order_idx INT NOT NULL,
   vimeo_url VARCHAR(1000),
   name VARCHAR(100),
   content VARCHAR(5000),

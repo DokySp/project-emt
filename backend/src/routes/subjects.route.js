@@ -198,6 +198,12 @@ router.delete("/", auth.checkLev1, SubjectsController.delete);
  *              vimeo_url:
  *                  type: string
  *                  length: 1000
+ *
+ *              section_idx:
+ *                  type: integer
+ *              order_idx:
+ *                  type: integer
+ *
  *              name:
  *                  type: string
  *                  length: 100
@@ -225,6 +231,12 @@ router.delete("/", auth.checkLev1, SubjectsController.delete);
  *              vimeo_url:
  *                  type: string
  *                  length: 1000
+ *
+ *              section_idx:
+ *                  type: integer
+ *              order_idx:
+ *                  type: integer
+ *
  *              name:
  *                  type: string
  *                  length: 100

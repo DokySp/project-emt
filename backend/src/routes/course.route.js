@@ -331,6 +331,16 @@ router.get("/user", auth.checkLev1, CourseController.getUser);
  *              name:
  *                  type: string
  *                  length: 100
+ *
+ *              sub:
+ *                  type: string
+ *                  length: 100
+ *              explain:
+ *                  type: string
+ *                  length: 500
+ *              created_by:
+ *                  type: integer
+ *
  *              is_enroll_granted:
  *                  type: boolean
  *              is_due_date_implicit:
@@ -355,6 +365,16 @@ router.get("/user", auth.checkLev1, CourseController.getUser);
  *              name:
  *                  type: string
  *                  length: 32
+ *
+ *              sub_name:
+ *                  type: string
+ *                  length: 100
+ *              description:
+ *                  type: string
+ *                  length: 500
+ *              created_by:
+ *                  type: integer
+ *
  *              is_enroll_granted:
  *                  type: boolean
  *              is_due_date_implicit:

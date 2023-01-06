@@ -12,32 +12,43 @@ map course {
     <color:red>**(PK)**</color> idx => int
     img => varchar(1000)
     name => varchar(100)
+    sub_name => varchar(100)
+    description => varchar(500)
+    created_by => int
     is_enroll_granted => bit(1) **not null**,
     is_due_date_implicit => bit(1) **not null**,
     is_active => bit(1) **not null**,
 }
-note top: **img**: 강좌 이미지\n**name**: 강좌 이름\n**is_enroll_granted**: 강좌 신청 가능 여부\n**is_due_date_implicit**: 절대/상대 기한\n**is_active**: 활성화 여부
+note top: **img**: 강좌 이미지\n**name**: 강좌 이름\n**sub**: 소제목\n**explain**: 추가설명\n**created_by**: 생성한 user idx\n**is_enroll_granted**: 강좌 신청 가능 여부\n**is_due_date_implicit**: 절대/상대 기한\n**is_active**: 활성화 여부
 
 map classes {
   <color:red>**(PK)**</color> idx => int
   <color:blue>**(FK)**</color> course_idx => int **not null**
+
+  section_idx => int **not null**,
+  order_idx => int **not null**,
+
   vimeo_url => varchar(1000)
   name => varchar(100)
   content => varchar(5000)
   watch_time => datetime
   due_date => datetime **not null**
 }
-note right: **vimeo_url**: 비메오 링크\n**name**: 수업 이름\n**content**: 수업 내용 (Markdown)\n**watch_time**: 수업 수강 시간\n**due_date**: 기한
+note right: **section_idx**: 섹션 번호\n**order_idx**: 섹션 내 순서\n**vimeo_url**: 비메오 링크\n**name**: 수업 이름\n**content**: 수업 내용 (Markdown)\n**watch_time**: 수업 수강 시간\n**due_date**: 기한
 
 map subjects {
   <color:red>**(PK)**</color> idx => int
   <color:blue>**(FK)**</color> course_idx => int **not null**
+
+  section_idx => int **not null**,
+  order_idx => int **not null**,
+
   vimeo_url => varchar(1000)
   name => varchar(100)
   content => varchar(5000)  
   due_date => datetime **not null**
 }
-note left: **vimeo_url**: 비메오 링크\n**name**: 과제 이름\n**content**: 과제 내용 (Markdown)\n**due_date**: 기한
+note left: **section_idx**: 섹션 번호\n**order_idx**: 섹션 내 순서\n**vimeo_url**: 비메오 링크\n**name**: 과제 이름\n**content**: 과제 내용 (Markdown)\n**due_date**: 기한
 
 map submit {
   <color:red>**(PK)**</color> idx => int
