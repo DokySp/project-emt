@@ -26,7 +26,7 @@ const SignupDone = () => {
           <Container>
             <Row>
               <Col>
-                <button onClick={() => navigate(Routing.Root.path)} type="button" className="btn btn-primary mt-3" style={{ backgroundColor: "#5B40F2" }}>엠트 둘러보기</button>
+                <button onClick={() => navigate(Routing.Root.path)} type="button" className="btn btn-primary mt-4" style={{ backgroundColor: "#5B40F2" }}>엠트 둘러보기</button>
               </Col>
             </Row>
           </Container>

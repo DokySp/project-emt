@@ -16,6 +16,7 @@ import SubjectPage from "./pages/Subject/subject"
 import SubjectEditPage from "./pages/SubjectEdit/subjectEdit"
 import SubjectEvaluationPage from "./pages/SubjectEdit/subjectEvaluation"
 import { Route } from "react-router-dom"
+import ApiTestPage from "./pages/Test/apiTest"
 
 
 // var params 생성기
@@ -146,6 +147,12 @@ const Routing = {
   User: {
     path: "/user",
     Component: AccountPage,
+  },
+
+
+  ApiTest: {
+    path: "/test/api",
+    Component: ApiTestPage,
   },
 
 

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import StorageManager from "../utils/storage.manager";
 import { doSignin } from "../services/account.service";
+import { removeClientAuthorizationHeader, setClientAuthorizationHeader } from "../services/client";
 
 const _token = new StorageManager({ key: "token", type: "session" })
 
@@ -21,8 +22,6 @@ export const asyncSigninFetch = createAsyncThunk(
       email: data.email,
       password: data.password,
     })
-
-    console.log(tokenData)
 
     // payload 리턴
     return {token: tokenData.token}
@@ -49,7 +48,10 @@ const session = createSlice({
       state.isSigninProcessing = false
       state.isSignin = true
       state.token = action.payload.token
+
       _token.save(action.payload.token)
+      setClientAuthorizationHeader({token: action.payload.token})
+      
     })
     builder.addCase(asyncSigninFetch.rejected, (state, action) => {
       // fail
@@ -73,9 +75,11 @@ const session = createSlice({
       if(token === null){
         state.isSignin = false
         state.token = ""
+        removeClientAuthorizationHeader()
       } else {
         state.isSignin = true
         state.token = token
+        setClientAuthorizationHeader({token})
       }
     },
 
@@ -87,6 +91,7 @@ const session = createSlice({
       state.isSignin = false
       state.token = ""
       _token.clear()
+      removeClientAuthorizationHeader()
     },
 
   }

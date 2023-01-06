@@ -25,7 +25,7 @@ const ErrorPage = ({ children }: PropsWithChildren<ErrorProps>) => {
           <Container>
             <Row>
               <Col>
-                <button onClick={() => navigate(Routing.Root.path)} type="button" className="btn btn-primary mt-3" style={{ backgroundColor: "#5B40F2" }}>되돌아가기</button>
+                <button onClick={() => navigate(Routing.Root.path)} type="button" className="btn btn-primary mt-4" style={{ backgroundColor: "#5B40F2" }}>되돌아가기</button>
               </Col>
             </Row>
           </Container>

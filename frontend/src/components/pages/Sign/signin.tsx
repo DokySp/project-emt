@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../../../store/store"
 import { useEffect } from "react"
 import regex from "../../../utils/regex"
 import Routing from "../../routing.path"
+import { getUser } from "../../../services/user.service"
 
 
 
@@ -110,7 +111,6 @@ const SigninPage = () => {
           <img className="m-5" src={dummyLogo1} alt="logo" height="100" />
 
           <Form noValidate onSubmit={onSubmit}>
-            {/* <Form.Group as={Col} controlId="signinValidation"> */}
 
             {errors.email && <div className="mt-4 mb-1 text-danger">{errors.email?.message}</div>}
             {!errors.email && <div className="mt-4 mb-1" style={{ fontSize: ".875em", }}>&nbsp;</div>}
@@ -129,7 +129,7 @@ const SigninPage = () => {
                 {...formValidationIntercepter(errors.email)}
                 {...register("email", {
                   required: true,
-                  pattern: regex.email,
+                  // pattern: regex.email,
                 })}
               />
             </FloatingLabel>

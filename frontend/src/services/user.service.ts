@@ -1,26 +1,71 @@
+import { CourseInterface, DivisionInterface, UserInterface } from "../schemas/interfaces";
 import client from "./client";
 
+const API_URL: string = "/api/user"
 
-interface UserServiceInterface {
-  
-}
-
-export const doSignin = async (props: {email: string, password: string}): Promise<UserServiceInterface> => {
+// User
+export const getUser = async (props: {idx: number}): Promise<UserInterface> => {
   // AxiosResponse<UserServiceInterface>
 
-  // const res = await client.get(`/api/user`, {})
-  // const res = await client.post(`/api/user`, {})
-  // const res = await client.patch(`/api/user`, {})
-  // const res = await client.delete(`/api/user`, {})
+  const res = await client.get(API_URL, {params: {idx: props.idx}})
+  return {...res.data.result[0]}
+}
 
-  // const res = await client.get(`/api/user/division`, {})
-  // const res = await client.post(`/api/user/division`, {})
-  // const res = await client.delete(`/api/user/division`, {})
+export const createUser = async (props: UserInterface): Promise<UserInterface> => {
+  const res = await client.post(API_URL, props)
+  return {...res.data.result}
+}
 
-  // const res = await client.get(`/api/user/course`, {})
-  // const res = await client.post(`/api/user/course`, {})
-  // const res = await client.delete(`/api/user/course`, {})
+export const updateUser = async (props: UserInterface): Promise<boolean> => {
+  await client.patch(API_URL, props)
+  return true
+}
 
-  return {}
+export const deleteUser = async (props: {idx: number}): Promise<boolean> => {
+  const res = await client.delete(API_URL, {params: {idx: props.idx}})
+  console.log(res.data)
+  return true
+}
+
+
+// User Division
+export const getUserDivision = async (): Promise<Array<DivisionInterface>> => {
+  const res = await client.get(`${API_URL}/division`)
+  return [...res.data.result]
+}
+
+export const addUserDivision = async (props: {idx: number}): Promise<boolean> => {
+  await client.post(`${API_URL}/division`, {}, {params: {idx: props.idx}})
+  return true
+}
+
+export const deleteUserDivision = async (props: {idx: number}): Promise<boolean> => {
+  const res = await client.delete(`${API_URL}/division`, {params: {idx: props.idx}})
+  console.log(res.data)
+  return true
+}
+
+
+// User Course
+export const getUserCourse = async (): Promise<Array<CourseInterface>> => {
+  const res = await client.get(`${API_URL}/course`)
+
+  // is_active boolean 타입 수정
+  const resModified = [...res.data.result]
+  resModified.map((item) => {
+    item.is_active = item.is_active.data[0] === 1
+  })
   
+  return [...resModified]
+}
+
+export const addUserCourse = async (props: {idx: number}): Promise<boolean> => {
+  await client.post(`${API_URL}/course`, {}, {params: {idx: props.idx}})
+  return true
+}
+
+export const deleteUserCourse = async (props: {idx: number}): Promise<boolean> => {
+  const res = await client.delete(`${API_URL}/course`, {params: {idx: props.idx}})
+  console.log(res.data)
+  return true
 }

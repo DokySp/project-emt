@@ -4,16 +4,20 @@ import { JsonObjectExpression } from "typescript"
  * ## 사용자
  */
 export interface UserInterface {
-  idx: number,
-  email: string,
-  last_name: string,
-  first_name: string,
-  nickname: string,
-  img: string,
-  issued_at: Date,
-  created: Date,
-  level: number,
-  is_active: boolean,
+  idx?: number,
+  issued_at?: Date,
+  created?: Date,
+
+  pw?: string,
+
+  email?: string,
+  level?: number,
+  is_active?: boolean,
+
+  last_name?: string,
+  first_name?: string,
+  nickname?: string,
+  img?: string,
 }
 
 /**
@@ -35,9 +39,10 @@ export interface CourseInterface {
   idx: number,
   img: string,
   name: string,
+  is_active: boolean,
   is_enroll_granted: boolean,
   is_due_date_implicit: boolean,
-  is_active: boolean
+
   // 일단은 class, subject 이름을 기준으로 정렬
   // order: Array<CourseOrderInterface>,
 }

@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PropsWithChildren } from "react";
 import { fakeCourseRecommendList } from "../../../constants/dummy/sampleCourse";
 import { dummyBanner1, fakeReviewData } from "../../../constants/dummy/dummy";
 import StorageManager from "../../../utils/storage.manager";
+import { createUser, deleteUser, getUser, updateUser } from "../../../services/user.service";
+import { Button } from "react-bootstrap";
+import Routing from "../../routing.path";
 
 
 
@@ -23,11 +26,15 @@ interface HomeProps { }
 
 const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
 
+  const navigate = useNavigate()
+
   return <>
 
     <div className='container mb-5 mt-3'>
 
       <img className="Home-img-Banner rounded" alt="Banner" src={dummyBanner1} />
+
+      <Button onClick={() => navigate(Routing.ApiTest.path)}>API TEST</Button>
 
       <h3 className="mb-3 mt-5">추천 강좌</h3>
 
