@@ -97,7 +97,6 @@ router.post("/", UserController.create);
  *                                      type: string
  */
 
-// TODO: 개선 필요 (idx 삭제?)
 router.patch("/", auth.checkSelf, UserController.update);
 /**
  * @swagger
@@ -109,19 +108,10 @@ router.patch("/", auth.checkSelf, UserController.update);
  *          summary: 사용자 수정
  *          operationId: updateUser
  *
- *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자 수정'
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>사용자 수정<br>- 사용자 정보는 로그인 세션 기반으로 알아냄'
  *
  *          security:
  *           - Auth: []
- *
- *          parameters:
- *              - name: idx
- *                in: query
- *                description: '사용자 IDX'
- *                required: true
- *                schema:
- *                  type: integer
- *                  format: int64
  *
  *          requestBody:
  *              description: '수정할 내용의 사용자 데이터'
@@ -177,6 +167,7 @@ router.delete("/", auth.checkLev0, UserController.delete);
  *                schema:
  *                  type: integer
  *                  format: int64
+ *
  *          responses:
  *              200:
  *                  description: successful operation

@@ -27,7 +27,7 @@ const UserController = {
     delete data.idx;
     delete data.issued_at;
     delete data.created;
-    data.is_active = true;
+    data.is_active = false;
 
     try {
       const result = await UserService.create(data);
@@ -47,7 +47,7 @@ const UserController = {
 
   update: async (req, res, next) => {
     const data = req.body;
-    const idx = Number.parseInt(req.query.idx);
+    const idx = req.token.idx;
     delete data.idx;
     delete data.pw;
     delete data.email;
@@ -81,6 +81,7 @@ const UserController = {
   },
 
   delete: async (req, res, next) => {
+    console.log(req.query);
     const idx = Number.parseInt(req.query.idx);
 
     try {
@@ -113,8 +114,7 @@ const UserController = {
 
   getDivision: async (req, res, next) => {
     try {
-      // TODO: 임시코드
-      let userIdx = 1; // token.user_idx
+      let userIdx = req.token.idx;
 
       const result = await UserService.getDivision(userIdx);
 
@@ -137,9 +137,7 @@ const UserController = {
 
   createDivisionLink: async (req, res, next) => {
     let divisionIdx = Number.parseInt(req.query.idx);
-
-    // TODO: 임시코드
-    let userIdx = 1; // token.user_idx
+    let userIdx = req.token.idx;
 
     try {
       const result = await UserService.createDivisionLink(userIdx, divisionIdx);
@@ -159,9 +157,7 @@ const UserController = {
 
   deleteDivisionLink: async (req, res, next) => {
     let divisionIdx = Number.parseInt(req.query.idx);
-
-    // TODO: 임시코드
-    let userIdx = 1; // token.user_idx
+    let userIdx = req.token.idx;
 
     try {
       const result = await UserService.deleteDivisionLink(userIdx, divisionIdx);
@@ -193,8 +189,7 @@ const UserController = {
 
   getCourses: async (req, res, next) => {
     try {
-      // TODO: 임시코드
-      let userIdx = 1; // token.user_idx
+      let userIdx = req.token.idx;
 
       const result = await UserService.getCourses(userIdx);
 
@@ -217,9 +212,7 @@ const UserController = {
 
   createCourseUserLink: async (req, res, next) => {
     let courseIdx = Number.parseInt(req.query.idx);
-
-    // TODO: 임시코드
-    let userIdx = 1; // token.user_idx
+    let userIdx = req.token.idx;
 
     try {
       const result = await UserService.createCourseUserLink(userIdx, courseIdx);
@@ -239,9 +232,7 @@ const UserController = {
 
   deleteCourseUserLink: async (req, res, next) => {
     let courseIdx = Number.parseInt(req.query.idx);
-
-    // TODO: 임시코드
-    let userIdx = 1; // token.user_idx
+    let userIdx = req.token.idx;
 
     try {
       const result = await UserService.deleteCourseUserLink(userIdx, courseIdx);

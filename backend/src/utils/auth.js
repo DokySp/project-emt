@@ -35,7 +35,7 @@ const auth = {
   // Admin 레벨 확인
   checkLev0: async (req, res, next) => {
     try {
-      await auth.check();
+      await auth.check(req, res, next);
       if (req.user.level === 0) {
         next();
       } else {
@@ -52,7 +52,7 @@ const auth = {
   // 선생님 레벨 확인
   checkLev1: async (req, res, next) => {
     try {
-      await auth.check();
+      await auth.check(req, res, next);
       if (req.user.level === 0 || req.user.level === 1) {
         next();
       } else {
@@ -69,7 +69,7 @@ const auth = {
   // 학생 레벨 확인
   checkLev2: async (req, res, next) => {
     try {
-      await auth.check();
+      await auth.check(req, res, next);
       if (req.user.level === 0 || req.user.level === 2) {
         next();
       } else {
