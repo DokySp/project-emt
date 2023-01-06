@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown"
 import { fakeMarkdownTextSmall } from "../../../../constants/dummy/dummy"
 import { Col, Container, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+import Routing from "../../../routing.path"
 
 
 interface SignupTermProps { }
@@ -35,7 +36,7 @@ const SignupTermPage = ({ children }: PropsWithChildren<SignupTermProps>) => {
           <Container className="mt-4" style={{ textAlign: "center" }}>
             <Row>
               <Col>
-                <button onClick={() => navigate("/signup/form")} type="button" className="btn btn-primary mt-3" style={{ backgroundColor: "#5B40F2" }}>내용을 전부 읽었고, 위 사항에 전부 동의합니다</button>
+                <button onClick={() => navigate(Routing.Signup.Form.path)} type="button" className="btn btn-primary mt-3" style={{ backgroundColor: "#5B40F2" }}>내용을 전부 읽었고, 위 사항에 전부 동의합니다</button>
               </Col>
             </Row>
           </Container>

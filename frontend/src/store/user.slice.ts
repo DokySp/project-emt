@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { UserInterface } from "../schemas/interfaces";
 
 
 const sessionUser = createSlice({
   name: "user",
-  initialState: {
-    isSigninProcessing: false,
-    isSignin: false,
-    token: "",
-  },
+  initialState: {} as UserInterface,
   reducers: {
 
     setSessionUser(state) {

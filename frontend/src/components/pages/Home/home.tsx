@@ -36,7 +36,7 @@ const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
         {fakeCourseRecommendList.map((value, idx) => {
           return (
 
-            <div className='col-md-4 p-4'>
+            <div className='col-md-4 p-4' key={idx}>
               <Link to={"/course"}>
                 <img src={value.img} alt={value.name} width="100%" className="rounded" />
                 <h4 className="mt-3">{value.name}</h4>
@@ -66,7 +66,7 @@ const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
           {
             fakeReviewData.map((item, idx) => {
               return (
-                <div className="col-md-4">
+                <div className="col-md-4" key={idx}>
                   <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div className="col p-4 d-flex flex-column position-static">
                       <strong className="d-inline-block mb-2 text-primary">
@@ -102,7 +102,7 @@ const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
           {
             additionalData.map((item, idx) => {
               return (
-                <div className="col-md-4">
+                <div className="col-md-4" key={idx}>
                   <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div className="col p-4 d-flex flex-column position-static">
                       <h4 className="mb-0">{item.title}</h4>

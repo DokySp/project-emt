@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import VimeoViewer from "../../common/VimeoViewer/vimeoViewer"
 
 
-const LectureView = () => {
+const LecturePage = () => {
 
   const navigate = useNavigate()
 
@@ -38,4 +38,4 @@ const LectureView = () => {
 
 
 
-export default LectureView
+export default LecturePage

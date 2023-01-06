@@ -54,6 +54,7 @@ const session = createSlice({
     builder.addCase(asyncSigninFetch.rejected, (state, action) => {
       // fail
       // const { response } = error as unknown as AxiosError;
+      console.log(action.payload)
       state.isSigninProcessing = false
     })
   },

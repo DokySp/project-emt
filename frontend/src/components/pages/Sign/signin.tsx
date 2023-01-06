@@ -7,6 +7,7 @@ import { asyncSigninFetch } from "../../../store/session.slice"
 import { AppDispatch, RootState } from "../../../store/store"
 import { useEffect } from "react"
 import regex from "../../../utils/regex"
+import Routing from "../../routing.path"
 
 
 
@@ -23,7 +24,7 @@ const SigninPage = () => {
   // 로그인 상태인 경우, 다시 홈으로 돌려보냄
   useEffect(() => {
     if (session.isSignin === true && session.isSigninProcessing === false && session.token.length !== 0) {
-      navigate("/")
+      navigate(Routing.Root.path)
     }
   }, [navigate, session.isSignin, session.isSigninProcessing, session.token.length])
 
@@ -80,7 +81,10 @@ const SigninPage = () => {
     if (session.isSignin && !session.isSigninProcessing) {
       // 사용자 정보 redux에 저장
       // dispatch()
-      navigate("/")
+
+      // 이전 페이지로 되돌아감
+      navigate(-2)
+
     } else if (!session.isSignin && !session.isSigninProcessing) {
       setError("password", {
         type: "invalid",
@@ -161,7 +165,7 @@ const SigninPage = () => {
             {/* </Form.Group> */}
           </Form>
 
-          <button onClick={() => navigate("/signup/term")} className="btn mt-3" type="submit">회원가입</button>
+          <button onClick={() => navigate(Routing.Signup.Term.path)} className="btn mt-3" type="submit">회원가입</button>
 
         </div>
 

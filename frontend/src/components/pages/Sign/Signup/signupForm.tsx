@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { dummyUser1 } from "../../../../constants/dummy/dummy"
 import CustomDropdown from "./customDropdown"
 import { fakeDivisionList } from "../../../../constants/dummy/sampleDivision"
+import Routing from "../../../routing.path"
 
 
 const groupList = [
@@ -71,13 +72,13 @@ const SignupFormPage = ({ children }: PropsWithChildren<SignupFormProps>) => {
           <Container className="mt-4" style={{ textAlign: "center" }}>
             <Row>
               <Col>
-                <button onClick={() => navigate("/signup/done")} type="button" className="btn btn-primary mt-3" style={{ backgroundColor: "#5B40F2" }}>회원가입</button>
+                <button onClick={() => navigate(Routing.Signup.Done.path)} type="button" className="btn btn-primary mt-3" style={{ backgroundColor: "#5B40F2" }}>회원가입</button>
 
               </Col>
             </Row>
             <Row>
               <Col>
-                <button onClick={() => navigate("/")} type="button" className="btn btn-secondary mt-1">그만하기</button>
+                <button onClick={() => navigate(Routing.Root.path)} type="button" className="btn btn-secondary mt-1">그만하기</button>
               </Col>
             </Row>
           </Container>
