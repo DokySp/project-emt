@@ -9,7 +9,7 @@ import { useEffect } from "react"
 import regex from "../../../utils/regex"
 import Routing from "../../routing.path"
 import { getUser } from "../../../services/user.service"
-import { asyncUserFetch } from "../../../store/user.slice"
+import { asyncUserFetch } from "../../../store/user.session.slice"
 
 
 

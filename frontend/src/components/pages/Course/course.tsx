@@ -1,16 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { PropsWithChildren, useEffect, useState } from "react";
-import { fakeDetailCourse } from "../../../constants/dummy/sampleCourse";
 import CourseItem, { ListItemInterface, ListItemType } from "./course.item";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { CourseDetailInterface, ClassInterface, SubjectInterface, CourseInterface } from "../../../schemas/interfaces";
+import { CourseDetailInterface, CourseInterface } from "../../../schemas/interfaces";
 import { getCourseDetail } from "../../../services/course.service";
 import Routing from "../../routing.path";
 import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { addUserCourse, deleteUserCourse, getUserCourse } from "../../../services/user.service";
 import jwtDecode from "jwt-decode";
 import { TokenInterface } from "../../../utils/token.manager";
+import TimeFormat from "../../../utils/time.format";
 
 
 
@@ -21,8 +21,9 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
 
   let [courseItems, setCourseItems] = useState<Array<ListItemInterface>>([])
   const [courseDetail, setCourseDetail] = useState<CourseDetailInterface>({} as CourseDetailInterface)
-  const [subscribes, setSubscribes] = useState<Array<number>>([])
+
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
+  const [startedDate, setStartedDate] = useState<Date>(new Date(1000))
 
   const [isLoadCourse, setIsLoadCourse] = useState<boolean>(false)
   const [isLoadSuccess, setIsLoadSuccess] = useState<boolean>(false)
@@ -38,9 +39,11 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
 
       const tmp: Array<number> = []
       res.map((item) => {
-        tmp.push(item.idx ?? -1)
+        if (Number(params.var) === item.idx) {
+          setIsSubscribed(true)
+          setStartedDate(item.started_date!)
+        }
       })
-      setSubscribes([...tmp])
     }).catch((error) => {
       // 수강한 강의 없거나
       // 통신 에러
@@ -48,11 +51,6 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
 
   }, [isSubscribed])
 
-
-  useEffect(() => {
-    const idx: number = Number(params.var)
-    setIsSubscribed(subscribes.includes(idx))
-  }, [subscribes])
 
 
   // 코스 세부정보
@@ -64,65 +62,72 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
 
       setIsLoadCourse(true)
       getCourseDetail({ idx: Number(params.var) }).then((res: CourseDetailInterface) => {
-        setCourseDetail(res)
-        setIsLoadCourse(false)
 
         const tmp: Array<ListItemInterface> = []
 
+        // 비활성화 상태인 경우
+        if (courseDetail.is_active !== undefined && !courseDetail.is_active) {
+          window.alert("비활성화 강좌입니다.")
+          navigate(-1)
+          return
+        }
+
+        setCourseDetail(res)
+        setIsLoadCourse(false)
+
+        // Class
         courseDetail.classes.map((item) => {
           return tmp.push({
-            title: item.name,
-            dueDate: new Date(item.watch_time),
-            idx: item.idx,
+            title: item.name!,
+            idx: item.idx!,
             type: ListItemType.LECTURE,
             sectionIdx: item.section_idx!,
             disabled: !isSubscribed,
+            dueDate: new Date(item.due_date!),
             isDueDateImplicit: courseDetail.is_due_date_implicit!,
-            startedDate: courseDetail.started_date!,
+            startedDate: startedDate,
           })
         })
 
+        // Subject
         courseDetail.subjects.map((item) => {
           return tmp.push({
             title: item.name,
-            dueDate: new Date(item.due_date),
             idx: item.idx,
             type: ListItemType.SUBJECT,
             sectionIdx: item.section_idx!,
             disabled: !isSubscribed,
+            dueDate: new Date(item.due_date),
             isDueDateImplicit: courseDetail.is_due_date_implicit!,
-            startedDate: courseDetail.started_date!,
+            startedDate: startedDate,
           })
         })
 
-        // 정렬 후 섹션 추가
+        // 정렬
         tmp.sort((a, b) => {
           if (a.sectionIdx > b.sectionIdx) return 1
           if (a.sectionIdx < b.sectionIdx) return -1
           return 0
         })
 
+        // 섹션 추가
         let prevSectionIdx = -Infinity
         for (let i = 0; i < tmp.length; i++) {
           if (prevSectionIdx < tmp[i].sectionIdx) {
             tmp.splice(i, 0, {
               title: "",
-              dueDate: new Date(),
               idx: -1,
               type: ListItemType.SECTION,
               sectionIdx: tmp[i].sectionIdx,
               disabled: !isSubscribed,
+              dueDate: new Date(),
               isDueDateImplicit: courseDetail.is_due_date_implicit!,
-              startedDate: courseDetail.started_date!,
+              startedDate: startedDate,
             })
             prevSectionIdx = tmp[i].sectionIdx
           }
         }
-
         setCourseItems(tmp)
-
-
-
 
       }).catch(() => {
         setIsLoadCourse(false)
@@ -139,7 +144,6 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
 
 
 
-
   return <>
     <Container>
 
@@ -151,17 +155,18 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
         <div className="col-sm-8 pt-1 align-self-center" >
           {/* <strong className="d-inline-block mt-2 text-primary">World</strong> */}
           <h3 className="mb-0">{courseDetail.name}</h3>
-          <div className="mb-1 text-muted">{courseDetail.created_by_name}</div>
+          <div className="mb-3 text-muted">{courseDetail.created_by_name}</div>
           <p className="card-text mb-auto">{courseDetail.description}</p>
+          <p className="card-text mb-4" style={{ color: "grey", fontSize: "0.8rem" }}>{TimeFormat.startedDate(startedDate)}</p>
 
-          {!isSubscribed && <Button variant="primary mt-3" onClick={async () => {
+          {!isSubscribed && <Button variant="primary" onClick={async () => {
             addUserCourse({ idx: Number(params.var) })
             await setTimeout(() => { }, 1000)
             navigate(Routing.Course.List.ByIdx.path(jwtDecode<TokenInterface>(session.token).idx))
           }}>
             수강하기
           </Button>}
-          {isSubscribed && <Button variant="primary mt-3" onClick={async () => {
+          {isSubscribed && <Button variant="primary" onClick={async () => {
             deleteUserCourse({ idx: Number(params.var) })
             await setTimeout(() => { }, 1000)
             navigate(Routing.Course.List.path)

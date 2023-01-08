@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from './store/store';
 import { checkSigninSession } from './store/session.slice';
 import Routing, { generateRoutes } from './components/routing.path';
 import { ReactElement } from 'react-markdown/lib/react-markdown';
-import { asyncUserFetch } from './store/user.slice';
+import { asyncUserFetch } from './store/user.session.slice';
 import jwtDecode from 'jwt-decode';
 
 

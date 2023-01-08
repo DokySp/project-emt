@@ -15,7 +15,7 @@ import SubjectPage from "./pages/Subject/subject"
 import SubjectEditPage from "./pages/SubjectEdit/subjectEdit"
 import SubjectEvaluationPage from "./pages/SubjectEdit/subjectEvaluation"
 import { Route } from "react-router-dom"
-import ApiTestPage from "./pages/Test/apiTest"
+import ApiTestPage from "./pages/Test/api.test.page"
 
 
 // var params 생성기

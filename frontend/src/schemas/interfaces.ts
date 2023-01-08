@@ -50,15 +50,21 @@ export interface CourseInterface {
   is_enroll_granted?: boolean,
   is_due_date_implicit?: boolean,
 
-  // 일단은 class, subject 이름을 기준으로 정렬
-  // order: Array<CourseOrderInterface>,
+  started_date? : Date,
 }
 
-// export interface CourseOrderInterface {
-//   sid: number,
-//   name: string,
-//   order: Array<string>,
-// }
+export interface CourseCreateInterface extends CourseInterface{
+
+  sub_name: string,
+  description: string,
+  created_by: number,
+
+  img: string,
+  name: string,
+  is_enroll_granted: boolean,
+  is_due_date_implicit: boolean,
+
+}
 
 /**
  * ## 코스 세부정보
@@ -66,7 +72,6 @@ export interface CourseInterface {
 export interface CourseDetailInterface extends CourseInterface {
   classes: Array<ClassInterface>,
   subjects: Array<SubjectInterface>,
-  started_date? : Date,
 }
 
 //
@@ -77,17 +82,17 @@ export interface CourseDetailInterface extends CourseInterface {
  * ## 수업
  */
 export interface ClassInterface {
-  idx: number,
-  course_idx: number,
+  idx?: number,
+  course_idx?: number,
 
   section_idx?: number,
   order_idx?: number,
 
-  vimeo_url: string,
-  name: string,
-  content: string,
-  watch_time: Date,
-  due_date:  Date,
+  vimeo_url?: string,
+  name?: string,
+  content?: string,
+  watch_time?: Date,
+  due_date?:  Date,
 
   files?: Array<FileInterface>,
 }

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import session from "./session.slice";
-import sessionUser from "./user.slice";
+import sessionUser from "./user.session.slice";
 
 
 const store = configureStore({

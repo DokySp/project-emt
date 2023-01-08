@@ -8,11 +8,21 @@ export const getUser = async (props: {idx: number}): Promise<UserInterface> => {
   // AxiosResponse<UserServiceInterface>
 
   const res = await client.get(API_URL, {params: {idx: props.idx}})
+  const result: UserInterface = res.data.result[0]
+
+  result.issued_at = new Date(result.issued_at!)
+  result.created = new Date(result.created!)
+
   return {...res.data.result[0]}
 }
 
 export const createUser = async (props: UserInterface): Promise<UserInterface> => {
   const res = await client.post(API_URL, props)
+  const result: UserInterface = res.data.result[0]
+
+  result.issued_at = new Date(result.issued_at!)
+  result.created = new Date(result.created!)
+
   return {...res.data.result}
 }
 
@@ -47,14 +57,21 @@ export const deleteUserDivision = async (props: {idx: number}): Promise<boolean>
 // User Course
 export const getUserCourse = async (): Promise<Array<CourseInterface>> => {
   const res = await client.get(`${API_URL}/course`)
+  const result: Array<CourseInterface> = res.data.result
 
-  // is_active boolean 타입 수정
-  const resModified = [...res.data.result]
-  resModified.map((item) => {
-    item.is_active = item.is_active.data[0] === 1
+  result.map(item => {
+    if(item.started_date === undefined || item.started_date === null){
+      item.started_date = undefined
+    } else {
+      item.started_date = (new Date(item.started_date!))
+    }
+  })
+
+  res.data.result.map((item: CourseInterface) => {
+    item.started_date = (new Date(item.started_date!))
   })
   
-  return [...resModified]
+  return [...res.data.result]
 }
 
 export const addUserCourse = async (props: {idx: number}): Promise<boolean> => {

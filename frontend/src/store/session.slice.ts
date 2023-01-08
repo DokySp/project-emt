@@ -80,12 +80,12 @@ const session = createSlice({
       // exp 시간 확인
       if (token !== null && token !== undefined){
         const remainSessionTime = (TokenManager.getPayload(token).exp.getTime() - new Date(Date.now()).getTime())
-
+        
         // remainSessionTime 시간 1분 남은 경우
-        if(remainSessionTime < (1 * 60 * 1000)){
+        if((1 * 1 * 1000) < remainSessionTime && remainSessionTime < (1 * 60 * 1000)){
           window.alert("1분 뒤에 자동으로 로그아웃됩니다. 변경사항을 저장해주세요.")
         }
-        
+
         // remainSessionTime 끝난 경우
         if(remainSessionTime < 0){
           token = null

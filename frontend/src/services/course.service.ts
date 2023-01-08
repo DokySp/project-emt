@@ -1,4 +1,4 @@
-import { CourseDetailInterface, CourseInterface, UserInterface } from "../schemas/interfaces";
+import { ClassInterface, CourseCreateInterface, CourseDetailInterface, CourseInterface, UserInterface } from "../schemas/interfaces";
 import client from "./client";
 
 const API_URL: string = "/api/course"
@@ -11,7 +11,17 @@ export const getCourse = async (props?: {idx: number}): Promise<Array<CourseInte
 
 export const getCourseDetail = async (props: {idx: number}): Promise<CourseDetailInterface> => {
   const res = await client.get(`${API_URL}/detail`, {params: {idx: props.idx}})
-  return {...res.data.result}
+  const result: CourseDetailInterface = res.data.result
+
+  result.classes.map((item: ClassInterface) => {
+    item.due_date = (new Date(item.due_date!))
+    item.watch_time = (new Date(item.watch_time!))
+  })
+  result.subjects.map((item: ClassInterface) => {
+    item.due_date = (new Date(item.due_date!))
+  })
+  
+  return {...result}
 }
 
 export const getCourseRecommend = async (): Promise<Array<CourseInterface>> => {
@@ -25,7 +35,7 @@ export const getCourseUser = async (props: {idx: number}): Promise<Array<UserInt
 }
 
 
-export const createCourse = async (props: CourseInterface): Promise<CourseInterface> => {
+export const createCourse = async (props: CourseCreateInterface): Promise<CourseInterface> => {
   const res = await client.post(API_URL, props)
   return {...res.data.result}
 }
