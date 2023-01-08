@@ -97,6 +97,17 @@ export interface ClassInterface {
   files?: Array<FileInterface>,
 }
 
+export interface ClassCreateInterface extends ClassInterface {
+  course_idx: number,
+  section_idx: number,
+  order_idx: number,
+  due_date:  Date,
+}
+
+export interface ClassUpdateInterface extends ClassInterface {
+  idx: number,
+}
+
 /**
  * ## 과제
  */

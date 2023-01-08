@@ -10,7 +10,7 @@ import { checkSigninSession } from './store/session.slice';
 import Routing, { generateRoutes } from './components/routing.path';
 import { ReactElement } from 'react-markdown/lib/react-markdown';
 import { asyncUserFetch } from './store/user.session.slice';
-import jwtDecode from 'jwt-decode';
+import { asyncSubscribesFetch } from './store/subscribes.slice';
 
 
 const App = () => {
@@ -32,10 +32,12 @@ const App = () => {
   }, [sessionCheckTick])
 
 
-  // 사용자 정보 로드
   useEffect(() => {
     if (session.isSignin) {
+      // 사용자 정보 로드
       dispatch(asyncUserFetch({ token: session.token }))
+      // 사용자 구독 정보 업데이트
+      dispatch(asyncSubscribesFetch())
     }
   }, [session.isSignin])
 

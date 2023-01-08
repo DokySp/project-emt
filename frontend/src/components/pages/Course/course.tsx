@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { PropsWithChildren, useEffect, useState } from "react";
 import CourseItem, { ListItemInterface, ListItemType } from "./course.item";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
 import { CourseDetailInterface, CourseInterface } from "../../../schemas/interfaces";
 import { getCourseDetail } from "../../../services/course.service";
 import Routing from "../../routing.path";
@@ -11,6 +11,7 @@ import { addUserCourse, deleteUserCourse, getUserCourse } from "../../../service
 import jwtDecode from "jwt-decode";
 import { TokenInterface } from "../../../utils/token.manager";
 import TimeFormat from "../../../utils/time.format";
+import { asyncSubscribesFetch } from "../../../store/subscribes.slice";
 
 
 
@@ -29,28 +30,38 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
   const [isLoadSuccess, setIsLoadSuccess] = useState<boolean>(false)
 
   const session = useSelector((state: RootState) => state.session)
+  const subscribes = useSelector((state: RootState) => state.subscribes)
   const params = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch<AppDispatch>()
 
 
   // 수강중인 수업인지 확인
   useEffect(() => {
-    getUserCourse().then((res: Array<CourseInterface>) => {
-
-      const tmp: Array<number> = []
-      res.map((item) => {
-        if (Number(params.var) === item.idx) {
-          setIsSubscribed(true)
-          setStartedDate(item.started_date!)
-        }
-      })
-    }).catch((error) => {
-      // 수강한 강의 없거나
-      // 통신 에러
+    subscribes.list.map(item => {
+      if (item.classIdx === Number(params.var)) {
+        setIsSubscribed(true)
+        setStartedDate(item.startedDate)
+        return
+      }
     })
-
   }, [isSubscribed])
 
+
+  // 수강신청/취소
+  const onSubscribe = async () => {
+    await addUserCourse({ idx: Number(params.var) })
+    await dispatch(asyncSubscribesFetch())
+    await setTimeout(() => { }, 1000)
+    navigate(Routing.Course.List.ByIdx.path(jwtDecode<TokenInterface>(session.token).idx))
+  }
+
+  const onUnsubscribe = async () => {
+    await deleteUserCourse({ idx: Number(params.var) })
+    await dispatch(asyncSubscribesFetch())
+    await setTimeout(() => { }, 1000)
+    navigate(Routing.Course.List.path)
+  }
 
 
   // 코스 세부정보
@@ -159,18 +170,10 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
           <p className="card-text mb-auto">{courseDetail.description}</p>
           <p className="card-text mb-4" style={{ color: "grey", fontSize: "0.8rem" }}>{TimeFormat.startedDate(startedDate)}</p>
 
-          {!isSubscribed && <Button variant="primary" onClick={async () => {
-            addUserCourse({ idx: Number(params.var) })
-            await setTimeout(() => { }, 1000)
-            navigate(Routing.Course.List.ByIdx.path(jwtDecode<TokenInterface>(session.token).idx))
-          }}>
+          {!isSubscribed && <Button variant="primary" onClick={onSubscribe}>
             수강하기
           </Button>}
-          {isSubscribed && <Button variant="primary" onClick={async () => {
-            deleteUserCourse({ idx: Number(params.var) })
-            await setTimeout(() => { }, 1000)
-            navigate(Routing.Course.List.path)
-          }}>수강 취소하기</Button>}
+          {isSubscribed && <Button variant="primary" onClick={onUnsubscribe}>수강 취소하기</Button>}
 
         </div>
       </div>

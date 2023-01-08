@@ -21,11 +21,24 @@ const dueDateRelative = (props: {started: Date, due: Date}): string => {
 
 const startedDate = (date: Date): string => dayjs(date).format("YY년 M월 D일 H:mm:ss 부터 듣는 중")
 
+const periodDate = (date: Date): string => {
+  const target: Date = TimeFormat.getImplicitTimezoneDate(date)
+  return `${Math.floor((date.getTime()) / (1000 * 60 * 60 * 24)) + "일"} ${dayjs(target).format("H시간 m분")}`
+}
+
+const periodTime = (date: Date): string => {
+  const times = Math.floor((date.getTime()) / (1000 * 60 * 60))
+  const minutes = Math.floor((date.getTime()) / (1000 * 60) - (times * 60))
+  return `${times + "시간"} ${minutes + "분"}`
+}
+
 const TimeFormat = {
   dueDateImplicit,
   dueDateRelative,
   getImplicitTimezoneDate,
   startedDate,
+  periodDate,
+  periodTime,
 }
 
 export default TimeFormat

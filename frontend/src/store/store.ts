@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import session from "./session.slice";
 import sessionUser from "./user.session.slice";
+import subscribes from "./subscribes.slice";
 
 
 const store = configureStore({
   reducer: {
     session: session.reducer,
     sessionUser: sessionUser.reducer,
+    subscribes: subscribes.reducer,
   }
 })
 

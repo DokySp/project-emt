@@ -19,10 +19,9 @@ const ApiTestPage = () => {
 
       <ApiTest.Token />
 
-      <ApiTest.CourseDate />
-
-      <ApiTest.Course />
       <ApiTest.Class />
+      <ApiTest.CourseDate />
+      <ApiTest.Course />
       <ApiTest.Subject />
       <ApiTest.Submit />
       <ApiTest.User />
