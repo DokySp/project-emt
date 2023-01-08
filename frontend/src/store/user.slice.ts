@@ -1,17 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TokenInterface, UserInterface } from "../schemas/interfaces";
+import { UserInterface } from "../schemas/interfaces";
 import { getUser } from "../services/user.service";
 import jwtDecode from "jwt-decode";
+import { TokenInterface } from "../utils/token.manager";
 
 
 export const asyncUserFetch = createAsyncThunk(
   'sessionUser/asyncUserFetch',
   async (data: {token: string}) => {
-
     const tokenData = jwtDecode<TokenInterface>(data.token)
-    tokenData.iat = new Date(tokenData.iat)
-    tokenData.exp = new Date(tokenData.exp)
-
     const user = await getUser({idx: tokenData.idx})
     return {user: user}
   }

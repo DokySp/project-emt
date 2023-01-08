@@ -1,13 +1,5 @@
 import { JsonObjectExpression } from "typescript"
 
-/**
- * ## Token
- */
-export interface TokenInterface {
-  idx: number,
-  iat: Date,
-  exp: Date,
-}
 
 /**
  * ## 사용자
@@ -45,12 +37,18 @@ export interface DivisionInterface {
  * ## 코스
  */
 export interface CourseInterface {
-  idx: number,
-  img: string,
-  name: string,
-  is_active: boolean,
-  is_enroll_granted: boolean,
-  is_due_date_implicit: boolean,
+  idx?: number,
+  is_active?: boolean,
+
+  sub_name?: string,
+  description?: string,
+  created_by?: number,
+  created_by_name?: string,
+
+  img?: string,
+  name?: string,
+  is_enroll_granted?: boolean,
+  is_due_date_implicit?: boolean,
 
   // 일단은 class, subject 이름을 기준으로 정렬
   // order: Array<CourseOrderInterface>,
@@ -68,6 +66,7 @@ export interface CourseInterface {
 export interface CourseDetailInterface extends CourseInterface {
   classes: Array<ClassInterface>,
   subjects: Array<SubjectInterface>,
+  started_date? : Date,
 }
 
 //
@@ -80,11 +79,16 @@ export interface CourseDetailInterface extends CourseInterface {
 export interface ClassInterface {
   idx: number,
   course_idx: number,
+
+  section_idx?: number,
+  order_idx?: number,
+
   vimeo_url: string,
   name: string,
   content: string,
   watch_time: Date,
   due_date:  Date,
+
   files?: Array<FileInterface>,
 }
 
@@ -94,6 +98,10 @@ export interface ClassInterface {
 export interface SubjectInterface {
   idx: number,
   course_idx: number,
+
+  section_idx?: number,
+  order_idx?: number,
+
   vimeo_url: string,
   name: string,
   content: string,

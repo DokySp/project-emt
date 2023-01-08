@@ -1,11 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { fakeCourseRecommendList } from "../../../constants/dummy/sampleCourse";
 import { dummyBanner1, fakeReviewData } from "../../../constants/dummy/dummy";
 import StorageManager from "../../../utils/storage.manager";
 import { createUser, deleteUser, getUser, updateUser } from "../../../services/user.service";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import Routing from "../../routing.path";
+import { CourseInterface } from "../../../schemas/interfaces";
+import { getCourseRecommend } from "../../../services/course.service";
+import CourseItem from "../../common/CourseItem/course.item";
 
 
 
@@ -28,6 +31,21 @@ const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
 
   const navigate = useNavigate()
 
+  const [recommendList, setRecommendList] = useState<Array<CourseInterface>>([])
+
+  useEffect(() => {
+
+    getCourseRecommend().then((res) => {
+      setRecommendList([...res])
+    })
+
+    return () => {
+      setRecommendList([])
+    }
+  }, [])
+
+
+
   return <>
 
     <div className='container mb-5 mt-3'>
@@ -38,25 +56,21 @@ const HomePage = ({ children }: PropsWithChildren<HomeProps>) => {
 
       <h3 className="mb-3 mt-5">추천 강좌</h3>
 
-      <div className='row'>
+      <Row>
 
-        {fakeCourseRecommendList.map((value, idx) => {
+        {recommendList.map((value, idx) => {
           return (
-
-            <div className='col-md-4 p-4' key={idx}>
-              <Link to={"/course"}>
-                <img src={value.img} alt={value.name} width="100%" className="rounded" />
-                <h4 className="mt-3">{value.name}</h4>
-                {/* <div className="mb-1 text-muted">{value.author}</div> */}
-                {/* <p className="card-text mb-auto">{value.context}</p> */}
-              </Link>
-            </div>
-
+            <Col className='md-4 p-4' key={idx} style={{ textAlign: "start" }}>
+              <CourseItem value={value} />
+            </Col>
           )
         })}
-      </div>
 
-      <div className="row mt-5 mb-5 ms-1 me-1">
+        {recommendList.length === 0 && <Col className='m-5 p-5'>로딩중</Col>}
+
+      </Row>
+
+      <div className="row mt-5 mb-5 ms-1 me-1" style={{ textAlign: "center" }}>
         <Link to={"/course/list"}>
           <button type="button" className="btn btn-secondary">모든 강좌 보기</button>
         </Link>

@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import { Routes } from 'react-router-dom';
 import './App.css';
@@ -11,24 +11,34 @@ import Routing, { generateRoutes } from './components/routing.path';
 import { ReactElement } from 'react-markdown/lib/react-markdown';
 import { asyncUserFetch } from './store/user.slice';
 import jwtDecode from 'jwt-decode';
-import { TokenInterface } from './schemas/interfaces';
 
 
 const App = () => {
 
   const session = useSelector((state: RootState) => state.session)
+  const [sessionCheckTick, setSessionCheckTick] = useState(0)
 
-  // 로그인 세션 토큰 검사
+  // 로그인 세션 토큰 검사 (1분마다)
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
+    const ticker = setTimeout(
+      () => setSessionCheckTick(sessionCheckTick + 1),
+      1 * 60 * 1000
+    )
     dispatch(checkSigninSession())
-  }, [])
+
+    return () => clearTimeout(ticker)
+
+  }, [sessionCheckTick])
+
+
   // 사용자 정보 로드
   useEffect(() => {
     if (session.isSignin) {
       dispatch(asyncUserFetch({ token: session.token }))
     }
   }, [session.isSignin])
+
 
   // 라우팅 생성
   const routeQueue: Array<ReactElement> = []

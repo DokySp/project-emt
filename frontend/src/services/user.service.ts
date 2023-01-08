@@ -22,8 +22,7 @@ export const updateUser = async (props: UserInterface): Promise<boolean> => {
 }
 
 export const deleteUser = async (props: {idx: number}): Promise<boolean> => {
-  const res = await client.delete(API_URL, {params: {idx: props.idx}})
-  console.log(res.data)
+  await client.delete(API_URL, {params: {idx: props.idx}})
   return true
 }
 
@@ -40,8 +39,7 @@ export const addUserDivision = async (props: {idx: number}): Promise<boolean> =>
 }
 
 export const deleteUserDivision = async (props: {idx: number}): Promise<boolean> => {
-  const res = await client.delete(`${API_URL}/division`, {params: {idx: props.idx}})
-  console.log(res.data)
+  await client.delete(`${API_URL}/division`, {params: {idx: props.idx}})
   return true
 }
 
@@ -65,7 +63,6 @@ export const addUserCourse = async (props: {idx: number}): Promise<boolean> => {
 }
 
 export const deleteUserCourse = async (props: {idx: number}): Promise<boolean> => {
-  const res = await client.delete(`${API_URL}/course`, {params: {idx: props.idx}})
-  console.log(res.data)
+  await client.delete(`${API_URL}/course`, {params: {idx: props.idx}})
   return true
 }

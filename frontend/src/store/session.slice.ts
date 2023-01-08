@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import StorageManager from "../utils/storage.manager";
 import { doSignin } from "../services/account.service";
 import { removeClientAuthorizationHeader, setClientAuthorizationHeader } from "../services/client";
+import jwtDecode from "jwt-decode";
+import TokenManager, { TokenInterface } from "../utils/token.manager";
 
 const _token = new StorageManager({ key: "token", type: "session" })
 
@@ -44,14 +46,17 @@ const session = createSlice({
       state.isSigninProcessing = true
     })
     builder.addCase(asyncSigninFetch.fulfilled, (state, action) => {
+      
       // complete
       state.isSigninProcessing = false
       state.isSignin = true
       state.token = action.payload.token
 
-      _token.save(action.payload.token)
+      // 헤더 변경
       setClientAuthorizationHeader({token: action.payload.token})
-      
+
+      // storage 저장
+      _token.save(action.payload.token)
     })
     builder.addCase(asyncSigninFetch.rejected, (state, action) => {
       // fail
@@ -69,18 +74,36 @@ const session = createSlice({
      * @param state 
      */
     checkSigninSession(state) {
-      
+
       let token = _token.get()
+
+      // exp 시간 확인
+      if (token !== null && token !== undefined){
+        const remainSessionTime = (TokenManager.getPayload(token).exp.getTime() - new Date(Date.now()).getTime())
+
+        // remainSessionTime 시간 1분 남은 경우
+        if(remainSessionTime < (1 * 60 * 1000)){
+          window.alert("1분 뒤에 자동으로 로그아웃됩니다. 변경사항을 저장해주세요.")
+        }
+        
+        // remainSessionTime 끝난 경우
+        if(remainSessionTime < 0){
+          token = null
+          window.alert("로그아웃되었습니다! 다시 로그인해주세요.")
+        }
+      }
       
-      if(token === null){
+      if(token === null || token === undefined){
         state.isSignin = false
         state.token = ""
         removeClientAuthorizationHeader()
+        _token.clear()
       } else {
         state.isSignin = true
         state.token = token
         setClientAuthorizationHeader({token})
       }
+      
     },
 
     /**
