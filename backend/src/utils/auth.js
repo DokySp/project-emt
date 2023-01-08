@@ -44,7 +44,7 @@ const auth = {
     } catch (err) {
       return res.status(401).json({
         result: false,
-        msg: err.toString(),
+        msg: "cl0:" + err.toString(),
       });
     }
   },
@@ -61,7 +61,7 @@ const auth = {
     } catch (err) {
       return res.status(401).json({
         result: false,
-        msg: err.toString(),
+        msg: "cl1:" + err.toString(),
       });
     }
   },
@@ -78,7 +78,7 @@ const auth = {
     } catch (err) {
       return res.status(401).json({
         result: false,
-        msg: err.toString(),
+        msg: "cl2:" + err.toString(),
       });
     }
   },
@@ -92,39 +92,39 @@ const auth = {
     } catch (err) {
       return res.status(401).json({
         result: false,
-        msg: err.toString(),
+        msg: "cls:" + err.toString(),
       });
     }
   },
 
   // 사용 금지
   check: async (req, res, next) => {
-    try {
-      if (
-        process.env.NODE_ENV === "development-master" ||
-        process.env.NODE_ENV === "production-master"
-      ) {
-        console.log("!! master auth !!");
-        req.token = secret.dummyToken;
-      } else {
-        req.token = await verification(req, res);
-      }
-
-      if (req.token === undefined || req.token === false)
-        throw new Error("Auth fail");
-
-      // 사용자 세부 정보를 DB에서 조회 후 반영
-      let uResult = await model.user.findOne({
-        where: { idx: req.token.idx },
-      });
-      const userInfo = uResult.dataValues;
-      req.user = userInfo;
-    } catch (err) {
-      return res.status(401).json({
-        result: false,
-        msg: err.toString(),
-      });
+    // try {
+    if (
+      process.env.NODE_ENV === "development-master" ||
+      process.env.NODE_ENV === "production-master"
+    ) {
+      console.log("!! master auth !!");
+      req.token = secret.dummyToken;
+    } else {
+      req.token = await verification(req, res);
     }
+
+    if (req.token === undefined || req.token === false)
+      throw new Error("Auth fail");
+
+    // 사용자 세부 정보를 DB에서 조회 후 반영
+    let uResult = await model.user.findOne({
+      where: { idx: req.token.idx },
+    });
+    const userInfo = uResult.dataValues;
+    req.user = userInfo;
+    // } catch (err) {
+    //   return res.status(401).json({
+    //     result: false,
+    //     msg: err.toString(),
+    //   });
+    // }
   },
 };
 
