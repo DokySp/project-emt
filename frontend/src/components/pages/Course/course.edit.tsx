@@ -407,7 +407,8 @@ const CourseEditPage = ({ children }: PropsWithChildren<CourseProps>) => {
             <Row>
               <Col>
                 <Button className="me-1" variant="primary" type="submit">저장</Button>
-                <Button variant="danger" onClick={onCourseDelete}>삭제</Button>
+                <Button className="me-1" variant="danger" onClick={onCourseDelete}>삭제</Button>
+                <Button variant="secondary" onClick={() => navigate(Routing.Course.ByIdx.path(courseDetail.idx))}>뒤로가기</Button>
               </Col>
             </Row>
 

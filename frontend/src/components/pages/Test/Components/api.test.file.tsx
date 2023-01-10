@@ -225,7 +225,6 @@ const File = () => {
                 subjectFileList && subjectFileList.map((item) => item)
               }
             </ListGroup>
-
           </Row>
 
         </Col>
