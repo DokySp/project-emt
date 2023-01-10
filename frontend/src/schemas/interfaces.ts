@@ -65,6 +65,9 @@ export interface CourseCreateInterface extends CourseInterface{
   is_due_date_implicit: boolean,
 
 }
+export interface CourseUpdateInterface extends CourseInterface{
+  idx: number,
+}
 
 /**
  * ## 코스 세부정보

@@ -31,6 +31,7 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
 
   const session = useSelector((state: RootState) => state.session)
   const subscribes = useSelector((state: RootState) => state.subscribes)
+  const userSession = useSelector((state: RootState) => state.sessionUser)
   const params = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
@@ -63,6 +64,10 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
     navigate(Routing.Course.List.path)
   }
 
+  const onEdit = async () => {
+    navigate(Routing.Course.Edit.ByIdx.path(courseDetail.idx))
+  }
+
 
   // 코스 세부정보
   useEffect(() => {
@@ -93,10 +98,12 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
             idx: item.idx!,
             type: ListItemType.LECTURE,
             sectionIdx: item.section_idx!,
+            orderIdx: item.order_idx!,
             disabled: !isSubscribed,
             dueDate: new Date(item.due_date!),
             isDueDateImplicit: courseDetail.is_due_date_implicit!,
             startedDate: startedDate,
+            onButtonClick: () => navigate(Routing.Lecture.ByIdx.path(item.idx)),
           })
         })
 
@@ -107,10 +114,12 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
             idx: item.idx!,
             type: ListItemType.SUBJECT,
             sectionIdx: item.section_idx!,
+            orderIdx: item.order_idx!,
             disabled: !isSubscribed,
             dueDate: new Date(item.due_date!),
             isDueDateImplicit: courseDetail.is_due_date_implicit!,
             startedDate: startedDate,
+            onButtonClick: () => navigate(Routing.Subject.ByIdx.path(item.idx)),
           })
         })
 
@@ -130,6 +139,7 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
               idx: -1,
               type: ListItemType.SECTION,
               sectionIdx: tmp[i].sectionIdx,
+              orderIdx: -1,
               disabled: !isSubscribed,
               dueDate: new Date(),
               isDueDateImplicit: courseDetail.is_due_date_implicit!,
@@ -164,17 +174,29 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
         </div>
 
         <div className="col-sm-8 pt-1 align-self-center" >
-          {/* <strong className="d-inline-block mt-2 text-primary">World</strong> */}
+          <strong className="d-inline-block mt-2 text-primary">{courseDetail.sub_name}</strong>
           <h3 className="mb-0">{courseDetail.name}</h3>
           <div className="mb-3 text-muted">{courseDetail.created_by_name}</div>
           <p className="card-text mb-auto">{courseDetail.description}</p>
           {isSubscribed && <p className="card-text" style={{ color: "grey", fontSize: "0.8rem" }}>{TimeFormat.startedDate(startedDate)}</p>}
           <p className="mb-4"></p>
 
-          {(session.isSignin && !isSubscribed) && <Button variant="primary" onClick={onSubscribe}>
-            수강하기
-          </Button>}
-          {isSubscribed && <Button variant="primary" onClick={onUnsubscribe}>수강 취소하기</Button>}
+          {(() => {
+
+            if (userSession.data.level! < 2 && userSession.data.idx === courseDetail.created_by) {
+              return <Button variant="primary" onClick={onEdit}>수정하기</Button>
+            }
+
+            if (session.isSignin && !isSubscribed) {
+              return <Button variant="primary" onClick={onSubscribe}>수강하기</Button>
+            }
+            else if (isSubscribed) {
+              return <Button variant="primary" onClick={onUnsubscribe}>수강 취소하기</Button>
+            }
+
+            return null
+
+          })()}
 
         </div>
       </div>
@@ -188,9 +210,13 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
               idx={item.idx}
               type={item.type}
               sectionIdx={item.sectionIdx}
+              orderIdx={item.orderIdx}
               disabled={item.disabled}
               isDueDateImplicit={item.isDueDateImplicit}
               startedDate={item.startedDate}
+              onButtonClick={item.onButtonClick}
+              onDeleteClick={item.onDeleteClick}
+              onModifyClick={item.onModifyClick}
             />
           })}
         </ListGroup>

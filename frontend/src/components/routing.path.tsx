@@ -16,6 +16,7 @@ import SubjectEditPage from "./pages/SubjectEdit/subjectEdit"
 import SubjectEvaluationPage from "./pages/SubjectEdit/subjectEvaluation"
 import { Route } from "react-router-dom"
 import ApiTestPage from "./pages/Test/api.test.page"
+import CourseEditPage from "./pages/Course/course.edit"
 
 
 // var params 생성기
@@ -72,7 +73,14 @@ const Routing = {
         path: variableParams("/course/list"),
         Component: CourseListPage,
       },
-    }
+    },
+
+    Edit: {
+      ByIdx: {
+        path: variableParams("/course/edit"),
+        Component: CourseEditPage,
+      }
+    },
   },
 
 

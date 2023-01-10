@@ -1,7 +1,6 @@
 import { Button, Col, Container, ListGroupItem, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import Routing from "../../routing.path";
 import TimeFormat from "../../../utils/time.format";
+import { MouseEventHandler } from "react";
 
 
 export interface ListItemInterface {
@@ -10,9 +9,14 @@ export interface ListItemInterface {
   idx: number,
   type: ListItemType,
   sectionIdx: number,
+  orderIdx: number,
   disabled: boolean,
   isDueDateImplicit: boolean,
   startedDate: Date,
+  isModify?: boolean,
+  onModifyClick?: MouseEventHandler<HTMLButtonElement>
+  onDeleteClick?: MouseEventHandler<HTMLButtonElement>
+  onButtonClick?: MouseEventHandler<HTMLButtonElement>
 }
 
 export const enum ListItemType {
@@ -22,8 +26,6 @@ export const enum ListItemType {
 }
 
 const CourseItem = (props: ListItemInterface) => {
-
-  const navigate = useNavigate()
 
   return (
     <div>
@@ -41,7 +43,7 @@ const CourseItem = (props: ListItemInterface) => {
 
               <Col sm={6}>
                 <div className="ms-2 me-auto">
-                  <div className="fw-bold">{props.title}</div>
+                  <div className="fw-bold"> {props.title}</div>
                   {!props.disabled && (
                     <div style={{ fontSize: "0.8rem", color: "grey" }}>
                       {(props.isDueDateImplicit) && `${TimeFormat.dueDateFormatted(props.dueDate)}`}
@@ -53,16 +55,28 @@ const CourseItem = (props: ListItemInterface) => {
 
               <Col sm />
               <Col sm className="mt-1" style={{ textAlign: "right" }}>
-                {props.type === ListItemType.LECTURE && (
-                  <Button disabled={props.disabled} type="button" variant="primary" onClick={() => navigate(Routing.Lecture.ByIdx.path(props.idx))}>
-                    강의듣기
-                  </Button>
-                )}
-                {props.type === ListItemType.SUBJECT && (
-                  <Button disabled={props.disabled} type="button" variant="secondary" onClick={() => navigate(Routing.Subject.ByIdx.path(props.idx))}>
-                    과제
-                  </Button>
-                )}
+                {(() => {
+                  if (props.isModify) {
+                    return (
+                      <>
+                        <Button disabled={props.disabled} type="button" variant="primary" className="me-1" onClick={props.onModifyClick}>
+                          {props.type === ListItemType.LECTURE && "강의 수정"}
+                          {props.type === ListItemType.SUBJECT && "과제 수정 & 제출 검사"}
+                        </Button>
+                        <Button disabled={props.disabled} type="button" variant="danger" onClick={props.onDeleteClick}>
+                          삭제
+                        </Button>
+                      </>
+                    )
+                  } else {
+                    return (
+                      <Button disabled={props.disabled} type="button" variant="primary" onClick={props.onButtonClick}>
+                        {props.type === ListItemType.LECTURE && "강의듣기"}
+                        {props.type === ListItemType.SUBJECT && "과제"}
+                      </Button>
+                    )
+                  }
+                })()}
               </Col>
             </Row>
 

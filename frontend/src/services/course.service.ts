@@ -1,4 +1,4 @@
-import { ClassInterface, CourseCreateInterface, CourseDetailInterface, CourseInterface, UserInterface } from "../schemas/interfaces";
+import { ClassInterface, CourseCreateInterface, CourseDetailInterface, CourseInterface, CourseUpdateInterface, UserInterface } from "../schemas/interfaces";
 import client from "./client";
 
 const API_URL: string = "/api/course"
@@ -40,12 +40,23 @@ export const createCourse = async (props: CourseCreateInterface): Promise<Course
   return {...res.data.result}
 }
 
-export const updateCourse = async (props: CourseInterface): Promise<boolean> => {
+export const updateCourse = async (props: CourseUpdateInterface): Promise<boolean> => {
   await client.patch(API_URL, props, {params: {idx: props.idx}})
   return true
 }
 
 export const deleteCourse = async (props: {idx: number}): Promise<boolean> => {
   await client.delete(API_URL, {params: {idx: props.idx}})
+  return true
+}
+
+export const deactivateCourse = async (props: {idx: number}): Promise<boolean> => {
+  const data: CourseUpdateInterface = {
+    idx: props.idx,
+    is_enroll_granted: false,
+    is_active: false,
+  } 
+  console.log(data)
+  await client.patch(API_URL, data, {params: {idx: data.idx}})
   return true
 }

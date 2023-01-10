@@ -76,7 +76,6 @@ const LecturePage = () => {
       const list: Array<ReactElement> = [];
 
       classData.files!.map((item) => {
-        console.log(item)
         list.push(
           (<FileItem file={item} />)
         )

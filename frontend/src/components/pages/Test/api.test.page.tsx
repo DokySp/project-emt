@@ -11,6 +11,7 @@ const ApiTestPage = () => {
 
 
 
+
   return (
     <Container>
 
@@ -33,6 +34,8 @@ const ApiTestPage = () => {
 
       <ApiTest.Submit />
       <ApiTest.User />
+
+      <ApiTest.ObjectState />
 
     </Container>
   )

@@ -1,13 +1,14 @@
 import { ReactElement, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Col, Container, Row } from "react-bootstrap"
+import { Button, Col, Container, Row } from "react-bootstrap"
 import { CourseInterface } from "../../../schemas/interfaces"
-import { getCourse } from "../../../services/course.service"
+import { createCourse, getCourse } from "../../../services/course.service"
 import CourseItem from "../../common/CourseItem/course.item"
-import { getUserCourse } from "../../../services/user.service"
+import { addUserCourse, getUserCourse } from "../../../services/user.service"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../store/store"
 import Routing from "../../routing.path";
+import { dummyThumnail1 } from "../../../constants/dummy/dummy"
 
 
 
@@ -20,8 +21,29 @@ const CourseListPage = () => {
   const [itemWidthCount, setItemWidthCount] = useState<number>(calculateItemCount(window.innerWidth))
 
   const session = useSelector((state: RootState) => state.session)
+  const sessionUser = useSelector((state: RootState) => state.sessionUser)
   const params = useParams()
   const navigate = useNavigate()
+
+
+  const onCreateCourse = async () => {
+
+    const isImplicit = window.confirm("기한을 절대값으로 설정하시겠습니까?")
+
+    const result = await createCourse({
+      sub_name: "",
+      description: "새로운 강좌입니다.",
+      created_by: sessionUser.data.idx!,
+      img: dummyThumnail1,
+      name: "새로운 강좌",
+      is_enroll_granted: true,
+      is_due_date_implicit: isImplicit
+    })
+
+    await addUserCourse({ idx: result.idx! })
+
+    navigate(Routing.Course.Edit.ByIdx.path(result.idx))
+  }
 
 
   useEffect(() => {
@@ -99,6 +121,12 @@ const CourseListPage = () => {
 
       {(isLoadCourse && courseList.length === 0) && <Row style={{ textAlign: "center" }}><Col className='m-5 p-5'>로딩중</Col></Row>}
       {(!isLoadCourse && courseList.length === 0) && <Row style={{ textAlign: "center" }}><Col className='m-5 p-5'>수강중인 강좌가 없습니다</Col></Row>}
+
+      <Row style={{ textAlign: "center" }}>
+        <Col className='m-1 p-5'>
+          <Button variant="primary" onClick={onCreateCourse}>새로운 강좌 생성</Button>
+        </Col>
+      </Row>
 
     </Container>
   )
