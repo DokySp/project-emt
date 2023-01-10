@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { PropsWithChildren, useEffect, useState } from "react";
-import CourseItem, { ListItemInterface, ListItemType } from "./course.item";
+import CourseItem, { ListItemInterface, ListItemType } from "./course.list.item";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { CourseDetailInterface, CourseInterface } from "../../../schemas/interfaces";

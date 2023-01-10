@@ -108,7 +108,6 @@ const SubjectPage = () => {
           </div>
 
           <Container className="mb-3">
-
             <Row>
               <Col>
                 <label form="exampleInputEmail1" className="form-label">파일 첨부</label>
@@ -124,10 +123,6 @@ const SubjectPage = () => {
                 </Button>
               </Col>
             </Row>
-
-
-
-
           </Container>
 
           <Container className="mb-3">

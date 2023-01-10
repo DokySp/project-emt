@@ -15,14 +15,16 @@ export const fakeSubject1: SubjectInterface = {
       uuid: "uuid",
       fid: "fid",
       name: "파일 이름 1",
-      size: 0
+      size: 0,
+      type: "image/png",
     },
     {
       idx: 0,
       uuid: "uuid",
       fid: "fid",
       name: "파일 이름 2",
-      size: 0
+      size: 0,
+      type: "image/png",
     }
   ]
 }
@@ -40,14 +42,16 @@ export const fakeSubject2: SubjectInterface = {
       uuid: "uuid",
       fid: "fid",
       name: "파일 이름 1",
-      size: 0
+      size: 0,
+      type: "image/png",
     },
     {
       idx: 0,
       uuid: "uuid",
       fid: "fid",
       name: "파일 이름 2",
-      size: 0
+      size: 0,
+      type: "image/png",
     }
   ]
 }

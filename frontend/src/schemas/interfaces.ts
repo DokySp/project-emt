@@ -165,5 +165,7 @@ export interface FileInterface {
   fid: string,
   name: string,
   size: number,
+  type: string,
+  link?: string,
   // is_public: boolean
 }

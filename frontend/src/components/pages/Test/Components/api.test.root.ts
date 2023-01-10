@@ -5,6 +5,7 @@ import Course from "./api.test.course";
 import Submit from "./api.test.submit";
 import Subject from "./api.test.subject";
 import Token from "./api.test.token";
+import File from "./api.test.file";
 
 export const ApiTest = {
   User,
@@ -14,4 +15,5 @@ export const ApiTest = {
   Submit,
   Token,
   Course,
+  File,
 }
