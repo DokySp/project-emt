@@ -37,8 +37,6 @@ const File = () => {
   const {
     register,
     handleSubmit,
-    setError,
-    formState: { errors },
   } = useForm<InputValue>();
 
 
@@ -218,6 +216,9 @@ const File = () => {
             </Row>
           </form>
 
+
+
+          {/* 파일 리스트 */}
           <Row className="mt-3 mb-3">
             <ListGroup>
               {

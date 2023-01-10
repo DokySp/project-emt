@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown"
 
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, ReactElement, useEffect, useState } from "react";
 import { dummyVimeoUrl, fakeMarkdownText } from "../../../constants/dummy/dummy";
 import { useNavigate, useParams } from "react-router-dom";
 import VimeoViewer from "../../common/VimeoViewer/vimeoViewer";
@@ -8,8 +8,9 @@ import { CourseInterface, SubjectInterface } from "../../../schemas/interfaces";
 import { getSubject } from "../../../services/subject.service";
 import { getUserCourse } from "../../../services/user.service";
 import TimeFormat from "../../../utils/time.format";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import DueDateIndicator from "../../common/DueDateIndicator/duedate.indicator";
+import FileItem from "../../common/FileItem/file.item";
 
 
 
@@ -22,6 +23,7 @@ const SubjectPage = () => {
   const [subjectData, setSubjectData] = useState<SubjectInterface>({} as SubjectInterface)
   const [courseData, setCourseData] = useState<CourseInterface>({} as CourseInterface)
   const [isVimeoUrlExist, setIsVimeoUrlExist] = useState<boolean>(false)
+  const [fileList, setFileList] = useState<Array<ReactElement>>()
 
   // 수업 정보 가져옴
   useEffect(() => {
@@ -68,6 +70,19 @@ const SubjectPage = () => {
       }
     }
 
+    // 파일 목록 생성
+    if (subjectData.due_date) {
+      const list: Array<ReactElement> = [];
+
+      subjectData.files!.map((item) => {
+        console.log(item)
+        list.push(
+          (<FileItem file={item} />)
+        )
+      })
+      setFileList(list)
+    }
+
   }, [courseData, subjectData])
 
 
@@ -87,15 +102,14 @@ const SubjectPage = () => {
             <ReactMarkdown children={subjectData.content ?? "내용 없음"}></ReactMarkdown>
           </div>
 
+          <h4 className="mt-4">파일 목록</h4>
+          <Row className="mt-1 mb-5">
+            <ListGroup>
+              {fileList && fileList.map((item) => item)}
+            </ListGroup>
+          </Row>
 
-          <div>TODO: 파일 리스트</div>
-          <div>TODO: 파일 리스트</div>
-          <div>TODO: 파일 리스트</div>
-          <div>TODO: 파일 리스트</div>
-          <div className="mb-5">TODO: 파일 리스트</div>
-
-
-          <hr />
+          <hr className="mt-5" />
 
 
           <h3 className="mt-5">과제 제출하기</h3>

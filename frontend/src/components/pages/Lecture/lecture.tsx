@@ -4,12 +4,14 @@ import { useNavigate, useParams } from "react-router-dom"
 import VimeoViewer from "../../common/VimeoViewer/vimeoViewer"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../store/store"
-import { useEffect, useState } from "react"
+import { ReactElement, useEffect, useState } from "react"
 import { getClass, updateClass } from "../../../services/class.service"
 import { ClassInterface, CourseInterface } from "../../../schemas/interfaces"
 import TimeFormat from "../../../utils/time.format"
 import { getUserCourse } from "../../../services/user.service"
 import DueDateIndicator from "../../common/DueDateIndicator/duedate.indicator"
+import { ListGroup, Row } from "react-bootstrap"
+import FileItem from "../../common/FileItem/file.item"
 
 
 const LecturePage = () => {
@@ -20,6 +22,7 @@ const LecturePage = () => {
   const [classData, setClassData] = useState<ClassInterface>({} as ClassInterface)
   const [courseData, setCourseData] = useState<CourseInterface>({} as CourseInterface)
   const [isVimeoUrlExist, setIsVimeoUrlExist] = useState<boolean>(false)
+  const [fileList, setFileList] = useState<Array<ReactElement>>()
 
   // // TODO: 수강시간 기록 / 업데이트
   // const [watchedMinute, setWatchedMinute] = useState(0)
@@ -69,6 +72,18 @@ const LecturePage = () => {
       }
     }
 
+    if (classData.due_date) {
+      const list: Array<ReactElement> = [];
+
+      classData.files!.map((item) => {
+        console.log(item)
+        list.push(
+          (<FileItem file={item} />)
+        )
+      })
+      setFileList(list)
+    }
+
   }, [classData, courseData])
 
 
@@ -111,11 +126,12 @@ const LecturePage = () => {
             <ReactMarkdown children={classData.content ?? "내용 없음."}></ReactMarkdown>
           </div>
 
-          <div>TODO: 파일 리스트</div>
-          <div>TODO: 파일 리스트</div>
-          <div>TODO: 파일 리스트</div>
-          <div>TODO: 파일 리스트</div>
-          <div className="mb-5">TODO: 파일 리스트</div>
+          <h4 className="mt-4">파일 목록</h4>
+          <Row className="mt-1 mb-5">
+            <ListGroup>
+              {fileList && fileList.map((item) => item)}
+            </ListGroup>
+          </Row>
 
           <button onClick={() => navigate(-1)} type="button" className="btn btn-secondary">
             뒤로가기
