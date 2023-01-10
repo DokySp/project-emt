@@ -12,7 +12,7 @@ const SubmitService = {
 
       for (item of result) {
         // 해당 제출 과제의 파일 검색 후 결과에 추가
-        const query = `SELECT a.file_idx AS idx, uuid, fid, name, size FROM submit_file_link AS a INNER JOIN file AS b ON a.file_idx = b.idx WHERE submit_idx = ${idx}`;
+        const query = `SELECT a.file_idx AS idx, uuid, fid, name, size, type FROM submit_file_link AS a INNER JOIN file AS b ON a.file_idx = b.idx WHERE submit_idx = ${idx}`;
         const [fResult, _] = await sequelize.query(query);
         item.dataValues["files"] = fResult;
       }

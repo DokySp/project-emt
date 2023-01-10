@@ -1,6 +1,7 @@
 const model = require("../models");
 const crypt = require("../utils/crypt");
 const { sequelize } = require("../models");
+const TimeTools = require("../utils/time");
 
 const CourseService = {
   get: async (idx) => {
@@ -13,6 +14,21 @@ const CourseService = {
       let result = await model.course.findAll({
         where: whereClause,
       });
+
+      // created_by 강사 닉네임 추가 (created_by_name)
+      for (let i = 0; i < result.length; i++) {
+        if (
+          result[i].dataValues.created_by !== undefined &&
+          result[i].dataValues.created_by !== null
+        ) {
+          let userRes = await model.user.findOne({
+            where: { idx: result[i].dataValues.created_by },
+          });
+          result[i].dataValues.created_by_name = userRes.dataValues.nickname;
+        } else {
+          result[i].dataValues.created_by_name = undefined;
+        }
+      }
 
       return result;
     } catch (err) {
@@ -65,8 +81,78 @@ const CourseService = {
         where: { course_idx: idx },
       });
 
+      // classes: order_idx -> section_idx 소팅
+      classes.sort((a, b) => {
+        if (a.dataValues.order_idx > b.dataValues.order_idx) return 1;
+        if (a.dataValues.order_idx == b.dataValues.order_idx) return 0;
+        if (a.dataValues.order_idx < b.dataValues.order_idx) return -1;
+      });
+
+      classes.sort((a, b) => {
+        if (a.dataValues.section_idx > b.dataValues.section_idx) return 1;
+        if (a.dataValues.section_idx == b.dataValues.section_idx) return 0;
+        if (a.dataValues.section_idx < b.dataValues.section_idx) return -1;
+      });
+
+      // subjects: order_idx -> section_idx 소팅
+      subjects.sort((a, b) => {
+        if (a.dataValues.order_idx > b.dataValues.order_idx) return 1;
+        if (a.dataValues.order_idx == b.dataValues.order_idx) return 0;
+        if (a.dataValues.order_idx < b.dataValues.order_idx) return -1;
+      });
+
+      subjects.sort((a, b) => {
+        if (a.dataValues.section_idx > b.dataValues.section_idx) return 1;
+        if (a.dataValues.section_idx == b.dataValues.section_idx) return 0;
+        if (a.dataValues.section_idx < b.dataValues.section_idx) return -1;
+      });
+
       result.dataValues.classes = classes;
       result.dataValues.subjects = subjects;
+
+      // created_by 강사 닉네임 추가 (created_by_name)
+      if (
+        result.dataValues.created_by !== undefined &&
+        result.dataValues.created_by !== null
+      ) {
+        let userRes = await model.user.findOne({
+          where: { idx: result.dataValues.created_by },
+        });
+        result.dataValues.created_by_name = userRes.dataValues.nickname;
+      } else {
+        result.dataValues.created_by_name = undefined;
+      }
+
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+
+  getRecommend: async (idx) => {
+    try {
+      let result = await model.course.findAll({
+        where: { is_active: true },
+      });
+
+      // 랜덤으로 정렬 후 상위 3개 뽑기
+      result.sort(() => 0.5 - Math.random());
+      result.splice(3);
+
+      // created_by 강사 닉네임 추가 (created_by_name)
+      for (let i = 0; i < result.length; i++) {
+        if (
+          result[i].dataValues.created_by !== undefined &&
+          result[i].dataValues.created_by !== null
+        ) {
+          let userRes = await model.user.findOne({
+            where: { idx: result[i].dataValues.created_by },
+          });
+          result[i].dataValues.created_by_name = userRes.dataValues.nickname;
+        } else {
+          result[i].dataValues.created_by_name = undefined;
+        }
+      }
 
       return result;
     } catch (err) {

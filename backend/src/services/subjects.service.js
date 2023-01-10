@@ -11,7 +11,7 @@ const SubjectsService = {
 
       for (item of result) {
         // 해당 과제의 파일 검색 후 결과에 추가
-        const query = `SELECT a.file_idx AS idx, uuid, fid, name, size FROM subjects_file_link AS a INNER JOIN file AS b ON a.file_idx = b.idx WHERE subjects_idx = ${idx}`;
+        const query = `SELECT a.file_idx AS idx, uuid, fid, name, size, type FROM subjects_file_link AS a INNER JOIN file AS b ON a.file_idx = b.idx WHERE subjects_idx = ${idx}`;
         const [fResult, _] = await sequelize.query(query);
         item.dataValues["files"] = fResult;
       }

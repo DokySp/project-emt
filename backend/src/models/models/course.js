@@ -29,8 +29,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     is_enroll_granted: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: true
+      allowNull: false,
+      defaultValue: 1
     },
     is_due_date_implicit: {
       type: DataTypes.BOOLEAN,
@@ -38,8 +38,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     is_active: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: true
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,

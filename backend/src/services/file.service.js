@@ -48,7 +48,7 @@ const FileService = {
     return filename;
   },
 
-  download: async (uuid, header, streamDestination) => {
+  download: async (uuid, header, streamDestination, isSigninSession) => {
     // https://whichmean.tistory.com/6
     // 1. DB에서 해당 uuid로 파일 검색
     // 2. 검색 결과에서 fid 값 도출
@@ -63,6 +63,11 @@ const FileService = {
         throw new Error("Cannot find file");
       }
       const result = resultRaw.dataValues;
+
+      // 1-1. 로그인 안했는데 public 아닌 파일 접근 시
+      if (result.is_public === false && isSigninSession === false) {
+        throw new Error("Cannot access private file");
+      }
 
       // 2. 검색 결과에서 fid 값 도출
       const fid = `${baseDirLoc}/${result.fid}`;
@@ -127,8 +132,6 @@ const FileService = {
       });
       fileResult = fileResult.dataValues;
 
-      console.log(idx);
-
       // 5. 해당 파일 링크 DB 등록
       switch (paramStatus) {
         case FileService.status.CLASSES:
@@ -142,6 +145,7 @@ const FileService = {
             subjects_idx: idx,
             file_idx: fileResult.idx,
           });
+          console.log("1111");
           break;
         case FileService.status.SUBMIT:
           linkResult = await model.submit_file_link.create({
@@ -154,10 +158,13 @@ const FileService = {
         linkResult = linkResult.dataValues;
       }
 
+      console.log("2222");
+
       return {
-        name: filename,
-        size: filesize,
-        type: mimetype,
+        ...fileResult,
+        // name: filename,
+        // size: filesize,
+        // type: mimetype,
         link: `${secret.development.host}/api/file/${uuid}`,
       };
     } catch (err) {

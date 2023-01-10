@@ -4,8 +4,7 @@ var router = express.Router();
 var FileController = require("../controllers/file.controller");
 const auth = require("../utils/auth");
 
-// TODO: 개선 필요 (is_public 관련)
-router.get("/:uuid/", auth.checkSelf, FileController.download);
+router.get("/:uuid/", auth.checkToken, FileController.download);
 /**
  * @swagger
  * paths:
@@ -16,7 +15,8 @@ router.get("/:uuid/", auth.checkSelf, FileController.download);
  *          summary: 파일 다운로드
  *          operationId: download
  *
- *          description: '<font color="blue"><b>checkSelf</b></font><br><br>파일 다운로드<br>권한: <b>LOGIN</b>'
+ *          description: '<font color="grey"><b>checkToken</b></font><br><br>파일 다운로드<br>권한: <b>TOKEN</b><br>public인 경우 권한 필요 없음'
+ *
  *          security:
  *           - Auth: []
  *

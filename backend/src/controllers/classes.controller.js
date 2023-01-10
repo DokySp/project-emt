@@ -26,6 +26,9 @@ const ClassesController = {
     let data = req.body;
     delete data.idx;
 
+    delete data.watch_time;
+    data.watch_time = new Date(1000);
+
     try {
       const result = await ClassesService.create(data);
 

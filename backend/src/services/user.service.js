@@ -149,10 +149,8 @@ const UserService = {
       for (var i = 0; i < result.length; i++) {
         delete result[i].course_idx;
         delete result[i].user_idx;
-        result[i].is_enroll_granted =
-          result[i].is_enroll_granted[0] == 1 ? true : false;
-        result[i].is_due_date_implicit =
-          result[i].is_due_date_implicit[0] == 1 ? true : false;
+        result[i].is_enroll_granted = result[i].is_enroll_granted == 1;
+        result[i].is_due_date_implicit = result[i].is_due_date_implicit == 1;
       }
 
       return result;

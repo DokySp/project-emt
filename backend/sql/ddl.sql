@@ -14,9 +14,9 @@ CREATE TABLE course(
   description VARCHAR(500),
   created_by INT,
 
-  is_enroll_granted BIT(1) DEFAULT 1,
-  is_due_date_implicit BIT(1) NOT NULL,
-  is_active BIT(1) DEFAULT 1,
+  is_enroll_granted BOOLEAN NOT NULL DEFAULT TRUE,
+  is_due_date_implicit BOOLEAN NOT NULL,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
   PRIMARY KEY (idx)
 );
 CREATE TABLE user(
@@ -27,10 +27,10 @@ CREATE TABLE user(
   nickname VARCHAR(20),
   pw VARCHAR(350) NOT NULL,
   img VARCHAR(1000),
-  issued_at DATETIME NOT NULL,
-  created DATETIME NOT NULL,
+  issued_at TIMESTAMP NOT NULL,
+  created TIMESTAMP NOT NULL,
   level INT NOT NULL,
-  is_active BIT(1) DEFAULT 1,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
   PRIMARY KEY (idx)
 );
 CREATE TABLE classes(
@@ -41,8 +41,8 @@ CREATE TABLE classes(
   vimeo_url VARCHAR(1000),
   name VARCHAR(100),
   content VARCHAR(5000),
-  watch_time DATETIME NOT NULL,
-  due_date DATETIME NOT NULL,
+  watch_time TIMESTAMP NOT NULL,
+  due_date TIMESTAMP NOT NULL,
   PRIMARY KEY (idx),
   FOREIGN KEY (course_idx) REFERENCES course(idx)
 );
@@ -54,7 +54,7 @@ CREATE TABLE subjects(
   vimeo_url VARCHAR(1000),
   name VARCHAR(100),
   content VARCHAR(5000),
-  due_date DATETIME NOT NULL,
+  due_date TIMESTAMP NOT NULL,
   PRIMARY KEY (idx),
   FOREIGN KEY (course_idx) REFERENCES course(idx)
 );
@@ -68,8 +68,8 @@ CREATE TABLE submit(
   status int DEFAULT 0,
   comments VARCHAR(5000),
   score int,
-  return_time DATETIME,
-  submitted_time DATETIME,
+  return_time TIMESTAMP,
+  submitted_time TIMESTAMP,
 
   PRIMARY KEY (idx),
   FOREIGN KEY (user_idx) REFERENCES user(idx),
@@ -83,7 +83,7 @@ CREATE TABLE file(
   name VARCHAR(256),
   size INT,
   type VARCHAR(100),
-  is_public BIT(1) NOT NULL,
+  is_public BOOLEAN NOT NULL,
   PRIMARY KEY (idx)
 );
 
@@ -97,7 +97,7 @@ CREATE TABLE division(
 CREATE TABLE course_user_link(
   course_idx INT NOT NULL,
   user_idx INT NOT NULL,
-  started_date DATETIME,
+  started_date TIMESTAMP,
 	PRIMARY KEY (course_idx, user_idx),
 	FOREIGN KEY (course_idx) REFERENCES course(idx),
 	FOREIGN KEY (user_idx) REFERENCES user(idx)

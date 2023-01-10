@@ -6,8 +6,15 @@ const FileController = {
       const uuid = req.params.uuid;
       const streamDest = res;
       const header = req.headers["user-agent"];
+      let isSigninSession = false;
 
-      await FileService.download(uuid, header, streamDest);
+      if (Object.keys(req.token).length === 0) {
+        isSigninSession = false;
+      } else {
+        isSigninSession = true;
+      }
+
+      await FileService.download(uuid, header, streamDest, isSigninSession);
 
       return res.status(200);
     } catch (err) {

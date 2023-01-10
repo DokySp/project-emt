@@ -97,6 +97,28 @@ const auth = {
     }
   },
 
+  // 헤더에 토큰 정보만 추가
+  checkToken: async (req, res, next) => {
+    try {
+      if (
+        process.env.NODE_ENV === "development-master" ||
+        process.env.NODE_ENV === "production-master"
+      ) {
+        console.log("!! master auth !!");
+        req.token = secret.dummyToken;
+      } else {
+        req.token = await verification(req, res);
+      }
+
+      next();
+    } catch (err) {
+      return res.status(401).json({
+        result: false,
+        msg: "clt:" + err.toString(),
+      });
+    }
+  },
+
   // 사용 금지
   check: async (req, res, next) => {
     // try {

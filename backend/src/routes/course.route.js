@@ -5,7 +5,7 @@ var CourseController = require("../controllers/course.controller");
 const auth = require("../utils/auth");
 
 // router.get(`${apiCoursePrefix}`, auth.check, CourseController.getCourse);
-router.get("/", auth.checkSelf, CourseController.get);
+router.get("/", CourseController.get);
 /**
  * @swagger
  * paths:
@@ -16,7 +16,7 @@ router.get("/", auth.checkSelf, CourseController.get);
  *          summary: 강좌 조회
  *          operationId: getCourse
  *
- *          description: '<font color="blue"><b>checkSelf</b></font><br><br>강좌 조회'
+ *          description: '강좌 조회'
  *          security:
  *           - Auth: []
  *
@@ -209,7 +209,7 @@ router.delete("/", auth.checkLev1, CourseController.delete);
 //
 //
 
-router.get("/detail", auth.checkSelf, CourseController.getDetail);
+router.get("/detail", CourseController.getDetail);
 /**
  * @swagger
  * paths:
@@ -242,6 +242,44 @@ router.get("/detail", auth.checkSelf, CourseController.getDetail);
  *                                  result:
  *                                      type: application/json
  *                                      $ref: '#/components/schemas/CourseDetail'
+ *              4XX:
+ *                  description: fail
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: boolean
+ *                                  msg:
+ *                                      type: string
+ */
+
+router.get("/recommend", CourseController.getRecommend);
+/**
+ * @swagger
+ * paths:
+ *   /api/course/recommend:
+ *      get:
+ *          tags:
+ *          - course
+ *          summary: 강좌 추천 목록
+ *          operationId: getRecommend
+ *
+ *          description: '강좌 추천 목록 (랜덤 3개)'
+ *
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              properties:
+ *                                  result:
+ *                                      type: array
+ *                                      items:
+ *                                          $ref: '#/components/schemas/Course'
+ *                                  msg:
+ *                                      type: string
  *              4XX:
  *                  description: fail
  *                  content:
