@@ -302,7 +302,7 @@ const CourseEditPage = ({ children }: PropsWithChildren<CourseProps>) => {
             dueDate: new Date(item.due_date!),
             isDueDateImplicit: courseDetail.is_due_date_implicit!,
             startedDate: startedDate,
-            onModifyClick: () => navigate(Routing.Lecture.Edit.ByIdx.path(item.idx)),
+            onModifyClick: () => navigate(Routing.Subject.Edit.ByIdx.path(item.idx)),
             onDeleteClick: () => { onDeleteSubject({ idx: item.idx! }) },
           })
         })

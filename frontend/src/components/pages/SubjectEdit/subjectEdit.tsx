@@ -1,5 +1,5 @@
 import { PropsWithChildren, useState } from "react"
-import { Nav } from "react-bootstrap"
+import { Container, Nav, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import SubContext from "./subjectContext"
 import SubStatus from "./subjectStatus"
@@ -25,8 +25,8 @@ const SubjectEditPage = ({ children }: PropsWithChildren<SubjectEditProps>) => {
 
   return (
     <>
-      <div className="container">
-        <div className="row p-4">
+      <Container>
+        <Row className="p-4">
 
           <Nav variant="pills" defaultActiveKey={tabStatus}>
 
@@ -44,8 +44,8 @@ const SubjectEditPage = ({ children }: PropsWithChildren<SubjectEditProps>) => {
           {tabStatus === TabStatus.STATUS && <SubStatus navigate={navigate} />}
 
 
-        </div>
-      </div>
+        </Row>
+      </Container>
     </>
   )
 }

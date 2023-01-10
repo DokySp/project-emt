@@ -44,7 +44,6 @@ const LectureEditPage = ({ children }: PropsWithChildren<LectureEditProps>) => {
 
 
   const onSaveHandler = async (data: ClassInputForm) => {
-
     let dueDate
     if (courseData.is_due_date_implicit) {
       dueDate = new Date(data.due_date)
@@ -79,6 +78,7 @@ const LectureEditPage = ({ children }: PropsWithChildren<LectureEditProps>) => {
       setIsFileChanged(isFileChanged === true ? false : true)
     })
   }
+
 
 
   // 수업 정보 가져옴
