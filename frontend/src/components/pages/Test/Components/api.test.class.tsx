@@ -36,10 +36,10 @@ const Class = () => {
               course_idx: 1,
               section_idx: 1,
               order_idx: 5,
-              due_date: new Date("2023-01-15 10:00:00")
+              due_date: new Date("2023-01-15 10:00:00"),
             })
             console.log(result)
-          }} >CLASS POST ({classIdx})</Button>
+          }} >CLASS POST</Button>
 
           <Button className="me-1" onClick={async () => {
             const result = await updateClass({

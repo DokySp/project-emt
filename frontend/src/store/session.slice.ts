@@ -82,8 +82,10 @@ const session = createSlice({
         const remainSessionTime = (TokenManager.getPayload(token).exp.getTime() - new Date(Date.now()).getTime())
         
         // remainSessionTime 시간 1분 남은 경우
-        if((1 * 1 * 1000) < remainSessionTime && remainSessionTime < (1 * 60 * 1000)){
+        // TODO: 1분 남았을 떄 로그인 풀리는 현상 확인
+        if((1 * 1 * 1000) < remainSessionTime && remainSessionTime < (2 * 60 * 1000)){
           window.alert("1분 뒤에 자동으로 로그아웃됩니다. 변경사항을 저장해주세요.")
+          console.log(token)
         }
 
         // remainSessionTime 끝난 경우

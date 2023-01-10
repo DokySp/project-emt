@@ -9,6 +9,7 @@ export const asyncUserFetch = createAsyncThunk(
   'sessionUser/asyncUserFetch',
   async (data: {token: string}) => {
     const tokenData = jwtDecode<TokenInterface>(data.token)
+    // TODO: 직렬화 이슈
     const user = await getUser({idx: tokenData.idx})
     return {user: user}
   }
@@ -34,6 +35,7 @@ const sessionUser = createSlice({
     })
     builder.addCase(asyncUserFetch.fulfilled, (state, action) => {
       // complete
+      console.log(action.payload.user)
       state.data = action.payload.user
       state.isUpdating = false
     })

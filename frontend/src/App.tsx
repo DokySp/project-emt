@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
-import { Routes } from 'react-router-dom';
+import { Navigate, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Header from './components/common/Header/header';
 import Footer from './components/common/Footer/footer';
@@ -15,6 +15,7 @@ import { asyncSubscribesFetch } from './store/subscribes.slice';
 
 const App = () => {
 
+  const navigate = useNavigate()
   const session = useSelector((state: RootState) => state.session)
   const [sessionCheckTick, setSessionCheckTick] = useState(0)
 

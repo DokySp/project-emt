@@ -1,7 +1,7 @@
 import { Button, Col, Container, ListGroupItem, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Routing from "../../routing.path";
-import timeFormat from "../../../utils/time.format";
+import TimeFormat from "../../../utils/time.format";
 
 
 export interface ListItemInterface {
@@ -44,8 +44,8 @@ const CourseItem = (props: ListItemInterface) => {
                   <div className="fw-bold">{props.title}</div>
                   {!props.disabled && (
                     <div style={{ fontSize: "0.8rem", color: "grey" }}>
-                      {(props.isDueDateImplicit) && `${timeFormat.dueDateImplicit(props.dueDate)}`}
-                      {(!props.isDueDateImplicit) && `${timeFormat.dueDateRelative({ started: props.startedDate, due: props.dueDate })}`}
+                      {(props.isDueDateImplicit) && `${TimeFormat.dueDateFormatted(props.dueDate)}`}
+                      {(!props.isDueDateImplicit) && `${TimeFormat.dueDateFormatted(TimeFormat.dueDateRelative({ started: props.startedDate, due: props.dueDate }))}`}
                     </div>
                   )}
                 </div>

@@ -112,17 +112,28 @@ export interface ClassUpdateInterface extends ClassInterface {
  * ## 과제
  */
 export interface SubjectInterface {
-  idx: number,
-  course_idx: number,
+  idx?: number,
+  course_idx?: number,
 
   section_idx?: number,
   order_idx?: number,
 
-  vimeo_url: string,
-  name: string,
-  content: string,
-  due_date: Date,
+  vimeo_url?: string,
+  name?: string,
+  content?: string,
+  due_date?: Date,
   files?: Array<FileInterface>,
+}
+
+export interface SubjectCreateInterface extends SubjectInterface{
+  course_idx: number,
+  section_idx: number,
+  order_idx: number,
+  due_date: Date,
+}
+
+export interface SubjectUpdateInterface extends SubjectInterface{
+  idx: number,
 }
 
 /**

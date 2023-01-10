@@ -1,9 +1,8 @@
-import { ClassCreateInterface, ClassInterface, ClassUpdateInterface, CourseCreateInterface } from "../schemas/interfaces";
+import { ClassCreateInterface, ClassInterface, ClassUpdateInterface } from "../schemas/interfaces";
 import client from "./client";
 
 const API_URL: string = "/api/classes"
 
-// TODO: 테스트 필요
 
 // Class
 export const getClass = async (props: {idx: number}): Promise<ClassInterface> => {
@@ -18,7 +17,12 @@ export const getClass = async (props: {idx: number}): Promise<ClassInterface> =>
 
 export const createClass = async (props: ClassCreateInterface): Promise<ClassInterface> => {
   const res = await client.post(API_URL, props)
-  return {...res.data.result}
+  const result: ClassInterface = res.data.result
+
+  result.watch_time = new Date(result.watch_time!)
+  result.due_date = new Date(result.due_date!)
+
+  return {...result}
 }
 
 export const updateClass = async (props: ClassUpdateInterface): Promise<boolean> => {

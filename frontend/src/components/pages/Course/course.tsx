@@ -103,12 +103,12 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
         // Subject
         courseDetail.subjects.map((item) => {
           return tmp.push({
-            title: item.name,
-            idx: item.idx,
+            title: item.name ?? "제목 없음",
+            idx: item.idx!,
             type: ListItemType.SUBJECT,
             sectionIdx: item.section_idx!,
             disabled: !isSubscribed,
-            dueDate: new Date(item.due_date),
+            dueDate: new Date(item.due_date!),
             isDueDateImplicit: courseDetail.is_due_date_implicit!,
             startedDate: startedDate,
           })
@@ -168,9 +168,10 @@ const CoursePage = ({ children }: PropsWithChildren<CourseProps>) => {
           <h3 className="mb-0">{courseDetail.name}</h3>
           <div className="mb-3 text-muted">{courseDetail.created_by_name}</div>
           <p className="card-text mb-auto">{courseDetail.description}</p>
-          <p className="card-text mb-4" style={{ color: "grey", fontSize: "0.8rem" }}>{TimeFormat.startedDate(startedDate)}</p>
+          {isSubscribed && <p className="card-text" style={{ color: "grey", fontSize: "0.8rem" }}>{TimeFormat.startedDate(startedDate)}</p>}
+          <p className="mb-4"></p>
 
-          {!isSubscribed && <Button variant="primary" onClick={onSubscribe}>
+          {(session.isSignin && !isSubscribed) && <Button variant="primary" onClick={onSubscribe}>
             수강하기
           </Button>}
           {isSubscribed && <Button variant="primary" onClick={onUnsubscribe}>수강 취소하기</Button>}

@@ -18,11 +18,12 @@ const ApiTestPage = () => {
       <Button variant="secondary" onClick={() => navigate(-1)}>BACK</Button>
 
       <ApiTest.Token />
+      <ApiTest.Subject />
 
-      <ApiTest.Class />
       <ApiTest.CourseDate />
       <ApiTest.Course />
-      <ApiTest.Subject />
+      <ApiTest.Class />
+
       <ApiTest.Submit />
       <ApiTest.User />
 
