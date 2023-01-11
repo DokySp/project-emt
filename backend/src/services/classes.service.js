@@ -9,6 +9,7 @@ const ClassesService = {
         where: { idx },
       });
 
+      // 리팩토링 (결과 무조건 하나 나오는데 for문 돌 이유가 없음)
       for (item of result) {
         // 해당 수업의 파일 검색 후 결과에 추가
         const query = `SELECT a.file_idx AS idx, uuid, fid, name, size, type FROM classes_file_link AS a INNER JOIN file AS b ON a.file_idx = b.idx WHERE classes_idx = ${idx}`;

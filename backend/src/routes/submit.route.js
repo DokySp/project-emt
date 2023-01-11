@@ -42,6 +42,90 @@ router.get("/", auth.checkSelf, SubmitController.get);
  *                  content: {}
  */
 
+//
+//
+//
+
+router.get("/bys", auth.checkSelf, SubmitController.getBySubject);
+/**
+ * @swagger
+ * paths:
+ *   /api/submit/bys:
+ *      get:
+ *          tags:
+ *          - submit
+ *          summary: 제출한 과제 조회
+ *          operationId: getSubmitBySubject
+ *
+ *          description: '<font color="blue"><b>checkSelf</b></font><br><br>제출한 과제 조회'
+ *          security:
+ *           - Auth: []
+ *
+ *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '과제 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  format: int64
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/SubmitGet'
+ *              400:
+ *                  description: fail
+ *                  content: {}
+ */
+
+router.get("/bys/all", auth.checkLev1, SubmitController.getBySubjectAll);
+/**
+ * @swagger
+ * paths:
+ *   /api/submit/bys/all:
+ *      get:
+ *          tags:
+ *          - submit
+ *          summary: 제출한 모든 과제 조회
+ *          operationId: getSubmitBySubjectAll
+ *
+ *          description: '<font color="orange"><b>checkLev1</b></font><br><br>제출한 모든 과제 조회'
+ *          security:
+ *           - Auth: []
+ *
+ *          parameters:
+ *              - name: idx
+ *                in: query
+ *                description: '과제 IDX'
+ *                required: true
+ *                schema:
+ *                  type: integer
+ *                  format: int64
+ *          responses:
+ *              200:
+ *                  description: successful operation
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *                              items:
+ *                                  $ref: '#/components/schemas/SubmitGet'
+ *              400:
+ *                  description: fail
+ *                  content: {}
+ */
+
+//
+//
+//
+//
+//
+
 router.post("/", auth.checkLev2, SubmitController.create);
 /**
  * @swagger

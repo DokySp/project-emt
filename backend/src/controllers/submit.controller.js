@@ -22,6 +22,62 @@ const SubmitController = {
     }
   },
 
+  //
+  //
+  //
+
+  getBySubject: async (req, res, next) => {
+    try {
+      let userIdx = req.token.idx;
+      const result = await SubmitService.getBySubject(
+        Number(req.query.idx),
+        Number(userIdx)
+      );
+
+      if (result.length === 0) {
+        throw new Error("Empty set");
+      }
+
+      return res.status(200).json({
+        result,
+        msg: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
+
+  getBySubjectAll: async (req, res, next) => {
+    try {
+      const result = await SubmitService.getBySubjectAll(Number(req.query.idx));
+
+      if (result.length === 0) {
+        throw new Error("Empty set");
+      }
+
+      return res.status(200).json({
+        result,
+        msg: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({
+        result: false,
+        msg: err.toString(),
+      });
+    }
+  },
+
+  //
+  //
+  //
+  //
+  //
+
   create: async (req, res, next) => {
     let data = req.body;
     delete data.idx;

@@ -166,13 +166,15 @@ const CourseService = {
 
   getUser: async (idx) => {
     try {
-      const query = `SELECT last_name, first_name, nickname, email, img, level FROM USER AS a INNER JOIN course_user_link as b ON a.idx = b.user_idx WHERE b.course_idx = ${idx};`;
+      console.log("sdfsadfs");
+
+      const query = `SELECT a.idx, last_name, first_name, nickname, email, img, level FROM USER AS a INNER JOIN course_user_link as b ON a.idx = b.user_idx WHERE b.course_idx = ${idx};`;
       const [result, metadata] = await sequelize.query(query);
 
-      for (var i = 0; i < result.length; i++) {
-        delete result[i].user_idx;
-        delete result[i].division_idx;
-      }
+      // for (var i = 0; i < result.length; i++) {
+      //   delete result[i].user_idx;
+      //   delete result[i].division_idx;
+      // }
 
       return result;
     } catch (err) {

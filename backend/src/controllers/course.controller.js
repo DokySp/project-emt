@@ -47,7 +47,7 @@ const CourseController = {
     const data = req.body;
     const idx = Number.parseInt(req.query.idx);
     delete data.idx;
-    delete data.is_active;
+    // delete data.is_active;
 
     try {
       if (Object.keys(data).length === 0) {
