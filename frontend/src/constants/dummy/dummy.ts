@@ -1,4 +1,4 @@
-import { ChatDataInterface, SendFrom } from "../../components/pages/SubjectEdit/Chat/chat"
+import { ChatDataInterface, SendFrom } from "../../schemas/interfaces"
 
 export const dummyBanner1:string = "/dummy/img/banner1.png"
 export const dummyBanner2:string = "/dummy/img/banner2.png"

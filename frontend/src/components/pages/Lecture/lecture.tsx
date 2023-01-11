@@ -72,7 +72,8 @@ const LecturePage = () => {
       }
     }
 
-    if (classData.due_date) {
+    // 파일 리스트 업데이트
+    if (classData.files) {
       const list: Array<ReactElement> = [];
 
       classData.files!.map((item) => {

@@ -21,8 +21,6 @@ const CircularProgress = (props: CircularProgressInterface) => {
   const circumference = radius * Math.PI * 2;
   const dash = (progress * circumference) / 100;
 
-  console.log(dash | circumference - dash)
-
   return (
     <svg width={props.size} height={props.size} viewBox={viewBox}>
       <circle

@@ -11,6 +11,7 @@ import TimeFormat from "../../../utils/time.format";
 import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import DueDateIndicator from "../../common/DueDateIndicator/duedate.indicator";
 import FileItem from "../../common/FileItem/file.item";
+import SubjectSubmit from "./subject.submit";
 
 
 
@@ -25,14 +26,13 @@ const SubjectPage = () => {
   const [isVimeoUrlExist, setIsVimeoUrlExist] = useState<boolean>(false)
   const [fileList, setFileList] = useState<Array<ReactElement>>()
 
-  // 수업 정보 가져옴
+  // 과제 정보 가져옴
   useEffect(() => {
     getSubject({ idx: Number(params.var) }).then((res: SubjectInterface) => {
       setSubjectData(res)
     }).catch((error) => {
       // 통신 에러
     })
-
   }, [])
 
   // 코스 정보 가져옴
@@ -111,46 +111,8 @@ const SubjectPage = () => {
 
           <hr className="mt-5" />
 
-
-          <h3 className="mt-5">과제 제출하기</h3>
-
-
-          <div className="mb-3">
-            <label form="exampleInputEmail1" className="form-label">내용 작성하기</label>
-            <textarea className="form-control" id="exampleFormControlTextarea1" rows={0} style={{ height: "300px" }} />
-            {/* <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div> */}
-          </div>
-
-          <Container className="mb-3">
-            <Row>
-              <Col>
-                <label form="exampleInputEmail1" className="form-label">파일 첨부</label>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm>
-                <input className="form-control" type="file" id="formFile" />
-              </Col>
-              <Col sm={2} >
-                <Button type="button" variant="primary" style={{ width: "100%" }}>
-                  업로드
-                </Button>
-              </Col>
-            </Row>
-          </Container>
-
-          <Container className="mb-3">
-            <div>TODO: 파일 리스트</div>
-            <div>TODO: 파일 리스트</div>
-            <div>TODO: 파일 리스트</div>
-          </Container>
-
-          <button type="button" className="btn btn-primary" style={{ margin: "50px 0 0" }} >
-            제출하기
-          </button>
-          <button onClick={() => navigate(-1)} type="button" className="btn btn-secondary" style={{ margin: "10px 0 0" }}>
-            뒤로가기
-          </button>
+          {/* 과제 제출 */}
+          {subjectData.idx && <SubjectSubmit subject={subjectData} />}
 
         </div>
       </div>

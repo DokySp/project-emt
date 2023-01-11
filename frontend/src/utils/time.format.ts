@@ -34,6 +34,8 @@ const periodTime = (date: Date): string => {
 const inputFormat = (date: Date): string => dayjs(date).format("YYYY-MM-DD HH:mm:ss")
 const inputFormatRelative = (date: Date): string => dayjs(date).format("MM-DD HH:mm:ss")
 
+const formatted = (date: Date): string => dayjs(date).format("YYYY년 M월 D일 H:mm:ss")
+
 const TimeFormat = {
   dueDateFormatted,
   dueDateRelative,
@@ -43,6 +45,7 @@ const TimeFormat = {
   periodTime,
   inputFormat,
   inputFormatRelative,
+  formatted,
 }
 
 export default TimeFormat

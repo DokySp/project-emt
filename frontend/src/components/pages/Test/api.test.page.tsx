@@ -20,22 +20,22 @@ const ApiTestPage = () => {
 
       <ApiTest.Token />
 
-      <hr />
+      <hr className="mt-5" />
 
-      <ApiTest.File />
-      <hr />
+      <ApiTest.Submit />
 
-
+      <hr className="mt-5" />
 
       <ApiTest.CourseDate />
       <ApiTest.Course />
       <ApiTest.Class />
       <ApiTest.Subject />
 
-      <ApiTest.Submit />
       <ApiTest.User />
+      <ApiTest.File />
 
       <ApiTest.ObjectState />
+
 
     </Container>
   )

@@ -1,5 +1,3 @@
-import { JsonObjectExpression } from "typescript"
-
 
 /**
  * ## 사용자
@@ -142,17 +140,34 @@ export interface SubjectUpdateInterface extends SubjectInterface{
 /**
  * ## 과제 제출
  */
+export const enum SubmitStatus {
+  NOT_SUBMITTED = 0,
+  SUBMITTED = 1,
+  RETURNED = 2,
+  GRANTED = 3,
+}
+
 export interface SubmitInterface {
-  idx: number,
+  idx?: number,
+  subjects_idx?: number,
+  user_idx?: number,
+  status?: SubmitStatus,
+  score?: number,
+  report?: string,
+  comments?: Array<ChatDataInterface>,
+  return_time?: Date,
+  submitted_time?: Date,
+  files?: Array<FileInterface>,
+  user?: UserInterface,
+}
+
+export interface SubmitUpdateInterface extends SubmitInterface {
+  idx: number
+}
+
+export interface SubmitCreateInterface extends SubmitInterface {
   subjects_idx: number,
-  user_idx: number,
-  status: number,
-  score: number,
-  report: string,
-  comments: string,
-  return_time: Date,
-  submitted_time: Date,
-  files: Array<FileInterface>,
+  user_idx: number
 }
 
 //
@@ -171,4 +186,20 @@ export interface FileInterface {
   type: string,
   link?: string,
   // is_public: boolean
+}
+
+
+
+/**
+ * ## 채팅
+ */
+export const enum SendFrom {
+  TRAINER,
+  TRAINEE,
+}
+
+export interface ChatDataInterface {
+  sendFrom: SendFrom,
+  time: Date,
+  message: string,
 }

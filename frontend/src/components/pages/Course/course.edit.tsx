@@ -396,7 +396,6 @@ const CourseEditPage = ({ children }: PropsWithChildren<CourseProps>) => {
             </div>
 
             <Button variant={isEnrollGranted ? "primary" : "secondary"} onClick={() => {
-              console.log(isEnrollGranted)
               setIsEnrollGranted(isEnrollGranted ? false : true)
             }}>
               {isEnrollGranted ? "OPEN" : "CLOSE"}

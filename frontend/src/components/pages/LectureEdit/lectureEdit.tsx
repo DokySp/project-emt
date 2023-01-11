@@ -107,7 +107,8 @@ const LectureEditPage = ({ children }: PropsWithChildren<LectureEditProps>) => {
   // 정보 가져온 이후 작업
   useEffect(() => {
 
-    if (classData.due_date) {
+    // 파일 리스트 업데이트
+    if (classData.files) {
       const list: Array<ReactElement> = [];
 
       classData.files!.map((item) => {
@@ -118,6 +119,7 @@ const LectureEditPage = ({ children }: PropsWithChildren<LectureEditProps>) => {
       setFileList(list)
     }
 
+    // 폼데이터 설정
     setValue("vimeo_url", classData.vimeo_url ?? "")
     setValue("name", classData.name ?? "")
     setValue("content", classData.content ?? "")
@@ -154,25 +156,25 @@ const LectureEditPage = ({ children }: PropsWithChildren<LectureEditProps>) => {
             <div style={{ height: "50px" }} />
 
             <div className="mb-3">
-              <label form="exampleInputEmail1" className="form-label">강의 제목</label>
+              <label className="form-label">강의 제목</label>
               <input className="form-control" {...register("name", { required: true })} />
             </div>
 
             <div className="mb-3">
-              <label form="exampleInputEmail1" className="form-label">
+              <label className="form-label">
                 마감 시간 {courseData && courseData.is_due_date_implicit ? "(0000-)" : ""}00-00 00:00:00 형식으로 입력
               </label>
               <input className="form-control" {...register("due_date", { required: true })} />
             </div>
 
             <div className="mb-3">
-              <label form="exampleInputEmail1" className="form-label">Vimeo 링크 (없다면 공란)</label>
+              <label className="form-label">Vimeo 링크 (없다면 공란)</label>
               <input className="form-control" {...register("vimeo_url", { required: true })} />
               <div id="emailHelp" className="form-text">Zoom, Webex, Google Meet는 향후 지원 예정</div>
             </div>
 
             <div className="mb-3">
-              <label form="exampleInputEmail1" className="form-label">강의 설명 (마크다운으로 작성)</label>
+              <label className="form-label">강의 설명 (마크다운으로 작성)</label>
               <textarea className="form-control" {...register("content", { required: true })} rows={0} style={{ height: "300px" }} />
             </div>
           </Row>

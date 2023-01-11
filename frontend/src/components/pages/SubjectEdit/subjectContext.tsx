@@ -14,7 +14,6 @@ import { Button, Col, FormControl, ListGroup, Row } from "react-bootstrap"
 
 interface SubjectContextProps {
   isCreateNotEdit: boolean,
-  navigate: NavigateFunction,
 }
 
 interface SubjectInputForm {

@@ -14,20 +14,20 @@ const FileItem = (props: FileItemInterface) => {
 
   return (
     <ListGroupItem className="d-flex align-items-start">
-
       <Container>
         <Row>
-          <Col sm={6}>
-            <div className="ms-2 me-auto">
-              <div className="fw-bold">{props.file.name}</div>
-              <span style={{ color: "#AAA" }}>{`${Math.floor(props.file.size / 1024)} KB  |  `}</span>
-              <span style={{ color: "#BBB" }}>{props.file.type}</span>
-            </div>
+          <Col sm>
+            <span className="fs-6 fw-bold">📁 </span>
+            <span className="fs-6 fw-bold">{props.file.name}</span>
           </Col>
-
-          <Col sm />
-          <Col sm className="mt-1" style={{ textAlign: "right" }}>
-            <Button type="button" className="me-1" variant="primary" onClick={() => {
+          <Col sm={2}>
+            <div className="fs-6 fw-normal">{props.file.type}</div>
+          </Col>
+          <Col sm={1} >
+            <div className="fs-6 fw-normal">{`${Math.floor(props.file.size / 1024)} KB`}</div>
+          </Col>
+          <Col sm={2} style={{ textAlign: "right" }}>
+            <Button type="button" variant="primary" onClick={() => {
               downloadFile({ file: props.file })
             }}>
               다운로드
@@ -37,7 +37,6 @@ const FileItem = (props: FileItemInterface) => {
                 삭제
               </Button>
             )}
-
           </Col>
         </Row>
       </Container>

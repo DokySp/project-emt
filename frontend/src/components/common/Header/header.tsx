@@ -51,7 +51,7 @@ const Header = ({ children }: PropsWithChildren<HeaderProps>) => {
                   </span>
                 } id="collasible-nav-dropdown" className="dropdown-menu-end">
                   <NavDropdown.Item onClick={() => navigate(Routing.User.path)}>나의 정보보기</NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => dispatch(setSignout())}>로그아웃</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => { dispatch(setSignout()); navigate(Routing.Root.path) }}>로그아웃</NavDropdown.Item>
                 </NavDropdown>
               )}
 
